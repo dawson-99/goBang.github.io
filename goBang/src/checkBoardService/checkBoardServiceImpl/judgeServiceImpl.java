@@ -1,9 +1,9 @@
 package checkBoardService.checkBoardServiceImpl;
 
-import checkBoardService.judge;
+import checkBoardService.judgeService;
 
-public class judgeServiceImpl implements judge {
-    Boolean  pd(int s[][]) {
+public class judgeServiceImpl implements judgeService {
+    Boolean  judge(int s[][]) {
         return true;
     }
 }
