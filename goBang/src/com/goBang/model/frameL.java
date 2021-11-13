@@ -36,12 +36,12 @@ public class frameL implements checkBoardService.size,MouseListener {
             if(f.turn==1){
                 gs.setColor(Color.BLACK);
                 gs.fillOval(x1,x2,size,size);
-                f.isolation[countx][county]=1;
+                f.isolation[countx][county]='1';
             }
             else{
                 gs.setColor(Color.WHITE);
                 gs.fillOval(x1,x2,size,size);
-                f.isolation[countx][county]=2;
+                f.isolation[countx][county]='2';
             }
 
         }
