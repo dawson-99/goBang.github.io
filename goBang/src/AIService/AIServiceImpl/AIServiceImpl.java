@@ -1,9 +1,10 @@
-package checkBoardService.checkBoardServiceImpl;
+package AIService.AIServiceImpl;
+
+import AIService.AIService;
 
 import java.util.HashMap;
-import java.util.Map;
 
-public class THashMap {
+public class AIServiceImpl implements AIService {
     HashMap<String, Integer> hashMap = new HashMap<>();//储存棋局可能出现的权值
     //白棋为AI
     public void setValue(HashMap<String, Integer> hashMap) {
