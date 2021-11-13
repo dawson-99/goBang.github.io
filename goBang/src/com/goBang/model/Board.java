@@ -1,13 +1,14 @@
-import com.sun.jdi.Value;
+package com.goBang.model;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-public class five extends JPanel implements size{
+
+public class Board extends JPanel implements checkBoardService.size {
     public Graphics gs;
     JFrame game=new JFrame();
     public int turn=1;
     public int [][]isolation=new int[row][column];
-    five(String s){
+    public Board(String s){
         init(s);
     }
     private void init(String s){

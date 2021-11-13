@@ -1,11 +1,13 @@
+package com.goBang.model;
+
+import checkBoardService.size;
+
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Map;
 
-public class frameL implements size,MouseListener {
-    public five  f;
+public class frameL implements checkBoardService.size,MouseListener {
+    public Board f;
     @Override
     public void mouseClicked(MouseEvent e) {
         int x=e.getX();

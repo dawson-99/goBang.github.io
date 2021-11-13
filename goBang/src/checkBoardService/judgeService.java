@@ -1,5 +1,6 @@
 package checkBoardService;
+import com.goBang.model.Board;
 
 public interface judgeService {
-   Boolean judge(int s[][]);
+   int judge(Board board, int x, int y);
 }
