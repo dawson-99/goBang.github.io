@@ -1,4 +1,7 @@
 # mongoDB.github.io
 this project was tying to realize the wuziqi
 
-Unrealized
+this project was created by CDUT.
+
+and the members include XuRuihang ZhangGuoming and WeiWancheng
+
