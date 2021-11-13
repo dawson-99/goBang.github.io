@@ -1,6 +1,8 @@
 package com.goBang.model;
 import javax.swing.*;
 import java.awt.*;
+import java.util.Objects;
+
 public class Board extends JPanel implements checkBoardService.size {
     public Graphics gs;
     JFrame game=new JFrame();
@@ -52,10 +54,9 @@ public class Board extends JPanel implements checkBoardService.size {
             }
             @Override
             protected void paintComponent(Graphics g ){
-                super.paintComponent(g);
-                ImageIcon icon = new ImageIcon("resources/back.jpg");
+                ImageIcon icon = new ImageIcon("src/resources/back.jpg");
                 Image img = icon.getImage();
-                g.drawImage(img, 0, 0,this.getWidth(), this.getHeight(), this);
+                g.drawImage(img, 0, 0,img.getWidth(), this.getHeight(), this);
             }
         };
         left.setPreferredSize(dim2);
