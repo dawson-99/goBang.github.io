@@ -2,7 +2,6 @@ package com.goBang.model;
 import javax.swing.*;
 import java.awt.*;
 import java.util.Objects;
-
 public class Board extends JPanel implements checkBoardService.size {
     public Graphics gs;
     JFrame game=new JFrame();
@@ -53,14 +52,14 @@ public class Board extends JPanel implements checkBoardService.size {
                gs.fillOval(x+size*3-5,y+size*3+tar-5,10,10);//四星
             }
             @Override
-            protected void paintComponent(Graphics g ){
-                ImageIcon icon = new ImageIcon("src/resources/back.jpg");
-                Image img = icon.getImage();
-                g.drawImage(img, 0, 0,img.getWidth(), this.getHeight(), this);
+            protected void paintComponent(Graphics g){
+                ImageIcon icon = new ImageIcon("./goBang/src/resources/back1.jpg");
+                g.drawImage(icon.getImage(), 0, 0, getSize().width,getSize().height, this);
             }
         };
         left.setPreferredSize(dim2);
         //left.setBackground(Color.cyan);
+
         game.add(left,BorderLayout.CENTER);
         JPanel right=new JPanel();
         right.setPreferredSize(dim1);
@@ -85,6 +84,18 @@ public class Board extends JPanel implements checkBoardService.size {
         JComboBox box=new JComboBox(st);
         right.add(box);
         //下拉框
+        JTextField f1=new JTextField("制作人：");
+        JTextField f2=new JTextField("张国铭");
+        JTextField f3=new JTextField("魏万程");
+        JTextField f4=new JTextField("徐睿航");
+        f1.setEditable(false);
+        f2.setEditable(false);
+        f3.setEditable(false);
+        f4.setEditable(false);
+        right.add(f1);
+        right.add(f2);
+        right.add(f3);
+        right.add(f4);
         game.setResizable(false);
         game.setVisible(true);
     }
