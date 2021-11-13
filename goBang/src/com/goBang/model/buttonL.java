@@ -12,6 +12,5 @@ public class buttonL implements checkBoardService.size, ActionListener {
         if(e.getActionCommand().equals("开始新游戏")){
             
         }
-
     }
 }
