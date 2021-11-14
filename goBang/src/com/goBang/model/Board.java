@@ -94,7 +94,7 @@ public class Board extends JPanel implements checkBoardService.size {
         }
         String []st={"自由开局","指定开局"};
         JComboBox box=new JComboBox(st);
-        ComboxL boxListen=new ComboxL();
+        ComboxL boxListen=new ComboxL(this);
         box.addItemListener(boxListen);
         right.add(box);
         //下拉框

@@ -16,16 +16,15 @@ import static javax.imageio.ImageIO.read;
 
 public class frameL implements checkBoardService.size,MouseListener {
     public Board f;
+    int countx;
+    int county;
     public frameL(Board ft){
         this.f=ft;
     }
-
     @Override
     public void mouseClicked(MouseEvent e) {
         int x=e.getX();
         int y=e.getY();
-        int countx;
-        int county;
         if((x-20)%40>=20){
             countx=(x-20)/40+1;
         }
