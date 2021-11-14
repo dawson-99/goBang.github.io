@@ -1,17 +1,21 @@
 package com.goBang.model;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.Objects;
 public class Board extends JPanel implements checkBoardService.size {
-    public Graphics gs;
     JFrame game=new JFrame();
     public int turn=1;
     public char [][]isolation=new char[row][column];
+    JPanel left;
+    JPanel right;
     public Board(String s){
         init(s);
     }
     private void init(String s){
         Container con=game.getContentPane();
+
         game.setTitle(s);
         con.setBackground(Color.WHITE);
         game.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -21,19 +25,12 @@ public class Board extends JPanel implements checkBoardService.size {
         Dimension dim1=new Dimension(150,0);//设置右半部分的大小
         Dimension dim2=new Dimension(550,0);//设置左半部分的大小
         Dimension dim3=new Dimension(140,40);//设置右边按钮组件的大小
-        //String path="back.jpg";
-        //ImageIcon background=new ImageIcon(path);
-        // 把背景图片显示在一个标签里面
-        //JLabel label=new JLabel(background);
-        // 把标签的大小位置设置为图片刚好填充整个面板
-        //label.setBounds(0,0,game.getWidth(),game.getHeight());
-        // 把内容窗格转化为JPanel，否则不能用方法setOpaque()来使内容窗格透明
-        //JPanel imagePanel = (JPanel) game.getContentPane();
-        //imagePanel.setOpaque(false);
-        // 把背景图片添加到分层窗格的最底层作为背景
-        //game.getLayeredPane().add(label,Integer.valueOf(Integer.MIN_VALUE));
-        //设置可见
-        JPanel left =new JPanel(){
+        for(int i=0;i<row;++i){
+            for(int j=0;j<column;++j){
+                isolation[i][j]='0';
+            }
+        }
+        left =new JPanel(){
             //重写此JPanel的paint
             public void paint(Graphics gs){
                super.paint(gs);
@@ -50,18 +47,33 @@ public class Board extends JPanel implements checkBoardService.size {
                gs.fillOval(x+size*3+tar-5,y+size*3-5,10,10);
                gs.fillOval(x+size*3+tar-5,y+size*3+tar-5,10,10);
                gs.fillOval(x+size*3-5,y+size*3+tar-5,10,10);//四星
+               for(int i=0;i<row;i++){
+                    for(int j=0;j<column;j++){
+                        if(isolation[i][j]=='1'){
+                            gs.setColor(Color.BLACK);
+                            gs.fillOval(i*size,j*size,size,size);
+                            //BufferedImage bi=new BufferedImage(new File("./goBang/src/resources/black1.png"));
+
+                        }
+                        else if(isolation[i][j]=='2'){
+                            gs.setColor(Color.WHITE);
+                            gs.fillOval(i*size,j*size,size,size);
+                        }
+                    }
+                }
             }
-            @Override
-            protected void paintComponent(Graphics g){
+               @Override
+              protected void paintComponent(Graphics g){
                 ImageIcon icon = new ImageIcon("./goBang/src/resources/back1.jpg");
                 g.drawImage(icon.getImage(), 0, 0, getSize().width,getSize().height, this);
-            }
+               }
+
         };
+        left.setLayout(null);
         left.setPreferredSize(dim2);
         //left.setBackground(Color.cyan);
-
         game.add(left,BorderLayout.CENTER);
-        JPanel right=new JPanel();
+        right=new JPanel();
         right.setPreferredSize(dim1);
         game.add(right,BorderLayout.EAST);
         right.setLayout(new FlowLayout());
@@ -75,13 +87,15 @@ public class Board extends JPanel implements checkBoardService.size {
             right.add(button[i]);
         }//按钮
         //按钮监控类
-        buttonL butListen=new buttonL();
-        //对每一个按钮都添加状态事件的监听处理机制
+        buttonL butListen=new buttonL(this);
+        //对每一个按钮都添加同一个状态事件的监听处理机制
         for(int i=0;i<butname.length;i++) {
             button[i].addActionListener(butListen);//添加发生操作的监听方法
         }
         String []st={"自由开局","指定开局"};
         JComboBox box=new JComboBox(st);
+        ComboxL boxListen=new ComboxL();
+        box.addItemListener(boxListen);
         right.add(box);
         //下拉框
         JTextField f1=new JTextField("制作人：");
@@ -99,4 +113,13 @@ public class Board extends JPanel implements checkBoardService.size {
         game.setResizable(false);
         game.setVisible(true);
     }
+    void print(Board f){
+        for(int i=0;i<row;++i){
+            for(int j=0;j<column;++j){
+                System.out.print(f.isolation[i][j]+"  ");
+            }
+            System.out.println("");
+        }
+    }
+
 }

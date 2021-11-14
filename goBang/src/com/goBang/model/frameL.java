@@ -1,13 +1,25 @@
 package com.goBang.model;
 
 import checkBoardService.size;
+import  javax.imageio.*;
 
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
+import java.awt.geom.Ellipse2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.regex.Pattern;
+
+import static javax.imageio.ImageIO.read;
 
 public class frameL implements checkBoardService.size,MouseListener {
     public Board f;
+    public frameL(Board ft){
+        this.f=ft;
+    }
+
     @Override
     public void mouseClicked(MouseEvent e) {
         int x=e.getX();
@@ -26,24 +38,27 @@ public class frameL implements checkBoardService.size,MouseListener {
         else{
             county=(y-20)/40;
         }
-        Graphics gs=f.getGraphics();
-        if(f.isolation[countx][county]!=0){
+        //f.print(f);
+        if(countx>=15||county>=15){
+            JOptionPane.showMessageDialog(null,"请点击正确的位置");
+        }
+        else if(f.isolation[countx][county]!='0'){
             JOptionPane.showMessageDialog(null, "此处已经有棋子了，请下在其它地方");
+            //System.out.println(countx+" "+county+"  "+f.isolation[countx][county]);
         }
         else {
-            int x1=countx*size+20;
-            int x2=county*size+20;
+            JLabel l;
+            int x1=countx*size;
+            int x2=county*size;
             if(f.turn==1){
-                gs.setColor(Color.BLACK);
-                gs.fillOval(x1,x2,size,size);
                 f.isolation[countx][county]='1';
+                f.turn++;
             }
             else{
-                gs.setColor(Color.WHITE);
-                gs.fillOval(x1,x2,size,size);
                 f.isolation[countx][county]='2';
+                f.turn--;
             }
-
+            f.left.repaint();
         }
     }
 
