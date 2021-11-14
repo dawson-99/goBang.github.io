@@ -22,7 +22,9 @@ public class judgeServiceImpl implements judgeService {
             }
         }
 
-       Win(board, x,  y, player);
+       if(Win(board, x,  y, player)){
+           return 4;
+       }
 
         return 1;
     }
