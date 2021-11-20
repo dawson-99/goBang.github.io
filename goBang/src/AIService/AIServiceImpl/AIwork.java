@@ -63,7 +63,6 @@ public class AIwork{
 
     //对target中的每个位置的八个方向进行评分,取各个方向的四个棋子
     public void InitSCore(Board board, char AI,char player) {
-
         //活五
         //向左
         int array = 4;
