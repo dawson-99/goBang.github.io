@@ -62,7 +62,7 @@ public class Board extends JPanel implements checkBoardService.size {
                                 BufferedImage image=new BufferedImage(bi.getWidth(),bi.getHeight(),BufferedImage.TYPE_INT_ARGB);
                                 Graphics2D tm=image.createGraphics();
                                 tm.drawImage(bi,i*size,j*size,this);
-                                Rectangle2D.Double rect=new Rectangle2D.Double(i*size,j*size,image.getWidth(),image.getHeight());
+                                Rectangle2D.Double rect=new Rectangle2D.Double(i*size,j*size,size,size);
                                 TexturePaint t=new TexturePaint(bi,rect);
                                 ((Graphics2D) gs).setPaint(t);
                                 ((Graphics2D) gs).fill(new Ellipse2D.Float(i*size,j*size,size,size));
@@ -78,7 +78,7 @@ public class Board extends JPanel implements checkBoardService.size {
                                 BufferedImage image=new BufferedImage(bi.getWidth(),bi.getHeight(),BufferedImage.TYPE_INT_ARGB);
                                 Graphics2D tm=image.createGraphics();
                                 tm.drawImage(bi,i*size,j*size,this);
-                                Rectangle2D.Double rect=new Rectangle2D.Double(i*size,j*size,image.getWidth(),image.getHeight());
+                                Rectangle2D.Double rect=new Rectangle2D.Double(i*size,j*size,size,size);
                                 TexturePaint t=new TexturePaint(bi,rect);
                                 ((Graphics2D) gs).setPaint(t);
                                 ((Graphics2D) gs).fill(new Ellipse2D.Float(i*size,j*size,size,size));
