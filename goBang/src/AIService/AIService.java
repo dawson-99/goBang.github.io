@@ -1,10 +1,12 @@
 package AIService;
 
-import java.util.HashMap;
+
+import com.goBang.model.Board;
+
+import java.awt.*;
 
 public interface AIService {
-
-    public void setValue(HashMap<String, Integer> hashMap);
-
-    public void setValue_2(HashMap<String, Integer> hashMap);
+    public void Find(Board board);
+    public void InitSCore(Board board, char AI,char player);
+    public Point Max();
 }
