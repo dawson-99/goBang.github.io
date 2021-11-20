@@ -13,11 +13,7 @@ public class buttonL implements checkBoardService.size, ActionListener {
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getActionCommand().equals("开始新游戏")){
-            frameL fL=new frameL(f);
-            f.left.addMouseListener(fL);
-        }
-        else if(e.getActionCommand().equals("认输")){
+        if(e.getActionCommand().equals("认输")){
             if(f.turn==1) JOptionPane.showMessageDialog(null, "黑方赢");
             else JOptionPane.showMessageDialog(null, "白方赢");
         }
