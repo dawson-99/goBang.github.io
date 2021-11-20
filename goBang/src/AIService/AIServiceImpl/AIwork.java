@@ -18,7 +18,7 @@ public class AIwork{
     Point target[]=new Point[row*column];
 
     //找出棋盘上全部的棋子旁边的位置 标记为3;
-    void Find(Board board){
+    public void Find(Board board){
         int count=0;
         for(int i=0;i<row;i++){
             for(int j=0;j<column;j++){
@@ -62,7 +62,7 @@ public class AIwork{
     }
 
     //对target中的每个位置的八个方向进行评分,取各个方向的四个棋子
-    void InitSCore(Board board, char AI,char player) {
+    public void InitSCore(Board board, char AI,char player) {
 
         //活五
         //向左
@@ -729,7 +729,7 @@ public class AIwork{
     }
     
     //找到所有点中得分最大的点，并返回该点
-    Point Max(){
+    public Point Max(){
         int min=0;
         Point a = null;
         for(int i=0;i<column;i++) {
