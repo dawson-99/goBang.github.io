@@ -11,7 +11,7 @@ public class judgeServiceImpl implements judgeService {
     //1代表黑棋、2代表白棋、0代表此处空
     //禁手概念：黑棋一子落下，同时形成三三、或者四四、或者长连，且没有形成五连。那么，这个点就是禁手点，黑棋判负。白棋没有禁手。
 
-    DirectionService directionService = new directionServiceImpl();
+    DirectionService directionService = new directionServiceImpl();//this value turns out to be useless
     //返回值有4中情况：1为没有任何状况、2为禁手、3为输、4为赢
     public int judge(Board board, int x, int y,char player) {
 
@@ -896,20 +896,40 @@ public class judgeServiceImpl implements judgeService {
          */
 
         //cross and vertical
-        if (board.isolation[x - 1][y] == '1' && board.isolation[x + 1][y] == '1'
+        if (x > 2 && y > 2 &&  x < 13 && y < 13 && board.isolation[x - 1][y] == '1' && board.isolation[x + 1][y] == '1'
                 && board.isolation[x][y - 1] == '1' && board.isolation[x][y + 1] == '1') {
 
             if (board.isolation[x - 2][y] != '0' || board.isolation[x + 2][y] != '0' || board.isolation[x - 3][y] == '1' || board.isolation[x + 3][y] == '1') {
                 return false;
             }
+
+            if (board.isolation[x][y - 2] != '0' || board.isolation[x][y + 2] != '0' || board.isolation[x][y - 3] == '1' || board.isolation[x][y + 3] == '1') {
+                return false;
+            }
+
             return true;
         }
 
         //leftup and cross
-        if (board.isolation[x - 1][y] == '1' && board.isolation[x + 1][y] == '1'
+        if (x > 2 && y > 2 &&  x < 13 && y < 13 && board.isolation[x - 1][y - 1] == '1' && board.isolation[x + 1][y + 1] == '1'
                 && board.isolation[x][y - 1] == '1' && board.isolation[x][y + 1] == '1') {
 
-            if (board.isolation[x - 2][y] != '0' || board.isolation[x + 2][y] != '0' || board.isolation[x - 3][y] == '1' || board.isolation[x + 3][y] == '1') {
+            if (board.isolation[x - 2][y - 2] != '0' || board.isolation[x + 2][y + 2] != '0' || board.isolation[x - 3][y - 3] == '1' || board.isolation[x + 3][y + 3] == '1') {
+                return false;
+            }
+
+//            if (board.isolation[x - 2][y - 2] != '0' || board.isolation[x + 2][y + 2] != '0' || board.isolation[x - 3][y - 3] == '1' || board.isolation[x + 3][y + 3] == '1') {
+//                return false;
+//            }
+            
+            return true;
+        }
+
+        //rightup and cross
+        if (x > 2 && y > 2 &&  x < 13 && y < 13 && board.isolation[x - 1][y + 1] == '1' && board.isolation[x + 1][y - 1] == '1'
+                && board.isolation[x][y - 1] == '1' && board.isolation[x][y + 1] == '1') {
+
+            if (board.isolation[x - 2][y - 2] != '0' || board.isolation[x + 2][y + 2] != '0' || board.isolation[x - 3][y - 3] == '1' || board.isolation[x + 3][y + 3] == '1') {
                 return false;
             }
             return true;
@@ -938,14 +958,14 @@ public class judgeServiceImpl implements judgeService {
     private boolean Forbidden(Board board, int x, int y) {
 
         //先将最左边的黑棋坐标找到，也有可能是棋盘边缘,此步骤从左上角开始
-        while(board.isolation[x - 1][y - 1] ==  '1') {
+        while(x > 0 && y > 0 &&  x < 15 && y < 15 && board.isolation[x - 1][y - 1] ==  '1' ) {
             x -= 1;
             y -= 1;
         }
 
         int count = 0;//计算黑棋长连个数
 
-        while(board.isolation[x + 1][y + 1] != '1') {
+        while(x > 0 && y > 0 &&  x < 15 && y < 15 && board.isolation[x + 1][y + 1] != '1') {
             count++;
         }
 
@@ -956,14 +976,14 @@ public class judgeServiceImpl implements judgeService {
         //////////////////左上
 
         //右上角开始计算
-        while(board.isolation[x - 1][y + 1] == '1' ) {
+        while(x > 0 && y > 0 &&  x < 15 && y < 15 && board.isolation[x - 1][y + 1] == '1' ) {
             x -= 1;
             y += 1;
         }
 
         count = 0;//计算黑棋长连个数
 
-        while(board.isolation[x + 1][y - 1] != '1') {
+        while(x > 0 && y > 0 &&  x < 15 && y < 15 && board.isolation[x + 1][y - 1] != '1') {
             count++;
         }
 
@@ -974,13 +994,13 @@ public class judgeServiceImpl implements judgeService {
         //////////////////右上
 
         //最左边开始计算
-        while(board.isolation[x - 1][y] == '1') {
+        while(x > 0 && y > 0 &&  x < 15 && y < 15 && board.isolation[x - 1][y] == '1') {
             y -= 1;
         }
 
         count = 0;//计算黑棋长连个数
 
-        while(board.isolation[x][y + 1] != '1') {
+        while(x > 0 && y > 0 &&  x < 15 && y < 15 && board.isolation[x][y + 1] != '1') {
             count++;
         }
 
@@ -991,13 +1011,13 @@ public class judgeServiceImpl implements judgeService {
         //////////////////左边
 
         //最右边开始计算
-        while(board.isolation[x - 1][y] == '1') {
+        while(x > 0 && y > 0 &&  x < 15 && y < 15 && board.isolation[x - 1][y] == '1') {
             y += 1;
         }
 
         count = 0;//计算黑棋长连个数
 
-        while(board.isolation[x][y - 1] != '1') {
+        while(x > 0 && y > 0 &&  x < 15 && y < 15 && board.isolation[x][y - 1] != '1') {
             count++;
         }
 
@@ -1013,7 +1033,7 @@ public class judgeServiceImpl implements judgeService {
 
         String pattern = "";
         pattern = pattern + player + player + player + player + player;
-
+//        System.out.println(pattern);
         if ((dirDown(board,x,y) + player).equals(pattern)) {
             return true;
         }
@@ -1047,7 +1067,6 @@ public class judgeServiceImpl implements judgeService {
         }
 
         return false;
-
     }
 
 

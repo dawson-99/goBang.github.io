@@ -54,7 +54,8 @@ public class frameL implements checkBoardService.size, MouseListener {
             }
             f.left.repaint();
         }
-        judgeService js = new judgeServiceImpl();
+        /*
+                judgeService js = new judgeServiceImpl();
         char c;
         if (f.turn == 1) {
             c = '1';
@@ -78,7 +79,7 @@ public class frameL implements checkBoardService.size, MouseListener {
         System.out.println(f.countx + "   " + f.county);
         System.out.println(js.judge(f, f.countx, f.county, c));
         System.out.println("一次点击结束");
-
+         */
     }
     @Override
     public void mousePressed(MouseEvent e) {
