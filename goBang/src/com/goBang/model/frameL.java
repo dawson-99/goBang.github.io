@@ -54,7 +54,7 @@ public class frameL implements checkBoardService.size, MouseListener {
             }
             f.left.repaint();
         }
-        /*
+
                 judgeService js = new judgeServiceImpl();
         char c;
         if (f.turn == 1) {
@@ -62,6 +62,10 @@ public class frameL implements checkBoardService.size, MouseListener {
         } else {
             c = '2';
         }
+        System.out.println(f.countx + "   " + f.county);
+        System.out.println(js.judge(f, f.countx, f.county, c)); 
+        System.out.println("一次点击结束");
+       /*
         //返回值有4中情况：1为没有任何状况、2为禁手、3为输、4为赢
         switch (js.judge(f, f.countx, f.county, c)) {
             case 1:
@@ -76,9 +80,6 @@ public class frameL implements checkBoardService.size, MouseListener {
                 JOptionPane.showMessageDialog(null, "当前方赢");
                 break;
         }
-        System.out.println(f.countx + "   " + f.county);
-        System.out.println(js.judge(f, f.countx, f.county, c));
-        System.out.println("一次点击结束");
          */
     }
     @Override
