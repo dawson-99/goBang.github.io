@@ -18,7 +18,7 @@ public class ComboxL implements ItemListener {
     }
     @Override
     public void itemStateChanged(ItemEvent e) {
-       /* if(e.getItem().toString().equals("自由开局")){
+       if(e.getItem().toString().equals("自由开局")){
             System.out.println("自由开局");
             judgeService js=new judgeServiceImpl();
             char c;
@@ -68,7 +68,7 @@ public class ComboxL implements ItemListener {
                     break;
             }
         }
- */
+
     }
 
 }
