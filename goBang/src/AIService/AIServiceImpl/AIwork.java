@@ -725,6 +725,236 @@ public class AIwork{
                 score[(int) target[i].getX()][(int) target[i].getY()] += 90;
             }
 
+            //活二
+            String Falive_2='0'+'0'+AI+AI+'0'+'0'+"";
+            String Salive_2='0'+AI+'0'+AI+'0'+"";
+            String Talive_2=AI+'0'+'0'+AI+"";
+            int number_alive_2=0;//记录活二的数量
+            //横向
+            code=AI + "";
+            Ncode="";
+            array=4;
+            for (int j = (int) target[i].getX() - 1; j >= 0 && array > 0; j--) {
+                array--;
+                code = board.isolation[j][(int) target[i].getY()] + code;
+                Ncode = board.isolation[j][(int) target[i].getY()] + Ncode;
+            }
+            array = 4;
+            for (int k = (int) target[i].getX() + 1; k < column && array > 0; k++) {
+                array--;
+                code=code+board.isolation[k][(int) target[i].getY()];
+                Ncode = Ncode+board.isolation[k][(int) target[i].getY()];
+            }
+            if(code.contains(Falive_2)&&Ncode.contains(Falive_2)){
+                number_alive_2++;
+            }
+            if(code.contains(Salive_2)&&Ncode.contains(Salive_2)){
+                number_alive_2++;
+            }
+            if(code.contains(Talive_2)&&Ncode.contains(Talive_2)){
+                number_alive_2++;
+            }
+            //纵向
+            code=AI + "";
+            Ncode="";
+            array=4;
+            for (int j = (int) target[i].getY() + 1; j < column && array > 0; j++) {
+                array--;
+                code=code+board.isolation[(int) target[i].getX()][j];
+                Ncode = Ncode+board.isolation[j][(int) target[i].getY()];
+            }
+            array=4;
+            for(int k=(int) target[i].getY() - 1;k>=0;k--){
+                array--;
+                code=board.isolation[(int) target[i].getX()][k]+code;
+                Ncode =board.isolation[k][(int) target[i].getY()]+Ncode;
+            }
+            if(code.contains(Falive_2)&&Ncode.contains(Falive_2)){
+                number_alive_2++;
+            }
+            if(code.contains(Salive_2)&&Ncode.contains(Salive_2)){
+                number_alive_2++;
+            }
+            if(code.contains(Talive_2)&&Ncode.contains(Talive_2)){
+                number_alive_2++;
+            }
+            //斜线方向\
+            code=AI + "";
+            Ncode="";
+            array=4;
+            for(int j = (int) target[i].getX() - 1, k = (int) target[i].getY() + 1; j >= 0 && k < column && array > 0; j--, k++){
+                array--;
+                code=code+board.isolation[j][k];
+                Ncode =Ncode +board.isolation[j][(int) target[i].getY()] ;
+            }
+            array=4;
+            for(int j = (int) target[i].getX() + 1, k = (int) target[i].getY() - 1; j < row && k >= 0 && array > 0; j++, k--){
+                array--;
+                code=board.isolation[j][k]+code;
+                Ncode =board.isolation[k][(int) target[i].getY()]+Ncode;
+            }
+            if(code.contains(Falive_2)&&Ncode.contains(Falive_2)){
+                number_alive_2++;
+            }
+            if(code.contains(Salive_2)&&Ncode.contains(Salive_2)){
+                number_alive_2++;
+            }
+            if(code.contains(Talive_2)&&Ncode.contains(Talive_2)){
+                number_alive_2++;
+            }
+            //反斜线方向/
+            code=AI + "";
+            Ncode="";
+            array=4;
+            for (int j = (int) target[i].getX() + 1, k = (int) target[i].getY() + 1; j < row && k < column && array > 0; j++, k++) {
+                array--;
+                code=code+board.isolation[j][k];
+                Ncode =Ncode +board.isolation[j][(int) target[i].getY()] ;            }
+            array=4;
+            for (int j = (int) target[i].getX() - 1, k = (int) target[i].getY() - 1; j >= 0 && k >= 0 && array > 0; j--, k--) {
+                array--;
+                code=board.isolation[j][k]+code;
+                Ncode =board.isolation[k][(int) target[i].getY()]+Ncode;
+            }
+            if(code.contains(Falive_2)&&Ncode.contains(Falive_2)){
+                number_alive_2++;
+            }
+            if(code.contains(Salive_2)&&Ncode.contains(Salive_2)){
+                number_alive_2++;
+            }
+            if(code.contains(Talive_2)&&Ncode.contains(Talive_2)){
+                number_alive_2++;
+            }
+            //双活二
+            if(number_alive_2>1){
+                score[(int) target[i].getX()][(int) target[i].getY()] += 50;
+            }
+            //活二
+            if(number_alive_2==1){
+                score[(int) target[i].getX()][(int) target[i].getY()] += 10;
+            }
+            //眠三
+            if(number_die_3==1){
+                score[(int) target[i].getX()][(int) target[i].getY()] += 5;
+            }
+
+            //眠二
+            String Fdie_2='0'+'0'+'0'+AI+AI+player+"";
+            String Sdie_2='0'+'0'+AI+'0'+AI+player+"";
+            String Tdie_2='0'+AI+'0'+'0'+AI+player+"";
+            String Fodie_2=AI+'0'+'0'+'0'+AI+"";
+            int number_die_2=0;//记录活二的数量
+            //横向
+            code=AI + "";
+            Ncode="";
+            array=4;
+            for (int j = (int) target[i].getX() - 1; j >= 0 && array > 0; j--) {
+                array--;
+                code = board.isolation[j][(int) target[i].getY()] + code;
+                Ncode = board.isolation[j][(int) target[i].getY()] + Ncode;
+            }
+            array = 4;
+            for (int k = (int) target[i].getX() + 1; k < column && array > 0; k++) {
+                array--;
+                code=code+board.isolation[k][(int) target[i].getY()];
+                Ncode = Ncode+board.isolation[k][(int) target[i].getY()];
+            }
+            if(code.contains(Fdie_2)&&Ncode.contains(Fdie_2)){
+                number_die_2++;
+            }
+            if(code.contains(Sdie_2)&&Ncode.contains(Sdie_2)){
+                number_die_2++;
+            }
+            if(code.contains(Tdie_2)&&Ncode.contains(Tdie_2)){
+                number_die_2++;
+            }
+            if(code.contains(Fodie_2)&&Ncode.contains(Fodie_2)){
+                number_die_2++;
+            }
+            //纵向
+            code=AI + "";
+            Ncode="";
+            array=4;
+            for (int j = (int) target[i].getY() + 1; j < column && array > 0; j++) {
+                array--;
+                code=code+board.isolation[(int) target[i].getX()][j];
+                Ncode = Ncode+board.isolation[j][(int) target[i].getY()];
+            }
+            array=4;
+            for(int k=(int) target[i].getY() - 1;k>=0;k--){
+                array--;
+                code=board.isolation[(int) target[i].getX()][k]+code;
+                Ncode =board.isolation[k][(int) target[i].getY()]+Ncode;
+            }
+            if(code.contains(Fdie_2)&&Ncode.contains(Fdie_2)){
+                number_die_2++;
+            }
+            if(code.contains(Sdie_2)&&Ncode.contains(Sdie_2)){
+                number_die_2++;
+            }
+            if(code.contains(Tdie_2)&&Ncode.contains(Tdie_2)){
+                number_die_2++;
+            }
+            if(code.contains(Fodie_2)&&Ncode.contains(Fodie_2)){
+                number_die_2++;
+            }
+            //斜线方向\
+            code=AI + "";
+            Ncode="";
+            array=4;
+            for(int j = (int) target[i].getX() - 1, k = (int) target[i].getY() + 1; j >= 0 && k < column && array > 0; j--, k++){
+                array--;
+                code=code+board.isolation[j][k];
+                Ncode =Ncode +board.isolation[j][(int) target[i].getY()] ;
+            }
+            array=4;
+            for(int j = (int) target[i].getX() + 1, k = (int) target[i].getY() - 1; j < row && k >= 0 && array > 0; j++, k--){
+                array--;
+                code=board.isolation[j][k]+code;
+                Ncode =board.isolation[k][(int) target[i].getY()]+Ncode;
+            }
+            if(code.contains(Fdie_2)&&Ncode.contains(Fdie_2)){
+                number_die_2++;
+            }
+            if(code.contains(Sdie_2)&&Ncode.contains(Sdie_2)){
+                number_die_2++;
+            }
+            if(code.contains(Tdie_2)&&Ncode.contains(Tdie_2)){
+                number_die_2++;
+            }
+            if(code.contains(Fodie_2)&&Ncode.contains(Fodie_2)){
+                number_die_2++;
+            }
+            //反斜线方向/
+            code=AI + "";
+            Ncode="";
+            array=4;
+            for (int j = (int) target[i].getX() + 1, k = (int) target[i].getY() + 1; j < row && k < column && array > 0; j++, k++) {
+                array--;
+                code=code+board.isolation[j][k];
+                Ncode =Ncode +board.isolation[j][(int) target[i].getY()] ;            }
+            array=4;
+            for (int j = (int) target[i].getX() - 1, k = (int) target[i].getY() - 1; j >= 0 && k >= 0 && array > 0; j--, k--) {
+                array--;
+                code=board.isolation[j][k]+code;
+                Ncode =board.isolation[k][(int) target[i].getY()]+Ncode;
+            }
+            if(code.contains(Fdie_2)&&Ncode.contains(Fdie_2)){
+                number_die_2++;
+            }
+            if(code.contains(Sdie_2)&&Ncode.contains(Sdie_2)){
+                number_die_2++;
+            }
+            if(code.contains(Tdie_2)&&Ncode.contains(Tdie_2)){
+                number_die_2++;
+            }
+            if(code.contains(Fodie_2)&&Ncode.contains(Fodie_2)){
+                number_die_2++;
+            }
+            if(number_die_2>=1){
+                score[(int) target[i].getX()][(int) target[i].getY()] += 2;
+            }
+
         }
     }
     
