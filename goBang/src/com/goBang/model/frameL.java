@@ -1,4 +1,6 @@
 package com.goBang.model;
+import checkBoardService.checkBoardServiceImpl.judgeServiceImpl;
+import checkBoardService.judgeService;
 import checkBoardService.size;
 import  javax.imageio.*;
 import javax.swing.*;
@@ -52,25 +54,46 @@ public class frameL implements checkBoardService.size, MouseListener {
             }
             f.left.repaint();
         }
+        judgeService js = new judgeServiceImpl();
+        char c;
+        if (f.turn == 1) {
+            c = '1';
+        } else {
+            c = '2';
+        }
+        //返回值有4中情况：1为没有任何状况、2为禁手、3为输、4为赢
+        switch (js.judge(f, f.countx, f.county, c)) {
+            case 1:
+                break;
+            case 2:
+                JOptionPane.showMessageDialog(null, "禁手");
+                break;
+            case 3:
+                JOptionPane.showMessageDialog(null, "当前方输");
+                break;
+            case 4:
+                JOptionPane.showMessageDialog(null, "当前方赢");
+                break;
+        }
+        System.out.println(f.countx + "   " + f.county);
+        System.out.println(js.judge(f, f.countx, f.county, c));
+        System.out.println("一次点击结束");
+
     }
     @Override
     public void mousePressed(MouseEvent e) {
 
     }
-
     @Override
     public void mouseReleased(MouseEvent e) {
 
     }
-
     @Override
     public void mouseEntered(MouseEvent e) {
 
     }
-
     @Override
     public void mouseExited(MouseEvent e) {
 
     }
-
 }

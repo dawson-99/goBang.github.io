@@ -9,10 +9,10 @@ import java.io.File;
 import java.io.IOException;
 public class Board extends JPanel implements checkBoardService.size {
     JFrame game=new JFrame();
-    public int turn=1;
-    public  int countx;
-    public int county;
-    public char [][]isolation=new char[row][column];
+    public int turn=1;//
+    public  int countx;//mouse x
+    public int county;//mouse y
+    public char [][]isolation=new char[row][column];//chess board
     JPanel left;
     JPanel right;
     public Board(String s){
@@ -69,7 +69,7 @@ public class Board extends JPanel implements checkBoardService.size {
                             }catch(IOException e){
                                 System.out.println("File read error:"+e);
                             }
-                        }
+                        }//black chess
                         else if(isolation[i][j]=='2'){
                             //gs.setColor(Color.WHITE);
                             //gs.fillOval(i*size,j*size,size,size);
@@ -85,7 +85,7 @@ public class Board extends JPanel implements checkBoardService.size {
                             }catch(IOException e){
                                 System.out.println("File read error:"+e);
                             }
-                        }
+                        }//white chess
                     }
                 }
             }
@@ -114,7 +114,7 @@ public class Board extends JPanel implements checkBoardService.size {
         buttonL butListen=new buttonL(this);
         //对每一个按钮都添加同一个状态事件的监听处理机制
         button.addActionListener(butListen);//添加发生操作的监听方法
-        String []st={"自由开局","指定开局"};
+        String []st={"指定开局","自由开局"};
         JComboBox box=new JComboBox(st);
         ComboxL boxListen=new ComboxL(this);
         box.addItemListener(boxListen);
