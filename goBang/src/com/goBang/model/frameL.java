@@ -63,7 +63,7 @@ public class frameL implements checkBoardService.size, MouseListener {
             c = '2';
         }
         System.out.println(f.countx + "   " + f.county);
-        System.out.println(js.judge(f, f.countx, f.county, c)); 
+        System.out.println(js.judge(f, f.countx, f.county, c));
         System.out.println("一次点击结束");
        /*
         //返回值有4中情况：1为没有任何状况、2为禁手、3为输、4为赢
