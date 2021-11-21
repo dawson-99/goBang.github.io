@@ -35,6 +35,12 @@ public class frameL implements checkBoardService.size, MouseListener {
             f.county=(y-20)/40;
         }
         //f.print(f);
+        char c;
+        if (f.turn == 1) {
+            c = '1';
+        } else {
+            c = '2';
+        }
         if(f.countx>=15||f.county>=15){
             JOptionPane.showMessageDialog(null,"请点击正确的位置");
         }
@@ -56,34 +62,26 @@ public class frameL implements checkBoardService.size, MouseListener {
             }
             f.left.repaint();
         }
+        //System.out.println(f.turn);
         judgeService js = new judgeServiceImpl();
-        char c;
-        if (f.turn == 1) {
-            c = '1';
-        } else {
-            c = '2';
-        }
-<<<<<<< HEAD
-        System.out.println(f.countx + "   " + f.county);
-        System.out.println(js.judge(f, f.countx, f.county, c));
-        System.out.println("一次点击结束");
-=======
-        /*
+        //System.out.println(f.countx + "   " + f.county);
+        // System.out.println(js.judge(f, f.countx, f.county, c));
         //返回值有4中情况：1为没有任何状况、2为禁手、3为输、4为赢
         switch (js.judge(f, f.countx, f.county, c)) {
             case 1:
                 break;
             case 2:
-                JOptionPane.showMessageDialog(null, "禁手");
+                JOptionPane.showMessageDialog(null, "黑方禁手,黑方输");
                 break;
             case 3:
-                JOptionPane.showMessageDialog(null, "当前方输");
+                if(c=='1') JOptionPane.showMessageDialog(null, "黑方输");
+                else JOptionPane.showMessageDialog(null, "白方输");
                 break;
             case 4:
-                JOptionPane.showMessageDialog(null, "当前方赢");
+                if(c=='1')JOptionPane.showMessageDialog(null, "黑方赢");
+                else JOptionPane.showMessageDialog(null, "白方赢");
                 break;
         }
-         */
         char AI;
         if (f.turn == 1) {
             f.turn++;
@@ -93,6 +91,7 @@ public class frameL implements checkBoardService.size, MouseListener {
             as.Find(f);
             as.InitSCore(f,AI,c);
             Point p=as.Max();
+            f.isolation[p.x][p.y]='1';
         } else {
             f.turn--;
             c = '1';
@@ -101,10 +100,9 @@ public class frameL implements checkBoardService.size, MouseListener {
             as.Find(f);
             as.InitSCore(f,AI,c);
             Point p=as.Max();
+            f.isolation[p.x][p.y]='2';
         }
         f.left.repaint();
->>>>>>> 62f7d148f8d820fb95094848acd04fe94ae4886c
-       /*
         //返回值有4中情况：1为没有任何状况、2为禁手、3为输、4为赢
         switch (js.judge(f, f.countx, f.county, c)) {
             case 1:
@@ -119,7 +117,6 @@ public class frameL implements checkBoardService.size, MouseListener {
                 JOptionPane.showMessageDialog(null, "当前方赢");
                 break;
         }
-         */
     }
     @Override
     public void mousePressed(MouseEvent e) {
