@@ -11,6 +11,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.regex.Pattern;
 import static javax.imageio.ImageIO.read;
+import  AIService.AIServiceImpl.AIwork;
+import  AIService.AIService;
 public class frameL implements checkBoardService.size, MouseListener {
     public Board f;
     public frameL(Board ft){
@@ -54,17 +56,54 @@ public class frameL implements checkBoardService.size, MouseListener {
             }
             f.left.repaint();
         }
-
-                judgeService js = new judgeServiceImpl();
+        judgeService js = new judgeServiceImpl();
         char c;
         if (f.turn == 1) {
             c = '1';
         } else {
             c = '2';
         }
+<<<<<<< HEAD
         System.out.println(f.countx + "   " + f.county);
         System.out.println(js.judge(f, f.countx, f.county, c));
         System.out.println("一次点击结束");
+=======
+        /*
+        //返回值有4中情况：1为没有任何状况、2为禁手、3为输、4为赢
+        switch (js.judge(f, f.countx, f.county, c)) {
+            case 1:
+                break;
+            case 2:
+                JOptionPane.showMessageDialog(null, "禁手");
+                break;
+            case 3:
+                JOptionPane.showMessageDialog(null, "当前方输");
+                break;
+            case 4:
+                JOptionPane.showMessageDialog(null, "当前方赢");
+                break;
+        }
+         */
+        char AI;
+        if (f.turn == 1) {
+            f.turn++;
+            c = '2';
+            AI='1';
+            AIService as=new AIwork();
+            as.Find(f);
+            as.InitSCore(f,AI,c);
+            Point p=as.Max();
+        } else {
+            f.turn--;
+            c = '1';
+            AI='2';
+            AIService as=new AIwork();
+            as.Find(f);
+            as.InitSCore(f,AI,c);
+            Point p=as.Max();
+        }
+        f.left.repaint();
+>>>>>>> 62f7d148f8d820fb95094848acd04fe94ae4886c
        /*
         //返回值有4中情况：1为没有任何状况、2为禁手、3为输、4为赢
         switch (js.judge(f, f.countx, f.county, c)) {
