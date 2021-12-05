@@ -1,8 +1,8 @@
 package checkBoardService.checkBoardServiceImpl;
 
 import checkBoardService.ForbbidenLongService;
-import checkBoardService.Forbbiden_4Service;
-import checkBoardService.Forbidden_3Service;
+import checkBoardService.Forbbiden4Service;
+import checkBoardService.Forbidden3Service;
 import checkBoardService.judgeService;
 import com.goBang.model.Board;
 
@@ -14,8 +14,8 @@ public class judgeServiceImpl implements judgeService {
     //禁手概念：黑棋一子落下，同时形成三三、或者四四、或者长连，且没有形成五连。那么，这个点就是禁手点，黑棋判负。白棋没有禁手。
 
     ForbbidenLongService longJudge = new ForbbidenLongServiceImpl();
-    Forbidden_3Service forbidden3Judge = new Forbidden3ServiceImpl();
-    Forbbiden_4Service forbidden4Judge = new Forbbiden4ServiceImpl();
+    Forbidden3Service forbidden3Judge = new Forbidden3ServiceImpl();
+    Forbbiden4Service forbidden4Judge = new Forbbiden4ServiceImpl();
 
     //返回值有4中情况：1为没有任何状况、2为禁手、3为输、4为赢
     public int judge(Board board, int x, int y, char player) {
