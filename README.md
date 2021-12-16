@@ -1,4 +1,4 @@
-# mongoDB.github.io
+# goBang.github.io
 this project was tying to realize the wuziqi
 
 this project was created by CDUT.
