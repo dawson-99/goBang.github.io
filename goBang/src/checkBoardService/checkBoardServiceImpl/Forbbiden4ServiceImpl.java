@@ -1,9 +1,9 @@
 package checkBoardService.checkBoardServiceImpl;
 
-import checkBoardService.Forbbiden4Service;
+import checkBoardService.Forbbiden_4Service;
 import com.goBang.model.Board;
 
-public class Forbbiden4ServiceImpl implements Forbbiden4Service {
+public class Forbbiden4ServiceImpl implements Forbbiden_4Service {
 
     public boolean Forbidden4(Board board, int x, int y) {
 

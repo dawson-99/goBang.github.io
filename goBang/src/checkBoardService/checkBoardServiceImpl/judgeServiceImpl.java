@@ -1,8 +1,8 @@
 package checkBoardService.checkBoardServiceImpl;
 
 import checkBoardService.ForbbidenLongService;
-import checkBoardService.Forbbiden4Service;
-import checkBoardService.Forbidden3Service;
+import checkBoardService.Forbbiden_4Service;
+import checkBoardService.Forbidden_3Service;
 import checkBoardService.judgeService;
 import com.goBang.model.Board;
 
@@ -14,8 +14,8 @@ public class judgeServiceImpl implements judgeService {
     //禁手概念：黑棋一子落下，同时形成三三、或者四四、或者长连，且没有形成五连。那么，这个点就是禁手点，黑棋判负。白棋没有禁手。
 
     ForbbidenLongService longJudge = new ForbbidenLongServiceImpl();
-    Forbidden3Service forbidden3Judge = new Forbidden3ServiceImpl();
-    Forbbiden4Service forbidden4Judge = new Forbbiden4ServiceImpl();
+    Forbidden_3Service forbidden3Judge = new Forbidden3ServiceImpl();
+    Forbbiden_4Service forbidden4Judge = new Forbbiden4ServiceImpl();
 
     //返回值有4中情况：1为没有任何状况、2为禁手、3为输、4为赢
     public int judge(Board board, int x, int y, char player) {
@@ -25,7 +25,7 @@ public class judgeServiceImpl implements judgeService {
 //                return 2;
 //            }
 //        }
-
+//
 //        if (player == '1' ) {
 //            if (Forbidden3(board, x, y)) {
 //                System.out.println("-------2----------");
@@ -33,10 +33,53 @@ public class judgeServiceImpl implements judgeService {
 //            }
 //        }
 
+
         if (player == '1' ) {
-            if (forbidden4Judge.Forbidden4(board,x,y)) {
-                System.out.println("-------2----------");
+            if (longJudge.Forbidden(board, x, y)) {
+                System.out.println("黑子长连禁手");
+                System.out.println("当前棋盘如下");
+                for (int i = 0; i < 15; i++) {
+                    for (int j = 0; j < 15; j++ ) {
+                        System.out.print(board.isolation[i][j] + " ");
+                    }
+                    System.out.println("");
+                }
                 return 2;
+            }
+
+            if (Win(board, x, y, player)) {
+                System.out.println("黑子赢");
+                return 4;
+            }
+
+            if (forbidden3Judge.Forbidden3(board,x,y)) {
+                System.out.println("黑子三三禁手");
+                System.out.println("当前棋盘如下");
+                for (int i = 0; i < 15; i++) {
+                    for (int j = 0; j < 15; j++ ) {
+                        System.out.print(board.isolation[i][j] + " ");
+                    }
+                    System.out.println("");
+                }
+
+                return 2;
+            }
+
+            if(forbidden4Judge.Forbidden4(board, x, y)) {
+                System.out.println("黑子四四禁手");
+                System.out.println("当前棋盘如下");
+                for (int i = 0; i < 15; i++) {
+                    for (int j = 0; j < 15; j++ ) {
+                        System.out.print(board.isolation[i][j] + " ");
+                    }
+                    System.out.println("");
+                }
+                return 2;
+            }
+        } else {
+            if (Win(board, x, y, player)) {
+                System.out.println("白方赢");
+                return 4;
             }
         }
 
@@ -45,7 +88,7 @@ public class judgeServiceImpl implements judgeService {
 //            System.out.println("----4-------");
 //            return 4;
 //        }
-        System.out.println("----1-------");
+        System.out.println("无状况");
         return 1;
     }
 
@@ -57,39 +100,134 @@ public class judgeServiceImpl implements judgeService {
         String pattern = "";
         pattern = pattern + player + player + player + player + player;
 //        System.out.println(pattern);
-        if ((dirDown(board,x,y) + player).equals(pattern)) {
+        board.isolation[x][y] = player;
+        int position_x = x;
+        int position_y = y;
+
+
+        //先将最左边的棋坐标找到，也有可能是棋盘边缘,此步骤从左上角开始
+        while(position_x > -1 && position_y > -1 &&  position_x < 15 && position_y < 15) {
+            if (board.isolation[position_x][position_y] == player) {
+                position_x -= 1;
+                position_y -= 1;
+            } else {
+                break;
+            }
+        }
+        position_x += 1;//plus one to get the right position
+        position_y += 1;
+        int count = 0;//计算棋个数
+
+        while(position_x > -1 && position_y > -1 &&  position_x < 15 && position_y < 15) {
+            if (board.isolation[position_x][position_y] == player) {
+                count++;
+                position_x++;
+                position_y++;
+            }else{
+                break;
+            }
+        }
+
+        if (count >= 5) {
             return true;
         }
 
-        if ((dirup(board,x,y) + player).equals(pattern)) {
+        //////////////////左上
+
+        //右上角开始计算
+
+        position_x = x;
+        position_y = y;
+
+        while(position_x > -1 && position_y > -1 &&  position_x < 15 && position_y < 15) {
+            if (board.isolation[position_x][position_y] == player) {
+                position_x -= 1;
+                position_y += 1;
+            } else {
+                break;
+            }
+        }
+        position_x += 1;//plus one to get the right position
+        position_y -= 1;
+        count = 0;//计算黑棋长连个数
+
+        while(position_x > -1 && position_y > -1 &&  position_x < 15 && position_y < 15) {
+            if (board.isolation[position_x][position_y] == player) {
+                count++;
+                position_x++;
+                position_y--;
+            } else{
+                break;
+            }
+        }
+
+        if (count >= 5) {
             return true;
         }
 
-        if ((dirRight(board,x,y) + player).equals(pattern)) {
+        //////////////////右上
+
+        //最左边开始计算
+        position_x = x;
+        position_y = y;
+
+        while(position_x > -1 && position_y > -1 &&  position_x < 15 && position_y < 15) {
+            if (board.isolation[position_x][position_y] == player) {
+                position_y -= 1;
+            }  else {
+                break;
+            }
+        }
+        //plus one to get the right position
+        position_y += 1;
+        count = 0;//计算黑棋长连个数
+
+        while(position_x > -1 && position_y > -1 &&  position_x < 15 && position_y < 15) {
+            if (board.isolation[position_x][position_y] == player) {
+                count++;
+                position_y++;
+            }else{
+                break;
+            }
+        }
+
+        if (count >= 5) {
             return true;
         }
 
-        if ((dirLeft(board,x,y) + player).equals(pattern)) {
+        //////////////////左边
+
+        //最上边开始计算
+        position_x = x;
+        position_y = y;
+
+        while(position_x > -1 && position_y > -1 &&  position_x < 15 && position_y < 15) {
+            if (board.isolation[position_x][position_y] == player) {
+                position_x -= 1;
+            }  else {
+                break;
+            }
+        }
+        position_x += 1;//plus one to get the right position
+        count = 0;//计算黑棋长连个数
+
+        while(position_x > -1 && position_y > -1 &&  position_x < 15 && position_y < 15) {
+            if (board.isolation[position_x][position_y] == player) {
+                count++;
+                position_x++;
+            }else{
+                break;
+            }
+        }
+
+        if (count >= 5) {
             return true;
         }
 
-        if ((dirLeftDown(board,x,y) + player).equals(pattern)) {
-            return true;
-        }
-
-        if ((dirLeftup(board,x,y) + player).equals(pattern)) {
-            return true;
-        }
-
-        if ((dirRightDown(board,x,y) + player).equals(pattern)) {
-            return true;
-        }
-
-        if ((dirRightUP(board,x,y) + player).equals(pattern)) {
-            return true;
-        }
 
         return false;
+
+
     }
 
 
