@@ -55,7 +55,7 @@ public class Forbidden3ServiceImpl implements Forbidden_3Service {
 
             if (dirLeft(board, x, y).equals("0110")) {
 
-                //水平判断
+                //竖直判断
                 if (verticalJudge(board, x, y) || verticalJudge(board, x, y - 2)
                         || verticalJudge(board, x, y - 3) ) {
                     return true;
@@ -76,7 +76,7 @@ public class Forbidden3ServiceImpl implements Forbidden_3Service {
 
             if (dirLeft(board, x, y).equals("0101")) {
 
-                //水平判断
+                //竖直判断
                 if (verticalJudge(board, x, y) || verticalJudge(board, x, y - 1)
                         || verticalJudge(board, x, y - 3) ) {
                     return true;
@@ -1175,11 +1175,11 @@ public class Forbidden3ServiceImpl implements Forbidden_3Service {
         }//偏移3个单位检查
 
 
-        //1011情况
+        //0101情况
         //本位置检查
         if ((x + 1 < 15 && x + 1 >= 0 && y + 1 >= 0 && y + 1 < 15 && x - 1 >= 0 && y - 1 >= 0) &&
                 ((dirLeftup(board, x, y).equals("0101") && board.isolation[x + 1][y + 1] == '0') ||
-                        (dirRightDown(board, x - 1, y - 1).equals("0101") && board.isolation[x - 1][y - 1] == '0'))) {
+                        (dirRightDown(board, x, y).equals("0101") && board.isolation[x - 1][y - 1] == '0'))) {
             return true;
         }
         //本位置检查
