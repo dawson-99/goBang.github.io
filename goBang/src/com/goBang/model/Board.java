@@ -38,7 +38,7 @@ public class Board extends JPanel implements checkBoardService.size {
             //重写此JPanel的paint
             public void paint(Graphics gs){
                super.paint(gs);
-               gs.setColor(Color.BLACK);
+               gs.setColor(Color.WHITE);
                for(int i=0;i<row;i++){
                    gs.drawLine(x,y+i*size,x+(column-1)*size,y+i*size);
                }
@@ -135,12 +135,11 @@ public class Board extends JPanel implements checkBoardService.size {
         game.setResizable(false);
         game.setVisible(true);
     }
-    void print(Board f){
+    void clear(){
         for(int i=0;i<row;++i){
             for(int j=0;j<column;++j){
-                System.out.print(f.isolation[i][j]+"  ");
+               isolation[i][j]='0';
             }
-            System.out.println("");
         }
     }
 
