@@ -18,6 +18,7 @@ public class evaluated {
         String died_42=ai+'0'+ai+ai+ai+"";
         String died_43=ai+ai+'0'+ai+ai+"";
         String died_44=ai+ai+ai+'0'+ai+"";
+        String died_45=player+ai+ai+ai+ai+'0'+"";
         String alive_31='0'+ai+ai+ai+'0'+"";
         String alive_32=ai+'0'+ai+ai+"";
         String alive_33=ai+ai+'0'+ai+"";
