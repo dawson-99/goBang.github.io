@@ -2,11 +2,7 @@ package com.goBang.model;
 
 
 public class evaluated {
-    char ai;
-    evaluated(char a){
-        ai=a;
-    }
-    public int evaluate(char [][]isavil){
+    public int evaluate(char [][]isavil,char ai){
         char player;
         int totoalnumber=0;
         if(ai=='1'){
@@ -36,111 +32,123 @@ public class evaluated {
         String died_23='0'+ai+'0'+'0'+ai+player+"";
         String died_24=ai+'0'+'0'+'0'+ai+"";
         String alive_1='0'+ai+'0'+"";
-        String []model=new String[59];
-        //横线
-        for(int i=0;i<15;i++){
-            for(int j=0;j<15;j++){
-                model[i]+=isavil[i][j];
+        String []model=new String[88];
+        for(int k=0;k<15;k++) {
+            //横线
+            for (int i = 0; i < 15; i++) {
+                for (int j = 0; j < 15; j++) {
+                    model[k] += isavil[i][j];
+                }
             }
         }
-        //竖线
-        for(int i=0;i<15;i++){
-            for(int j=0;j<15;j++){
-                model[model.length+i]+=isavil[j][i];
+            for(int k=0;k<15;k++) {
+            //竖线
+            for (int i = 0; i < 15; i++) {
+                for (int j = 0; j < 15; j++) {
+                    model[15 + k] += isavil[j][i];
+                }
             }
         }
         //斜线
-        for(int i=14;i>=0;i--){
-            for(int j=14-i,k=0;j>=0&&k<=14;j--,k++){
-               model[model.length+14-i]+=isavil[j][k];
+        for(int m=0;m<15;m++) {
+            for (int i = 14; i >= 0; i--) {
+                for (int j = 14 - i, k = 0; j >= 0 && k <= 14; j--, k++) {
+                    model[30+ m] += isavil[j][k];
+                }
             }
         }
-        for(int i=13;i>=0;i--){
-            for(int j=14,k=14-i;j>=0&&k<=14;j--,k++) {
-                model[model.length + 13 - i] += isavil[j][k];
+        for(int m=0;m<14;m++) {
+            for (int i = 13; i >= 0; i--) {
+                for (int j = 14, k = 14 - i; j >= 0 && k <= 14; j--, k++) {
+                    model[45+m] += isavil[j][k];
+                }
             }
         }
-        for(int i=0;i<=14;i++){
-            for(int j=14-i,k=0;j<=14&&k<=14;j++,k++){
-                model[model.length+i]+=isavil[j][k];
+        for(int m=0;m<15;m++) {
+            for (int i = 0; i <= 14; i++) {
+                for (int j = 14 - i, k = 0; j <= 14 && k <= 14; j++, k++) {
+                    model[59 + m] += isavil[j][k];
+                }
             }
         }
-        for(int i=13;i>=0;i--){
-            for(int j=0,k=14-i;j<=14&&k<=14;j++,k++){
-                model[model.length+13-i]+=isavil[j][k];
+        for(int m=0;m<14;m++) {
+            for (int i = 13; i >= 0; i--) {
+                for (int j = 0, k = 14 - i; j <= 14 && k <= 14; j++, k++) {
+                    model[74+m] += isavil[j][k];
+                }
             }
         }
-        for(int i=0;i<59;i++){
-            if(model[i]==length_5){
+        for(int i=0;i<88;i++){
+            if(model[i].contains(length_5)){
                 totoalnumber+=100000;
             }
-            if(model[i]==alive_4){
+            if(model[i].contains(alive_4)){
                 totoalnumber+=10000;
             }
-            if(model[i]==died_41){
+            if(model[i].contains(died_41)){
                 totoalnumber+=1000;
             }
-            if(model[i]==died_42){
+            if(model[i].contains(died_42)){
                 totoalnumber+=1000;
             }
-            if(model[i]==died_43){
+            if(model[i].contains(died_43)){
                 totoalnumber+=1000;
             }
-            if(model[i]==died_44){
+            if(model[i].contains(died_44)){
                 totoalnumber+=1000;
             }
-            if(model[i]==alive_31){
+            if(model[i].contains(alive_31)){
                 totoalnumber+=1000;
             }
-            if(model[i]==alive_32){
+            if(model[i].contains(alive_32)){
                 totoalnumber+=1000;
             }
-            if(model[i]==alive_33){
+            if(model[i].contains(alive_33)){
                 totoalnumber+=1000;
             }
-            if(model[i]==died_31){
+            if(model[i].contains(died_31)){
                 totoalnumber+=100;
             }
-            if(model[i]==died_32){
+            if(model[i].contains(died_32)){
                 totoalnumber+=100;
             }
-            if(model[i]==died_33){
+            if(model[i].contains(died_33)){
                 totoalnumber+=100;
             }
-            if(model[i]==died_34){
+            if(model[i].contains(died_34)){
                 totoalnumber+=100;
             }
-            if(model[i]==died_35){
+            if(model[i].contains(died_35)){
                 totoalnumber+=100;
             }
-            if(model[i]==died_36){
+            if(model[i].contains(died_36)){
                 totoalnumber+=100;
             }
-            if(model[i]==alive_21){
+            if(model[i].contains(alive_21)){
                 totoalnumber+=100;
             }
-            if(model[i]==alive_22){
+            if(model[i].contains(alive_22)){
                 totoalnumber+=100;
             }
-            if(model[i]==alive_23){
+            if(model[i].contains(alive_23)){
                 totoalnumber+=100;
             }
-            if(model[i]==died_21){
+            if(model[i].contains(died_21)){
                 totoalnumber+=10;
             }
-            if(model[i]==died_22){
+            if(model[i].contains(died_22)){
                 totoalnumber+=10;
             }
-            if(model[i]==died_23){
+            if(model[i].contains(died_23)){
                 totoalnumber+=10;
             }
-            if(model[i]==died_24){
+            if(model[i].contains(died_24)){
                 totoalnumber+=10;
             }
-            if(model[i]==alive_1){
+            if(model[i].contains(alive_1)){
                 totoalnumber+=10;
             }
         }
-        return 0;
+        return totoalnumber;
     }
 }

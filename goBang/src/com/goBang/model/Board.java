@@ -40,7 +40,7 @@ public class Board extends JPanel implements checkBoardService.size {
             //重写此JPanel的paint
             public void paint(Graphics gs){
                super.paint(gs);
-               gs.setColor(Color.WHITE);
+               gs.setColor(Color.BLACK);
                for(int i=0;i<row;i++){
                    gs.drawLine(x,y+i*size,x+(column-1)*size,y+i*size);
                }

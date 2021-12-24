@@ -12,9 +12,9 @@ import static checkBoardService.size.row;
 public class AIwork implements AIService {
     //黑1 白2 空0
     //各个点的AIscore得分数组；
-    int [][]AIscore=new int[row][column];
+    public int [][]AIscore=new int[row][column];
     //各个点player的得分数组
-    int [][] playerscore=new int[row][column];
+    public int [][] playerscore=new int[row][column];
     //target的point类
     ArrayList<Point> target = new ArrayList<Point>();
     //找出棋盘上全部的棋子旁边的位置 标记;
@@ -64,6 +64,11 @@ public class AIwork implements AIService {
     public void InitSCore(Board board, char AI,char player) {
         //活五
         //向左
+        for(int i=0;i<column;i++){
+            for (int j = 0; j < row; j++) {
+                AIscore[i][j] = 0;
+            }
+        }
         int array = 4;
         for (int i = 0; i < target.size(); i++) {
             int count = 0;
@@ -960,7 +965,7 @@ public class AIwork implements AIService {
                 if (number_die_2 >= 1) {
                     AIscore[(int) target.get(i).getX()][(int) target.get(i).getY()] += 2;
                 }
-
+                AIscore[(int) target.get(i).getX()][(int) target.get(i).getY()] += 1;
             }
         }
     public void InitSCore_2(Board board, char AI,char player) {
