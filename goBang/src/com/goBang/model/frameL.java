@@ -72,16 +72,23 @@ public class frameL implements checkBoardService.size, MouseListener {
                 break;
             case 2:
                 JOptionPane.showMessageDialog(null, "黑方禁手,黑方输");
+                f.clear();
+                f.turn=1;
                 break;
             case 3:
                 if(c=='1') JOptionPane.showMessageDialog(null, "黑方输");
                 else JOptionPane.showMessageDialog(null, "白方输");
+                f.clear();
+                f.turn=1;
                 break;
             case 4:
                 if(c=='1')JOptionPane.showMessageDialog(null, "黑方赢");
                 else JOptionPane.showMessageDialog(null, "白方赢");
+                f.clear();
+                f.turn=1;
                 break;
         }
+
         char AI;
         if (f.turn == 1) {
             f.turn++;
