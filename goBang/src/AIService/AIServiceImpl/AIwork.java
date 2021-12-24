@@ -12,9 +12,9 @@ import static checkBoardService.size.row;
 public class AIwork implements AIService {
     //黑1 白2 空0
     //各个点的AIscore得分数组；
-    int [][]AIscore=new int[row][column];
+    public int [][]AIscore=new int[row][column];
     //各个点player的得分数组
-    int [][] playerscore=new int[row][column];
+    public int [][] playerscore=new int[row][column];
     //target的point类
     ArrayList<Point> target = new ArrayList<Point>();
     //找出棋盘上全部的棋子旁边的位置 标记;
