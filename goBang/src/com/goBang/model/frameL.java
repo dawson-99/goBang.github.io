@@ -34,7 +34,7 @@ public class frameL implements checkBoardService.size, MouseListener {
         else{
             f.county=(y-20)/40;
         }
-        //f.print(f);
+        //f.print();
         char c;
         if (f.turn == 1) {
             c = '1';
@@ -97,8 +97,10 @@ public class frameL implements checkBoardService.size, MouseListener {
             AIService as=new AIwork();
             as.Find(f);
             as.InitSCore(f,AI,c);
+            as.InitSCore_2(f,c,AI);
             Point p=as.Max();
-            f.isolation[p.x][p.y]='1';
+            System.out.println(p.x+"    "+p.y);
+            f.isolation[p.x][column-1-p.y]='1';
         } else {
             f.turn--;
             c = '1';
@@ -106,8 +108,10 @@ public class frameL implements checkBoardService.size, MouseListener {
             AIService as=new AIwork();
             as.Find(f);
             as.InitSCore(f,AI,c);
+            as.InitSCore_2(f,c,AI);
             Point p=as.Max();
-            f.isolation[p.x][p.y]='2';
+            System.out.println(p.x+"    "+p.y);
+            f.isolation[p.x][column-1-p.y]='2';
         }
         f.left.repaint();
         //返回值有4中情况：1为没有任何状况、2为禁手、3为输、4为赢

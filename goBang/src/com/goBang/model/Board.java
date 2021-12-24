@@ -114,7 +114,7 @@ public class Board extends JPanel implements checkBoardService.size {
         buttonL butListen=new buttonL(this);
         //对每一个按钮都添加同一个状态事件的监听处理机制
         button.addActionListener(butListen);//添加发生操作的监听方法
-        String []st={"指定开局","自由开局"};
+        String []st={"指定开局"};
         JComboBox box=new JComboBox(st);
         ComboxL boxListen=new ComboxL(this);
         box.addItemListener(boxListen);
@@ -135,6 +135,15 @@ public class Board extends JPanel implements checkBoardService.size {
         game.setResizable(false);
         game.setVisible(true);
     }
+    void print(){
+        for(int i=row-1;i>=0;--i){
+            for(int j=0;j<column;++j){
+               System.out.print(isolation[i][j]+"  ");
+            }
+            System.out.println();
+        }
+    }
+
     void clear(){
         for(int i=0;i<row;++i){
             for(int j=0;j<column;++j){
