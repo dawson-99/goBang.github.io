@@ -1890,7 +1890,7 @@ public class AIwork implements AIService {
             }
            // System.out.println();
         }
-        for(int i=column-1;i>=0;i--) {
+        for(int i=0;i<column;i++) {
             for(int j=0;j<row;j++) {
                 System.out.print(AIscore[i][j]+"  ");
                 AIscore[i][j]=0;
