@@ -34,7 +34,6 @@ public class frameL implements checkBoardService.size, MouseListener {
         else{
             f.county=(y-20)/40;
         }
-        //f.print();
         char c;
         if (f.turn == 1) {
             c = '1';
@@ -54,80 +53,85 @@ public class frameL implements checkBoardService.size, MouseListener {
             int x2=f.county*size;
             if(f.turn==1){
                 f.isolation[f.countx][f.county]='1';
+                f.chessboard[column-1-f.county][f.countx]='1';
                 f.turn++;
             }
             else{
                 f.isolation[f.countx][f.county]='2';
+                f.chessboard[column-1-f.county][f.countx]='2';
                 f.turn--;
             }
             f.left.repaint();
+            judgeService js = new judgeServiceImpl();
+            //System.out.println(f.countx + "   " + f.county);
+            // System.out.println(js.judge(f, f.countx, f.county, c));
+            //返回值有4中情况：1为没有任何状况、2为禁手、3为输、4为赢
+            switch (js.judge(f, f.countx, f.county, c)) {
+                case 1:
+                    break;
+                case 2:
+                    JOptionPane.showMessageDialog(null, "黑方禁手,黑方输");
+                    f.clear();
+                    f.turn=1;
+                    break;
+                case 3:
+                    if(c=='1') JOptionPane.showMessageDialog(null, "黑方输");
+                    else JOptionPane.showMessageDialog(null, "白方输");
+                    f.clear();
+                    f.turn=1;
+                    break;
+                case 4:
+                    if(c=='1')JOptionPane.showMessageDialog(null, "黑方赢");
+                    else JOptionPane.showMessageDialog(null, "白方赢");
+                    f.clear();
+                    f.turn=1;
+                    break;
+            }
+
+            char AI;
+            if (f.turn == 1) {
+                f.turn++;
+                c = '2';
+                AI='1';
+                AIService as=new AIwork();
+                as.Find(f);
+                as.InitSCore(f,AI,c);
+                as.InitSCore_2(f,c,AI);
+                Point p=as.Max();
+                System.out.println(p.x+"    "+(column-1-p.y));
+                f.isolation[p.x][column-1-p.y]='1';
+                f.chessboard[p.y][p.x]='1';
+            } else {
+                f.turn--;
+                c = '1';
+                AI='2';
+                AIService as=new AIwork();
+                as.Find(f);
+                as.InitSCore(f,AI,c);
+                as.InitSCore_2(f,c,AI);
+                Point p=as.Max();
+                System.out.println(p.x+"    "+(column-1-p.y));
+                f.isolation[p.x][(column-1-p.y)]='2';
+                f.chessboard[p.y][p.x]='2';
+            }
+            f.left.repaint();
+            //返回值有4中情况：1为没有任何状况、2为禁手、3为输、4为赢
+            switch (js.judge(f, f.countx, f.county, c)) {
+                case 1:
+                    break;
+                case 2:
+                    JOptionPane.showMessageDialog(null, "禁手");
+                    break;
+                case 3:
+                    JOptionPane.showMessageDialog(null, "当前方输");
+                    break;
+                case 4:
+                    JOptionPane.showMessageDialog(null, "当前方赢");
+                    break;
+            }
         }
         //System.out.println(f.turn);
-        judgeService js = new judgeServiceImpl();
-        //System.out.println(f.countx + "   " + f.county);
-        // System.out.println(js.judge(f, f.countx, f.county, c));
-        //返回值有4中情况：1为没有任何状况、2为禁手、3为输、4为赢
-        switch (js.judge(f, f.countx, f.county, c)) {
-            case 1:
-                break;
-            case 2:
-                JOptionPane.showMessageDialog(null, "黑方禁手,黑方输");
-                f.clear();
-                f.turn=1;
-                break;
-            case 3:
-                if(c=='1') JOptionPane.showMessageDialog(null, "黑方输");
-                else JOptionPane.showMessageDialog(null, "白方输");
-                f.clear();
-                f.turn=1;
-                break;
-            case 4:
-                if(c=='1')JOptionPane.showMessageDialog(null, "黑方赢");
-                else JOptionPane.showMessageDialog(null, "白方赢");
-                f.clear();
-                f.turn=1;
-                break;
-        }
-
-        char AI;
-        if (f.turn == 1) {
-            f.turn++;
-            c = '2';
-            AI='1';
-            AIService as=new AIwork();
-            as.Find(f);
-            as.InitSCore(f,AI,c);
-            as.InitSCore_2(f,c,AI);
-            Point p=as.Max();
-            System.out.println(p.x+"    "+p.y);
-            f.isolation[p.x][column-1-p.y]='1';
-        } else {
-            f.turn--;
-            c = '1';
-            AI='2';
-            AIService as=new AIwork();
-            as.Find(f);
-            as.InitSCore(f,AI,c);
-            as.InitSCore_2(f,c,AI);
-            Point p=as.Max();
-            System.out.println(p.x+"    "+p.y);
-            f.isolation[p.x][column-1-p.y]='2';
-        }
-        f.left.repaint();
-        //返回值有4中情况：1为没有任何状况、2为禁手、3为输、4为赢
-        switch (js.judge(f, f.countx, f.county, c)) {
-            case 1:
-                break;
-            case 2:
-                JOptionPane.showMessageDialog(null, "禁手");
-                break;
-            case 3:
-                JOptionPane.showMessageDialog(null, "当前方输");
-                break;
-            case 4:
-                JOptionPane.showMessageDialog(null, "当前方赢");
-                break;
-        }
+       // f.print();
     }
     @Override
     public void mousePressed(MouseEvent e) {

@@ -1,7 +1,6 @@
 package AIService.AIServiceImpl;
 
 import AIService.AIService;
-import com.goBang.model.AI;
 import com.goBang.model.Board;
 
 import java.awt.*;
@@ -13,46 +12,46 @@ import static checkBoardService.size.row;
 public class AIwork implements AIService {
     //黑1 白2 空0
     //各个点的AIscore得分数组；
-    int AIscore[][]=new int[row][column];
+    int [][]AIscore=new int[row][column];
     //各个点player的得分数组
-    int playerscore[][]=new int[row][column];
+    int [][] playerscore=new int[row][column];
     //target的point类
     ArrayList<Point> target = new ArrayList<Point>();
     //找出棋盘上全部的棋子旁边的位置 标记;
     public void Find(Board board){
         for(int i=0;i<row;i++){
             for(int j=0;j<column;j++){
-                if(board.isolation[i][j]!='0'){//找到棋子
+                if(board.chessboard[i][j]!='0'){//找到棋子
                     //做标记
-                    if(i-1>=0&&board.isolation[i-1][j+1]=='0'){//找到棋子附近位置且该位置在棋盘内且未被填写棋子
+                    if(i-1>=0&&board.chessboard[i-1][j+1]=='0'){//找到棋子附近位置且该位置在棋盘内且未被填写棋子
                         Point a=new Point(i-1,j+1);
                         target.add(a);
                     }
-                    if(i-1>=0&&board.isolation[i-1][j]=='0'){
+                    if(i-1>=0&&board.chessboard[i-1][j]=='0'){
                         Point a=new Point(i-1,j);
                         target.add(a);
                     }
-                    if(i-1>=0&&j-1>=0&&board.isolation[i-1][j-1]=='0'){
+                    if(i-1>=0&&j-1>=0&&board.chessboard[i-1][j-1]=='0'){
                         Point a=new Point(i-1,j-1);
                         target.add(a);
                     }
-                    if(j-1>=0&&board.isolation[i][j-1]=='0'){
+                    if(j-1>=0&&board.chessboard[i][j-1]=='0'){
                         Point a=new Point(i,j-1);
                         target.add(a);
                     }
-                    if(j-1>=0&&board.isolation[i+1][j-1]=='0'){
+                    if(j-1>=0&&board.chessboard[i+1][j-1]=='0'){
                         Point a=new Point(i+1,j-1);
                         target.add(a);
                     }
-                    if(board.isolation[i][j+1]=='0') {
+                    if(board.chessboard[i][j+1]=='0') {
                         Point a = new Point(i, j + 1);
                         target.add(a);
                     }
-                    if(board.isolation[i+1][j+1]=='0') {
+                    if(board.chessboard[i+1][j+1]=='0') {
                         Point a = new Point(i + 1, j + 1);
                         target.add(a);
                     }
-                    if(board.isolation[i+1][j]=='0') {
+                    if(board.chessboard[i+1][j]=='0') {
                         Point a = new Point(i + 1, j);
                         target.add(a);
                     }
@@ -70,7 +69,7 @@ public class AIwork implements AIService {
             int count = 0;
                 for (int j = (int) (target.get(i).getX() - 1); j >= 0 && array > 0; j--) {
                     array--;
-                    if (board.isolation[j][(int) target.get(i).getY()] == AI) {
+                    if (board.chessboard[j][(int) target.get(i).getY()] == AI) {
                         count++;
                     }
                     if (count == 4) {
@@ -83,7 +82,7 @@ public class AIwork implements AIService {
                 count = 0;
                 for (int j = (int) target.get(i).getX() + 1; j < row && array > 0; j++) {
                     array--;
-                    if (board.isolation[j][(int) target.get(i).getY()] == AI) {
+                    if (board.chessboard[j][(int) target.get(i).getY()] == AI) {
                         count++;
                     }
                     if (count == 4) {
@@ -95,7 +94,7 @@ public class AIwork implements AIService {
                 count = 0;
                 for (int j = (int) target.get(i).getY() + 1; j < column && array > 0; j++) {
                     array--;
-                    if (board.isolation[(int) target.get(i).getX()][j] == AI) {
+                    if (board.chessboard[(int) target.get(i).getX()][j] == AI) {
                         count++;
                     }
                     if (count == 4) {
@@ -107,7 +106,7 @@ public class AIwork implements AIService {
                 count = 0;
                 for (int j = (int) target.get(i).getY() - 1; j >= 0 && array > 0; j--) {
                     array--;
-                    if (board.isolation[(int) target.get(i).getX()][j] == AI) {
+                    if (board.chessboard[(int) target.get(i).getX()][j] == AI) {
                         count++;
                     }
                     if (count == 4) {
@@ -120,7 +119,7 @@ public class AIwork implements AIService {
                 count = 0;
                 for (int j = (int) target.get(i).getX() - 1, k = (int) target.get(i).getY() + 1; j >= 0 && k < column && array > 0; j--, k++) {
                     array--;
-                    if (board.isolation[j][k] == AI) {
+                    if (board.chessboard[j][k] == AI) {
                         count++;
                     }
                     if (count == 4) {
@@ -132,7 +131,7 @@ public class AIwork implements AIService {
                 count = 0;
                 for (int j = (int) target.get(i).getX() - 1, k = (int) target.get(i).getY() - 1; j >= 0 && k >= 0 && array > 0; j--, k--) {
                     array--;
-                    if (board.isolation[j][k] == AI) {
+                    if (board.chessboard[j][k] == AI) {
                         count++;
                     }
                     if (count == 4) {
@@ -143,7 +142,7 @@ public class AIwork implements AIService {
                 array = 4;
                 count = 0;
                 for (int j = (int) target.get(i).getX() + 1, k = (int) target.get(i).getY() + 1; j < row && k < column && array > 0; j++, k++) {
-                    if (board.isolation[j][k] == AI) {
+                    if (board.chessboard[j][k] == AI) {
                         count++;
                     }
                     if (count == 4) {
@@ -154,7 +153,7 @@ public class AIwork implements AIService {
                 array = 4;
                 count = 0;
                 for (int j = (int) target.get(i).getX() + 1, k = (int) target.get(i).getY() - 1; j < row && k >= 0 && array > 0; j++, k--) {
-                    if (board.isolation[j][k] == AI) {
+                    if (board.chessboard[j][k] == AI) {
                         count++;
                     }
                     if (count == 4) {
@@ -170,14 +169,14 @@ public class AIwork implements AIService {
                 array = 4;
                 for (int j = (int) target.get(i).getX() - 1; j >= 0 && array > 0; j--) {
                     array--;
-                    code = board.isolation[j][(int) target.get(i).getY()] + code;
-                    Ncode = board.isolation[j][(int) target.get(i).getY()] + Ncode;
+                    code = board.chessboard[j][(int) target.get(i).getY()] + code;
+                    Ncode = board.chessboard[j][(int) target.get(i).getY()] + Ncode;
                 }
                 array = 4;
                 for (int k = (int) target.get(i).getX() + 1; k < column && array > 0; k++) {
                     array--;
-                    code = code + board.isolation[k][(int) target.get(i).getY()];
-                    Ncode = Ncode + board.isolation[k][(int) target.get(i).getY()];
+                    code = code + board.chessboard[k][(int) target.get(i).getY()];
+                    Ncode = Ncode + board.chessboard[k][(int) target.get(i).getY()];
                 }
                 if (code.contains(alive_4) && Ncode.contains(alive_4)) {
                     AIscore[(int) target.get(i).getX()][(int) target.get(i).getY()] += 10000;
@@ -188,14 +187,14 @@ public class AIwork implements AIService {
                 array = 4;
                 for (int j = (int) target.get(i).getY() + 1; j < column && array > 0; j++) {
                     array--;
-                    code = code + board.isolation[(int) target.get(i).getX()][j];
-                    Ncode = Ncode + board.isolation[j][(int) target.get(i).getY()];
+                    code = code + board.chessboard[(int) target.get(i).getX()][j];
+                    Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
                 }
                 array = 4;
                 for (int k = (int) target.get(i).getY() - 1; k >= 0; k--) {
                     array--;
-                    code = board.isolation[(int) target.get(i).getX()][k] + code;
-                    Ncode = board.isolation[k][(int) target.get(i).getY()] + Ncode;
+                    code = board.chessboard[(int) target.get(i).getX()][k] + code;
+                    Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
                 }
                 if (code.contains(alive_4) && Ncode.contains(alive_4)) {
                     AIscore[(int) target.get(i).getX()][(int) target.get(i).getY()] += 10000;
@@ -206,14 +205,14 @@ public class AIwork implements AIService {
                 array = 4;
                 for (int j = (int) target.get(i).getX() - 1, k = (int) target.get(i).getY() + 1; j >= 0 && k < column && array > 0; j--, k++) {
                     array--;
-                    code = code + board.isolation[j][k];
-                    Ncode = Ncode + board.isolation[j][(int) target.get(i).getY()];
+                    code = code + board.chessboard[j][k];
+                    Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
                 }
                 array = 4;
                 for (int j = (int) target.get(i).getX() + 1, k = (int) target.get(i).getY() - 1; j < row && k >= 0 && array > 0; j++, k--) {
                     array--;
-                    code = board.isolation[j][k] + code;
-                    Ncode = board.isolation[k][(int) target.get(i).getY()] + Ncode;
+                    code = board.chessboard[j][k] + code;
+                    Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
                 }
                 if (code.contains(alive_4) && Ncode.contains(alive_4)) {
                     AIscore[(int) target.get(i).getX()][(int) target.get(i).getY()] += 10000;
@@ -224,14 +223,14 @@ public class AIwork implements AIService {
                 array = 4;
                 for (int j = (int) target.get(i).getX() + 1, k = (int) target.get(i).getY() + 1; j < row && k < column && array > 0; j++, k++) {
                     array--;
-                    code = code + board.isolation[j][k];
-                    Ncode = Ncode + board.isolation[j][(int) target.get(i).getY()];
+                    code = code + board.chessboard[j][k];
+                    Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
                 }
                 array = 4;
                 for (int j = (int) target.get(i).getX() - 1, k = (int) target.get(i).getY() - 1; j >= 0 && k >= 0 && array > 0; j--, k--) {
                     array--;
-                    code = board.isolation[j][k] + code;
-                    Ncode = board.isolation[k][(int) target.get(i).getY()] + Ncode;
+                    code = board.chessboard[j][k] + code;
+                    Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
                 }
                 if (code.contains(alive_4) && Ncode.contains(alive_4)) {
                     AIscore[(int) target.get(i).getX()][(int) target.get(i).getY()] += 10000;
@@ -250,14 +249,14 @@ public class AIwork implements AIService {
                 array = 4;
                 for (int j = (int) target.get(i).getX() - 1; j >= 0 && array > 0; j--) {
                     array--;
-                    code = board.isolation[j][(int) target.get(i).getY()] + code;
-                    Ncode = board.isolation[j][(int) target.get(i).getY()] + Ncode;
+                    code = board.chessboard[j][(int) target.get(i).getY()] + code;
+                    Ncode = board.chessboard[j][(int) target.get(i).getY()] + Ncode;
                 }
                 array = 4;
                 for (int k = (int) target.get(i).getX() + 1; k < column && array > 0; k++) {
                     array--;
-                    code = code + board.isolation[k][(int) target.get(i).getY()];
-                    Ncode = Ncode + board.isolation[k][(int) target.get(i).getY()];
+                    code = code + board.chessboard[k][(int) target.get(i).getY()];
+                    Ncode = Ncode + board.chessboard[k][(int) target.get(i).getY()];
                 }
                 if (code.contains(Fhighdie_4) && Ncode.contains(Fhighdie_4)) {
                     number_highdie_4++;
@@ -280,14 +279,14 @@ public class AIwork implements AIService {
                 array = 4;
                 for (int j = (int) target.get(i).getY() + 1; j < column && array > 0; j++) {
                     array--;
-                    code = code + board.isolation[(int) target.get(i).getX()][j];
-                    Ncode = Ncode + board.isolation[j][(int) target.get(i).getY()];
+                    code = code + board.chessboard[(int) target.get(i).getX()][j];
+                    Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
                 }
                 array = 4;
                 for (int k = (int) target.get(i).getY() - 1; k >= 0; k--) {
                     array--;
-                    code = board.isolation[(int) target.get(i).getX()][k] + code;
-                    Ncode = board.isolation[k][(int) target.get(i).getY()] + Ncode;
+                    code = board.chessboard[(int) target.get(i).getX()][k] + code;
+                    Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
                 }
                 if (code.contains(Fhighdie_4) && Ncode.contains(Fhighdie_4)) {
                     number_highdie_4++;
@@ -310,14 +309,14 @@ public class AIwork implements AIService {
                 array = 4;
                 for (int j = (int) target.get(i).getX() - 1, k = (int) target.get(i).getY() + 1; j >= 0 && k < column && array > 0; j--, k++) {
                     array--;
-                    code = code + board.isolation[j][k];
-                    Ncode = Ncode + board.isolation[j][(int) target.get(i).getY()];
+                    code = code + board.chessboard[j][k];
+                    Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
                 }
                 array = 4;
                 for (int j = (int) target.get(i).getX() + 1, k = (int) target.get(i).getY() - 1; j < row && k >= 0 && array > 0; j++, k--) {
                     array--;
-                    code = board.isolation[j][k] + code;
-                    Ncode = board.isolation[k][(int) target.get(i).getY()] + Ncode;
+                    code = board.chessboard[j][k] + code;
+                    Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
                 }
                 if (code.contains(Fhighdie_4) && Ncode.contains(Fhighdie_4)) {
                     number_highdie_4++;
@@ -340,14 +339,14 @@ public class AIwork implements AIService {
                 array = 4;
                 for (int j = (int) target.get(i).getX() + 1, k = (int) target.get(i).getY() + 1; j < row && k < column && array > 0; j++, k++) {
                     array--;
-                    code = code + board.isolation[j][k];
-                    Ncode = Ncode + board.isolation[j][(int) target.get(i).getY()];
+                    code = code + board.chessboard[j][k];
+                    Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
                 }
                 array = 4;
                 for (int j = (int) target.get(i).getX() - 1, k = (int) target.get(i).getY() - 1; j >= 0 && k >= 0 && array > 0; j--, k--) {
                     array--;
-                    code = board.isolation[j][k] + code;
-                    Ncode = board.isolation[k][(int) target.get(i).getY()] + Ncode;
+                    code = board.chessboard[j][k] + code;
+                    Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
                 }
                 if (code.contains(Fhighdie_4) && Ncode.contains(Fhighdie_4)) {
                     number_highdie_4++;
@@ -379,14 +378,14 @@ public class AIwork implements AIService {
                 array = 4;
                 for (int j = (int) target.get(i).getX() - 1; j >= 0 && array > 0; j--) {
                     array--;
-                    code = board.isolation[j][(int) target.get(i).getY()] + code;
-                    Ncode = board.isolation[j][(int) target.get(i).getY()] + Ncode;
+                    code = board.chessboard[j][(int) target.get(i).getY()] + code;
+                    Ncode = board.chessboard[j][(int) target.get(i).getY()] + Ncode;
                 }
                 array = 4;
                 for (int k = (int) target.get(i).getX() + 1; k < column && array > 0; k++) {
                     array--;
-                    code = code + board.isolation[k][(int) target.get(i).getY()];
-                    Ncode = Ncode + board.isolation[k][(int) target.get(i).getY()];
+                    code = code + board.chessboard[k][(int) target.get(i).getY()];
+                    Ncode = Ncode + board.chessboard[k][(int) target.get(i).getY()];
                 }
                 if (code.contains(Falive_3) && Ncode.contains(Falive_3)) {
                     number_alive_3++;
@@ -403,14 +402,14 @@ public class AIwork implements AIService {
                 array = 4;
                 for (int j = (int) target.get(i).getY() + 1; j < column && array > 0; j++) {
                     array--;
-                    code = code + board.isolation[(int) target.get(i).getX()][j];
-                    Ncode = Ncode + board.isolation[j][(int) target.get(i).getY()];
+                    code = code + board.chessboard[(int) target.get(i).getX()][j];
+                    Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
                 }
                 array = 4;
                 for (int k = (int) target.get(i).getY() - 1; k >= 0; k--) {
                     array--;
-                    code = board.isolation[(int) target.get(i).getX()][k] + code;
-                    Ncode = board.isolation[k][(int) target.get(i).getY()] + Ncode;
+                    code = board.chessboard[(int) target.get(i).getX()][k] + code;
+                    Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
                 }
                 if (code.contains(Falive_3) && Ncode.contains(Falive_3)) {
                     number_alive_3++;
@@ -427,14 +426,14 @@ public class AIwork implements AIService {
                 array = 4;
                 for (int j = (int) target.get(i).getX() - 1, k = (int) target.get(i).getY() + 1; j >= 0 && k < column && array > 0; j--, k++) {
                     array--;
-                    code = code + board.isolation[j][k];
-                    Ncode = Ncode + board.isolation[j][(int) target.get(i).getY()];
+                    code = code + board.chessboard[j][k];
+                    Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
                 }
                 array = 4;
                 for (int j = (int) target.get(i).getX() + 1, k = (int) target.get(i).getY() - 1; j < row && k >= 0 && array > 0; j++, k--) {
                     array--;
-                    code = board.isolation[j][k] + code;
-                    Ncode = board.isolation[k][(int) target.get(i).getY()] + Ncode;
+                    code = board.chessboard[j][k] + code;
+                    Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
                 }
                 if (code.contains(Falive_3) && Ncode.contains(Falive_3)) {
                     number_alive_3++;
@@ -451,14 +450,14 @@ public class AIwork implements AIService {
                 array = 4;
                 for (int j = (int) target.get(i).getX() + 1, k = (int) target.get(i).getY() + 1; j < row && k < column && array > 0; j++, k++) {
                     array--;
-                    code = code + board.isolation[j][k];
-                    Ncode = Ncode + board.isolation[j][(int) target.get(i).getY()];
+                    code = code + board.chessboard[j][k];
+                    Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
                 }
                 array = 4;
                 for (int j = (int) target.get(i).getX() - 1, k = (int) target.get(i).getY() - 1; j >= 0 && k >= 0 && array > 0; j--, k--) {
                     array--;
-                    code = board.isolation[j][k] + code;
-                    Ncode = board.isolation[k][(int) target.get(i).getY()] + Ncode;
+                    code = board.chessboard[j][k] + code;
+                    Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
                 }
                 if (code.contains(Falive_3) && Ncode.contains(Falive_3)) {
                     number_alive_3++;
@@ -493,14 +492,14 @@ public class AIwork implements AIService {
                 array = 4;
                 for (int j = (int) target.get(i).getX() - 1; j >= 0 && array > 0; j--) {
                     array--;
-                    code = board.isolation[j][(int) target.get(i).getY()] + code;
-                    Ncode = board.isolation[j][(int) target.get(i).getY()] + Ncode;
+                    code = board.chessboard[j][(int) target.get(i).getY()] + code;
+                    Ncode = board.chessboard[j][(int) target.get(i).getY()] + Ncode;
                 }
                 array = 4;
                 for (int k = (int) target.get(i).getX() + 1; k < column && array > 0; k++) {
                     array--;
-                    code = code + board.isolation[k][(int) target.get(i).getY()];
-                    Ncode = Ncode + board.isolation[k][(int) target.get(i).getY()];
+                    code = code + board.chessboard[k][(int) target.get(i).getY()];
+                    Ncode = Ncode + board.chessboard[k][(int) target.get(i).getY()];
                 }
                 if (code.contains(Fdie_3) && Ncode.contains(Fdie_3)) {
                     number_die_3++;
@@ -526,14 +525,14 @@ public class AIwork implements AIService {
                 array = 4;
                 for (int j = (int) target.get(i).getY() + 1; j < column && array > 0; j++) {
                     array--;
-                    code = code + board.isolation[(int) target.get(i).getX()][j];
-                    Ncode = Ncode + board.isolation[j][(int) target.get(i).getY()];
+                    code = code + board.chessboard[(int) target.get(i).getX()][j];
+                    Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
                 }
                 array = 4;
                 for (int k = (int) target.get(i).getY() - 1; k >= 0; k--) {
                     array--;
-                    code = board.isolation[(int) target.get(i).getX()][k] + code;
-                    Ncode = board.isolation[k][(int) target.get(i).getY()] + Ncode;
+                    code = board.chessboard[(int) target.get(i).getX()][k] + code;
+                    Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
                 }
                 if (code.contains(Fdie_3) && Ncode.contains(Fdie_3)) {
                     number_die_3++;
@@ -559,14 +558,14 @@ public class AIwork implements AIService {
                 array = 4;
                 for (int j = (int) target.get(i).getX() - 1, k = (int) target.get(i).getY() + 1; j >= 0 && k < column && array > 0; j--, k++) {
                     array--;
-                    code = code + board.isolation[j][k];
-                    Ncode = Ncode + board.isolation[j][(int) target.get(i).getY()];
+                    code = code + board.chessboard[j][k];
+                    Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
                 }
                 array = 4;
                 for (int j = (int) target.get(i).getX() + 1, k = (int) target.get(i).getY() - 1; j < row && k >= 0 && array > 0; j++, k--) {
                     array--;
-                    code = board.isolation[j][k] + code;
-                    Ncode = board.isolation[k][(int) target.get(i).getY()] + Ncode;
+                    code = board.chessboard[j][k] + code;
+                    Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
                 }
                 if (code.contains(Fdie_3) && Ncode.contains(Fdie_3)) {
                     number_die_3++;
@@ -592,14 +591,14 @@ public class AIwork implements AIService {
                 array = 4;
                 for (int j = (int) target.get(i).getX() + 1, k = (int) target.get(i).getY() + 1; j < row && k < column && array > 0; j++, k++) {
                     array--;
-                    code = code + board.isolation[j][k];
-                    Ncode = Ncode + board.isolation[j][(int) target.get(i).getY()];
+                    code = code + board.chessboard[j][k];
+                    Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
                 }
                 array = 4;
                 for (int j = (int) target.get(i).getX() - 1, k = (int) target.get(i).getY() - 1; j >= 0 && k >= 0 && array > 0; j--, k--) {
                     array--;
-                    code = board.isolation[j][k] + code;
-                    Ncode = board.isolation[k][(int) target.get(i).getY()] + Ncode;
+                    code = board.chessboard[j][k] + code;
+                    Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
                 }
                 if (code.contains(Fdie_3) && Ncode.contains(Fdie_3)) {
                     number_die_3++;
@@ -647,14 +646,14 @@ public class AIwork implements AIService {
                 array = 4;
                 for (int j = (int) target.get(i).getX() - 1; j >= 0 && array > 0; j--) {
                     array--;
-                    code = board.isolation[j][(int) target.get(i).getY()] + code;
-                    Ncode = board.isolation[j][(int) target.get(i).getY()] + Ncode;
+                    code = board.chessboard[j][(int) target.get(i).getY()] + code;
+                    Ncode = board.chessboard[j][(int) target.get(i).getY()] + Ncode;
                 }
                 array = 4;
                 for (int k = (int) target.get(i).getX() + 1; k < column && array > 0; k++) {
                     array--;
-                    code = code + board.isolation[k][(int) target.get(i).getY()];
-                    Ncode = Ncode + board.isolation[k][(int) target.get(i).getY()];
+                    code = code + board.chessboard[k][(int) target.get(i).getY()];
+                    Ncode = Ncode + board.chessboard[k][(int) target.get(i).getY()];
                 }
                 if (code.contains(Salive_3) && Ncode.contains(Salive_3)) {
                     number_tiaoalive_3++;
@@ -668,14 +667,14 @@ public class AIwork implements AIService {
                 array = 4;
                 for (int j = (int) target.get(i).getY() + 1; j < column && array > 0; j++) {
                     array--;
-                    code = code + board.isolation[(int) target.get(i).getX()][j];
-                    Ncode = Ncode + board.isolation[j][(int) target.get(i).getY()];
+                    code = code + board.chessboard[(int) target.get(i).getX()][j];
+                    Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
                 }
                 array = 4;
                 for (int k = (int) target.get(i).getY() - 1; k >= 0; k--) {
                     array--;
-                    code = board.isolation[(int) target.get(i).getX()][k] + code;
-                    Ncode = board.isolation[k][(int) target.get(i).getY()] + Ncode;
+                    code = board.chessboard[(int) target.get(i).getX()][k] + code;
+                    Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
                 }
                 if (code.contains(Salive_3) && Ncode.contains(Salive_3)) {
                     number_tiaoalive_3++;
@@ -689,14 +688,14 @@ public class AIwork implements AIService {
                 array = 4;
                 for (int j = (int) target.get(i).getX() - 1, k = (int) target.get(i).getY() + 1; j >= 0 && k < column && array > 0; j--, k++) {
                     array--;
-                    code = code + board.isolation[j][k];
-                    Ncode = Ncode + board.isolation[j][(int) target.get(i).getY()];
+                    code = code + board.chessboard[j][k];
+                    Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
                 }
                 array = 4;
                 for (int j = (int) target.get(i).getX() + 1, k = (int) target.get(i).getY() - 1; j < row && k >= 0 && array > 0; j++, k--) {
                     array--;
-                    code = board.isolation[j][k] + code;
-                    Ncode = board.isolation[k][(int) target.get(i).getY()] + Ncode;
+                    code = board.chessboard[j][k] + code;
+                    Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
                 }
                 if (code.contains(Salive_3) && Ncode.contains(Salive_3)) {
                     number_tiaoalive_3++;
@@ -710,14 +709,14 @@ public class AIwork implements AIService {
                 array = 4;
                 for (int j = (int) target.get(i).getX() + 1, k = (int) target.get(i).getY() + 1; j < row && k < column && array > 0; j++, k++) {
                     array--;
-                    code = code + board.isolation[j][k];
-                    Ncode = Ncode + board.isolation[j][(int) target.get(i).getY()];
+                    code = code + board.chessboard[j][k];
+                    Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
                 }
                 array = 4;
                 for (int j = (int) target.get(i).getX() - 1, k = (int) target.get(i).getY() - 1; j >= 0 && k >= 0 && array > 0; j--, k--) {
                     array--;
-                    code = board.isolation[j][k] + code;
-                    Ncode = board.isolation[k][(int) target.get(i).getY()] + Ncode;
+                    code = board.chessboard[j][k] + code;
+                    Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
                 }
                 if (code.contains(Falive_3) && Ncode.contains(Falive_3)) {
                     number_tiaoalive_3++;
@@ -741,14 +740,14 @@ public class AIwork implements AIService {
                 array = 4;
                 for (int j = (int) target.get(i).getX() - 1; j >= 0 && array > 0; j--) {
                     array--;
-                    code = board.isolation[j][(int) target.get(i).getY()] + code;
-                    Ncode = board.isolation[j][(int) target.get(i).getY()] + Ncode;
+                    code = board.chessboard[j][(int) target.get(i).getY()] + code;
+                    Ncode = board.chessboard[j][(int) target.get(i).getY()] + Ncode;
                 }
                 array = 4;
                 for (int k = (int) target.get(i).getX() + 1; k < column && array > 0; k++) {
                     array--;
-                    code = code + board.isolation[k][(int) target.get(i).getY()];
-                    Ncode = Ncode + board.isolation[k][(int) target.get(i).getY()];
+                    code = code + board.chessboard[k][(int) target.get(i).getY()];
+                    Ncode = Ncode + board.chessboard[k][(int) target.get(i).getY()];
                 }
                 if (code.contains(Falive_2) && Ncode.contains(Falive_2)) {
                     number_alive_2++;
@@ -765,14 +764,14 @@ public class AIwork implements AIService {
                 array = 4;
                 for (int j = (int) target.get(i).getY() + 1; j < column && array > 0; j++) {
                     array--;
-                    code = code + board.isolation[(int) target.get(i).getX()][j];
-                    Ncode = Ncode + board.isolation[j][(int) target.get(i).getY()];
+                    code = code + board.chessboard[(int) target.get(i).getX()][j];
+                    Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
                 }
                 array = 4;
                 for (int k = (int) target.get(i).getY() - 1; k >= 0; k--) {
                     array--;
-                    code = board.isolation[(int) target.get(i).getX()][k] + code;
-                    Ncode = board.isolation[k][(int) target.get(i).getY()] + Ncode;
+                    code = board.chessboard[(int) target.get(i).getX()][k] + code;
+                    Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
                 }
                 if (code.contains(Falive_2) && Ncode.contains(Falive_2)) {
                     number_alive_2++;
@@ -789,14 +788,14 @@ public class AIwork implements AIService {
                 array = 4;
                 for (int j = (int) target.get(i).getX() - 1, k = (int) target.get(i).getY() + 1; j >= 0 && k < column && array > 0; j--, k++) {
                     array--;
-                    code = code + board.isolation[j][k];
-                    Ncode = Ncode + board.isolation[j][(int) target.get(i).getY()];
+                    code = code + board.chessboard[j][k];
+                    Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
                 }
                 array = 4;
                 for (int j = (int) target.get(i).getX() + 1, k = (int) target.get(i).getY() - 1; j < row && k >= 0 && array > 0; j++, k--) {
                     array--;
-                    code = board.isolation[j][k] + code;
-                    Ncode = board.isolation[k][(int) target.get(i).getY()] + Ncode;
+                    code = board.chessboard[j][k] + code;
+                    Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
                 }
                 if (code.contains(Falive_2) && Ncode.contains(Falive_2)) {
                     number_alive_2++;
@@ -813,14 +812,14 @@ public class AIwork implements AIService {
                 array = 4;
                 for (int j = (int) target.get(i).getX() + 1, k = (int) target.get(i).getY() + 1; j < row && k < column && array > 0; j++, k++) {
                     array--;
-                    code = code + board.isolation[j][k];
-                    Ncode = Ncode + board.isolation[j][(int) target.get(i).getY()];
+                    code = code + board.chessboard[j][k];
+                    Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
                 }
                 array = 4;
                 for (int j = (int) target.get(i).getX() - 1, k = (int) target.get(i).getY() - 1; j >= 0 && k >= 0 && array > 0; j--, k--) {
                     array--;
-                    code = board.isolation[j][k] + code;
-                    Ncode = board.isolation[k][(int) target.get(i).getY()] + Ncode;
+                    code = board.chessboard[j][k] + code;
+                    Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
                 }
                 if (code.contains(Falive_2) && Ncode.contains(Falive_2)) {
                     number_alive_2++;
@@ -856,14 +855,14 @@ public class AIwork implements AIService {
                 array = 4;
                 for (int j = (int) target.get(i).getX() - 1; j >= 0 && array > 0; j--) {
                     array--;
-                    code = board.isolation[j][(int) target.get(i).getY()] + code;
-                    Ncode = board.isolation[j][(int) target.get(i).getY()] + Ncode;
+                    code = board.chessboard[j][(int) target.get(i).getY()] + code;
+                    Ncode = board.chessboard[j][(int) target.get(i).getY()] + Ncode;
                 }
                 array = 4;
                 for (int k = (int) target.get(i).getX() + 1; k < column && array > 0; k++) {
                     array--;
-                    code = code + board.isolation[k][(int) target.get(i).getY()];
-                    Ncode = Ncode + board.isolation[k][(int) target.get(i).getY()];
+                    code = code + board.chessboard[k][(int) target.get(i).getY()];
+                    Ncode = Ncode + board.chessboard[k][(int) target.get(i).getY()];
                 }
                 if (code.contains(Fdie_2) && Ncode.contains(Fdie_2)) {
                     number_die_2++;
@@ -883,14 +882,14 @@ public class AIwork implements AIService {
                 array = 4;
                 for (int j = (int) target.get(i).getY() + 1; j < column && array > 0; j++) {
                     array--;
-                    code = code + board.isolation[(int) target.get(i).getX()][j];
-                    Ncode = Ncode + board.isolation[j][(int) target.get(i).getY()];
+                    code = code + board.chessboard[(int) target.get(i).getX()][j];
+                    Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
                 }
                 array = 4;
                 for (int k = (int) target.get(i).getY() - 1; k >= 0; k--) {
                     array--;
-                    code = board.isolation[(int) target.get(i).getX()][k] + code;
-                    Ncode = board.isolation[k][(int) target.get(i).getY()] + Ncode;
+                    code = board.chessboard[(int) target.get(i).getX()][k] + code;
+                    Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
                 }
                 if (code.contains(Fdie_2) && Ncode.contains(Fdie_2)) {
                     number_die_2++;
@@ -910,14 +909,14 @@ public class AIwork implements AIService {
                 array = 4;
                 for (int j = (int) target.get(i).getX() - 1, k = (int) target.get(i).getY() + 1; j >= 0 && k < column && array > 0; j--, k++) {
                     array--;
-                    code = code + board.isolation[j][k];
-                    Ncode = Ncode + board.isolation[j][(int) target.get(i).getY()];
+                    code = code + board.chessboard[j][k];
+                    Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
                 }
                 array = 4;
                 for (int j = (int) target.get(i).getX() + 1, k = (int) target.get(i).getY() - 1; j < row && k >= 0 && array > 0; j++, k--) {
                     array--;
-                    code = board.isolation[j][k] + code;
-                    Ncode = board.isolation[k][(int) target.get(i).getY()] + Ncode;
+                    code = board.chessboard[j][k] + code;
+                    Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
                 }
                 if (code.contains(Fdie_2) && Ncode.contains(Fdie_2)) {
                     number_die_2++;
@@ -937,14 +936,14 @@ public class AIwork implements AIService {
                 array = 4;
                 for (int j = (int) target.get(i).getX() + 1, k = (int) target.get(i).getY() + 1; j < row && k < column && array > 0; j++, k++) {
                     array--;
-                    code = code + board.isolation[j][k];
-                    Ncode = Ncode + board.isolation[j][(int) target.get(i).getY()];
+                    code = code + board.chessboard[j][k];
+                    Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
                 }
                 array = 4;
                 for (int j = (int) target.get(i).getX() - 1, k = (int) target.get(i).getY() - 1; j >= 0 && k >= 0 && array > 0; j--, k--) {
                     array--;
-                    code = board.isolation[j][k] + code;
-                    Ncode = board.isolation[k][(int) target.get(i).getY()] + Ncode;
+                    code = board.chessboard[j][k] + code;
+                    Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
                 }
                 if (code.contains(Fdie_2) && Ncode.contains(Fdie_2)) {
                     number_die_2++;
@@ -972,7 +971,7 @@ public class AIwork implements AIService {
             int count = 0;
             for (int j = (int) (target.get(i).getX() - 1); j >= 0 && array > 0; j--) {
                 array--;
-                if (board.isolation[j][(int) target.get(i).getY()] == AI) {
+                if (board.chessboard[j][(int) target.get(i).getY()] == AI) {
                     count++;
                 }
                 if (count == 4) {
@@ -985,7 +984,7 @@ public class AIwork implements AIService {
             count = 0;
             for (int j = (int) target.get(i).getX() + 1; j < row && array > 0; j++) {
                 array--;
-                if (board.isolation[j][(int) target.get(i).getY()] == AI) {
+                if (board.chessboard[j][(int) target.get(i).getY()] == AI) {
                     count++;
                 }
                 if (count == 4) {
@@ -997,7 +996,7 @@ public class AIwork implements AIService {
             count = 0;
             for (int j = (int) target.get(i).getY() + 1; j < column && array > 0; j++) {
                 array--;
-                if (board.isolation[(int) target.get(i).getX()][j] == AI) {
+                if (board.chessboard[(int) target.get(i).getX()][j] == AI) {
                     count++;
                 }
                 if (count == 4) {
@@ -1009,7 +1008,7 @@ public class AIwork implements AIService {
             count = 0;
             for (int j = (int) target.get(i).getY() - 1; j >= 0 && array > 0; j--) {
                 array--;
-                if (board.isolation[(int) target.get(i).getX()][j] == AI) {
+                if (board.chessboard[(int) target.get(i).getX()][j] == AI) {
                     count++;
                 }
                 if (count == 4) {
@@ -1022,7 +1021,7 @@ public class AIwork implements AIService {
             count = 0;
             for (int j = (int) target.get(i).getX() - 1, k = (int) target.get(i).getY() + 1; j >= 0 && k < column && array > 0; j--, k++) {
                 array--;
-                if (board.isolation[j][k] == AI) {
+                if (board.chessboard[j][k] == AI) {
                     count++;
                 }
                 if (count == 4) {
@@ -1034,7 +1033,7 @@ public class AIwork implements AIService {
             count = 0;
             for (int j = (int) target.get(i).getX() - 1, k = (int) target.get(i).getY() - 1; j >= 0 && k >= 0 && array > 0; j--, k--) {
                 array--;
-                if (board.isolation[j][k] == AI) {
+                if (board.chessboard[j][k] == AI) {
                     count++;
                 }
                 if (count == 4) {
@@ -1045,7 +1044,7 @@ public class AIwork implements AIService {
             array = 4;
             count = 0;
             for (int j = (int) target.get(i).getX() + 1, k = (int) target.get(i).getY() + 1; j < row && k < column && array > 0; j++, k++) {
-                if (board.isolation[j][k] == AI) {
+                if (board.chessboard[j][k] == AI) {
                     count++;
                 }
                 if (count == 4) {
@@ -1056,7 +1055,7 @@ public class AIwork implements AIService {
             array = 4;
             count = 0;
             for (int j = (int) target.get(i).getX() + 1, k = (int) target.get(i).getY() - 1; j < row && k >= 0 && array > 0; j++, k--) {
-                if (board.isolation[j][k] == AI) {
+                if (board.chessboard[j][k] == AI) {
                     count++;
                 }
                 if (count == 4) {
@@ -1072,14 +1071,14 @@ public class AIwork implements AIService {
             array = 4;
             for (int j = (int) target.get(i).getX() - 1; j >= 0 && array > 0; j--) {
                 array--;
-                code = board.isolation[j][(int) target.get(i).getY()] + code;
-                Ncode = board.isolation[j][(int) target.get(i).getY()] + Ncode;
+                code = board.chessboard[j][(int) target.get(i).getY()] + code;
+                Ncode = board.chessboard[j][(int) target.get(i).getY()] + Ncode;
             }
             array = 4;
             for (int k = (int) target.get(i).getX() + 1; k < column && array > 0; k++) {
                 array--;
-                code = code + board.isolation[k][(int) target.get(i).getY()];
-                Ncode = Ncode + board.isolation[k][(int) target.get(i).getY()];
+                code = code + board.chessboard[k][(int) target.get(i).getY()];
+                Ncode = Ncode + board.chessboard[k][(int) target.get(i).getY()];
             }
             if (code.contains(alive_4) && Ncode.contains(alive_4)) {
                 playerscore[(int) target.get(i).getX()][(int) target.get(i).getY()] += 10000;
@@ -1090,14 +1089,14 @@ public class AIwork implements AIService {
             array = 4;
             for (int j = (int) target.get(i).getY() + 1; j < column && array > 0; j++) {
                 array--;
-                code = code + board.isolation[(int) target.get(i).getX()][j];
-                Ncode = Ncode + board.isolation[j][(int) target.get(i).getY()];
+                code = code + board.chessboard[(int) target.get(i).getX()][j];
+                Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
             }
             array = 4;
             for (int k = (int) target.get(i).getY() - 1; k >= 0; k--) {
                 array--;
-                code = board.isolation[(int) target.get(i).getX()][k] + code;
-                Ncode = board.isolation[k][(int) target.get(i).getY()] + Ncode;
+                code = board.chessboard[(int) target.get(i).getX()][k] + code;
+                Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
             }
             if (code.contains(alive_4) && Ncode.contains(alive_4)) {
                 playerscore[(int) target.get(i).getX()][(int) target.get(i).getY()] += 10000;
@@ -1108,14 +1107,14 @@ public class AIwork implements AIService {
             array = 4;
             for (int j = (int) target.get(i).getX() - 1, k = (int) target.get(i).getY() + 1; j >= 0 && k < column && array > 0; j--, k++) {
                 array--;
-                code = code + board.isolation[j][k];
-                Ncode = Ncode + board.isolation[j][(int) target.get(i).getY()];
+                code = code + board.chessboard[j][k];
+                Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
             }
             array = 4;
             for (int j = (int) target.get(i).getX() + 1, k = (int) target.get(i).getY() - 1; j < row && k >= 0 && array > 0; j++, k--) {
                 array--;
-                code = board.isolation[j][k] + code;
-                Ncode = board.isolation[k][(int) target.get(i).getY()] + Ncode;
+                code = board.chessboard[j][k] + code;
+                Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
             }
             if (code.contains(alive_4) && Ncode.contains(alive_4)) {
                 playerscore[(int) target.get(i).getX()][(int) target.get(i).getY()] += 10000;
@@ -1126,14 +1125,14 @@ public class AIwork implements AIService {
             array = 4;
             for (int j = (int) target.get(i).getX() + 1, k = (int) target.get(i).getY() + 1; j < row && k < column && array > 0; j++, k++) {
                 array--;
-                code = code + board.isolation[j][k];
-                Ncode = Ncode + board.isolation[j][(int) target.get(i).getY()];
+                code = code + board.chessboard[j][k];
+                Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
             }
             array = 4;
             for (int j = (int) target.get(i).getX() - 1, k = (int) target.get(i).getY() - 1; j >= 0 && k >= 0 && array > 0; j--, k--) {
                 array--;
-                code = board.isolation[j][k] + code;
-                Ncode = board.isolation[k][(int) target.get(i).getY()] + Ncode;
+                code = board.chessboard[j][k] + code;
+                Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
             }
             if (code.contains(alive_4) && Ncode.contains(alive_4)) {
                 playerscore[(int) target.get(i).getX()][(int) target.get(i).getY()] += 10000;
@@ -1152,14 +1151,14 @@ public class AIwork implements AIService {
             array = 4;
             for (int j = (int) target.get(i).getX() - 1; j >= 0 && array > 0; j--) {
                 array--;
-                code = board.isolation[j][(int) target.get(i).getY()] + code;
-                Ncode = board.isolation[j][(int) target.get(i).getY()] + Ncode;
+                code = board.chessboard[j][(int) target.get(i).getY()] + code;
+                Ncode = board.chessboard[j][(int) target.get(i).getY()] + Ncode;
             }
             array = 4;
             for (int k = (int) target.get(i).getX() + 1; k < column && array > 0; k++) {
                 array--;
-                code = code + board.isolation[k][(int) target.get(i).getY()];
-                Ncode = Ncode + board.isolation[k][(int) target.get(i).getY()];
+                code = code + board.chessboard[k][(int) target.get(i).getY()];
+                Ncode = Ncode + board.chessboard[k][(int) target.get(i).getY()];
             }
             if (code.contains(Fhighdie_4) && Ncode.contains(Fhighdie_4)) {
                 number_highdie_4++;
@@ -1182,14 +1181,14 @@ public class AIwork implements AIService {
             array = 4;
             for (int j = (int) target.get(i).getY() + 1; j < column && array > 0; j++) {
                 array--;
-                code = code + board.isolation[(int) target.get(i).getX()][j];
-                Ncode = Ncode + board.isolation[j][(int) target.get(i).getY()];
+                code = code + board.chessboard[(int) target.get(i).getX()][j];
+                Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
             }
             array = 4;
             for (int k = (int) target.get(i).getY() - 1; k >= 0; k--) {
                 array--;
-                code = board.isolation[(int) target.get(i).getX()][k] + code;
-                Ncode = board.isolation[k][(int) target.get(i).getY()] + Ncode;
+                code = board.chessboard[(int) target.get(i).getX()][k] + code;
+                Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
             }
             if (code.contains(Fhighdie_4) && Ncode.contains(Fhighdie_4)) {
                 number_highdie_4++;
@@ -1212,14 +1211,14 @@ public class AIwork implements AIService {
             array = 4;
             for (int j = (int) target.get(i).getX() - 1, k = (int) target.get(i).getY() + 1; j >= 0 && k < column && array > 0; j--, k++) {
                 array--;
-                code = code + board.isolation[j][k];
-                Ncode = Ncode + board.isolation[j][(int) target.get(i).getY()];
+                code = code + board.chessboard[j][k];
+                Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
             }
             array = 4;
             for (int j = (int) target.get(i).getX() + 1, k = (int) target.get(i).getY() - 1; j < row && k >= 0 && array > 0; j++, k--) {
                 array--;
-                code = board.isolation[j][k] + code;
-                Ncode = board.isolation[k][(int) target.get(i).getY()] + Ncode;
+                code = board.chessboard[j][k] + code;
+                Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
             }
             if (code.contains(Fhighdie_4) && Ncode.contains(Fhighdie_4)) {
                 number_highdie_4++;
@@ -1242,14 +1241,14 @@ public class AIwork implements AIService {
             array = 4;
             for (int j = (int) target.get(i).getX() + 1, k = (int) target.get(i).getY() + 1; j < row && k < column && array > 0; j++, k++) {
                 array--;
-                code = code + board.isolation[j][k];
-                Ncode = Ncode + board.isolation[j][(int) target.get(i).getY()];
+                code = code + board.chessboard[j][k];
+                Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
             }
             array = 4;
             for (int j = (int) target.get(i).getX() - 1, k = (int) target.get(i).getY() - 1; j >= 0 && k >= 0 && array > 0; j--, k--) {
                 array--;
-                code = board.isolation[j][k] + code;
-                Ncode = board.isolation[k][(int) target.get(i).getY()] + Ncode;
+                code = board.chessboard[j][k] + code;
+                Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
             }
             if (code.contains(Fhighdie_4) && Ncode.contains(Fhighdie_4)) {
                 number_highdie_4++;
@@ -1281,14 +1280,14 @@ public class AIwork implements AIService {
             array = 4;
             for (int j = (int) target.get(i).getX() - 1; j >= 0 && array > 0; j--) {
                 array--;
-                code = board.isolation[j][(int) target.get(i).getY()] + code;
-                Ncode = board.isolation[j][(int) target.get(i).getY()] + Ncode;
+                code = board.chessboard[j][(int) target.get(i).getY()] + code;
+                Ncode = board.chessboard[j][(int) target.get(i).getY()] + Ncode;
             }
             array = 4;
             for (int k = (int) target.get(i).getX() + 1; k < column && array > 0; k++) {
                 array--;
-                code = code + board.isolation[k][(int) target.get(i).getY()];
-                Ncode = Ncode + board.isolation[k][(int) target.get(i).getY()];
+                code = code + board.chessboard[k][(int) target.get(i).getY()];
+                Ncode = Ncode + board.chessboard[k][(int) target.get(i).getY()];
             }
             if (code.contains(Falive_3) && Ncode.contains(Falive_3)) {
                 number_alive_3++;
@@ -1305,14 +1304,14 @@ public class AIwork implements AIService {
             array = 4;
             for (int j = (int) target.get(i).getY() + 1; j < column && array > 0; j++) {
                 array--;
-                code = code + board.isolation[(int) target.get(i).getX()][j];
-                Ncode = Ncode + board.isolation[j][(int) target.get(i).getY()];
+                code = code + board.chessboard[(int) target.get(i).getX()][j];
+                Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
             }
             array = 4;
             for (int k = (int) target.get(i).getY() - 1; k >= 0; k--) {
                 array--;
-                code = board.isolation[(int) target.get(i).getX()][k] + code;
-                Ncode = board.isolation[k][(int) target.get(i).getY()] + Ncode;
+                code = board.chessboard[(int) target.get(i).getX()][k] + code;
+                Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
             }
             if (code.contains(Falive_3) && Ncode.contains(Falive_3)) {
                 number_alive_3++;
@@ -1329,14 +1328,14 @@ public class AIwork implements AIService {
             array = 4;
             for (int j = (int) target.get(i).getX() - 1, k = (int) target.get(i).getY() + 1; j >= 0 && k < column && array > 0; j--, k++) {
                 array--;
-                code = code + board.isolation[j][k];
-                Ncode = Ncode + board.isolation[j][(int) target.get(i).getY()];
+                code = code + board.chessboard[j][k];
+                Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
             }
             array = 4;
             for (int j = (int) target.get(i).getX() + 1, k = (int) target.get(i).getY() - 1; j < row && k >= 0 && array > 0; j++, k--) {
                 array--;
-                code = board.isolation[j][k] + code;
-                Ncode = board.isolation[k][(int) target.get(i).getY()] + Ncode;
+                code = board.chessboard[j][k] + code;
+                Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
             }
             if (code.contains(Falive_3) && Ncode.contains(Falive_3)) {
                 number_alive_3++;
@@ -1353,14 +1352,14 @@ public class AIwork implements AIService {
             array = 4;
             for (int j = (int) target.get(i).getX() + 1, k = (int) target.get(i).getY() + 1; j < row && k < column && array > 0; j++, k++) {
                 array--;
-                code = code + board.isolation[j][k];
-                Ncode = Ncode + board.isolation[j][(int) target.get(i).getY()];
+                code = code + board.chessboard[j][k];
+                Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
             }
             array = 4;
             for (int j = (int) target.get(i).getX() - 1, k = (int) target.get(i).getY() - 1; j >= 0 && k >= 0 && array > 0; j--, k--) {
                 array--;
-                code = board.isolation[j][k] + code;
-                Ncode = board.isolation[k][(int) target.get(i).getY()] + Ncode;
+                code = board.chessboard[j][k] + code;
+                Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
             }
             if (code.contains(Falive_3) && Ncode.contains(Falive_3)) {
                 number_alive_3++;
@@ -1395,14 +1394,14 @@ public class AIwork implements AIService {
             array = 4;
             for (int j = (int) target.get(i).getX() - 1; j >= 0 && array > 0; j--) {
                 array--;
-                code = board.isolation[j][(int) target.get(i).getY()] + code;
-                Ncode = board.isolation[j][(int) target.get(i).getY()] + Ncode;
+                code = board.chessboard[j][(int) target.get(i).getY()] + code;
+                Ncode = board.chessboard[j][(int) target.get(i).getY()] + Ncode;
             }
             array = 4;
             for (int k = (int) target.get(i).getX() + 1; k < column && array > 0; k++) {
                 array--;
-                code = code + board.isolation[k][(int) target.get(i).getY()];
-                Ncode = Ncode + board.isolation[k][(int) target.get(i).getY()];
+                code = code + board.chessboard[k][(int) target.get(i).getY()];
+                Ncode = Ncode + board.chessboard[k][(int) target.get(i).getY()];
             }
             if (code.contains(Fdie_3) && Ncode.contains(Fdie_3)) {
                 number_die_3++;
@@ -1428,14 +1427,14 @@ public class AIwork implements AIService {
             array = 4;
             for (int j = (int) target.get(i).getY() + 1; j < column && array > 0; j++) {
                 array--;
-                code = code + board.isolation[(int) target.get(i).getX()][j];
-                Ncode = Ncode + board.isolation[j][(int) target.get(i).getY()];
+                code = code + board.chessboard[(int) target.get(i).getX()][j];
+                Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
             }
             array = 4;
             for (int k = (int) target.get(i).getY() - 1; k >= 0; k--) {
                 array--;
-                code = board.isolation[(int) target.get(i).getX()][k] + code;
-                Ncode = board.isolation[k][(int) target.get(i).getY()] + Ncode;
+                code = board.chessboard[(int) target.get(i).getX()][k] + code;
+                Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
             }
             if (code.contains(Fdie_3) && Ncode.contains(Fdie_3)) {
                 number_die_3++;
@@ -1461,14 +1460,14 @@ public class AIwork implements AIService {
             array = 4;
             for (int j = (int) target.get(i).getX() - 1, k = (int) target.get(i).getY() + 1; j >= 0 && k < column && array > 0; j--, k++) {
                 array--;
-                code = code + board.isolation[j][k];
-                Ncode = Ncode + board.isolation[j][(int) target.get(i).getY()];
+                code = code + board.chessboard[j][k];
+                Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
             }
             array = 4;
             for (int j = (int) target.get(i).getX() + 1, k = (int) target.get(i).getY() - 1; j < row && k >= 0 && array > 0; j++, k--) {
                 array--;
-                code = board.isolation[j][k] + code;
-                Ncode = board.isolation[k][(int) target.get(i).getY()] + Ncode;
+                code = board.chessboard[j][k] + code;
+                Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
             }
             if (code.contains(Fdie_3) && Ncode.contains(Fdie_3)) {
                 number_die_3++;
@@ -1494,14 +1493,14 @@ public class AIwork implements AIService {
             array = 4;
             for (int j = (int) target.get(i).getX() + 1, k = (int) target.get(i).getY() + 1; j < row && k < column && array > 0; j++, k++) {
                 array--;
-                code = code + board.isolation[j][k];
-                Ncode = Ncode + board.isolation[j][(int) target.get(i).getY()];
+                code = code + board.chessboard[j][k];
+                Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
             }
             array = 4;
             for (int j = (int) target.get(i).getX() - 1, k = (int) target.get(i).getY() - 1; j >= 0 && k >= 0 && array > 0; j--, k--) {
                 array--;
-                code = board.isolation[j][k] + code;
-                Ncode = board.isolation[k][(int) target.get(i).getY()] + Ncode;
+                code = board.chessboard[j][k] + code;
+                Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
             }
             if (code.contains(Fdie_3) && Ncode.contains(Fdie_3)) {
                 number_die_3++;
@@ -1549,14 +1548,14 @@ public class AIwork implements AIService {
             array = 4;
             for (int j = (int) target.get(i).getX() - 1; j >= 0 && array > 0; j--) {
                 array--;
-                code = board.isolation[j][(int) target.get(i).getY()] + code;
-                Ncode = board.isolation[j][(int) target.get(i).getY()] + Ncode;
+                code = board.chessboard[j][(int) target.get(i).getY()] + code;
+                Ncode = board.chessboard[j][(int) target.get(i).getY()] + Ncode;
             }
             array = 4;
             for (int k = (int) target.get(i).getX() + 1; k < column && array > 0; k++) {
                 array--;
-                code = code + board.isolation[k][(int) target.get(i).getY()];
-                Ncode = Ncode + board.isolation[k][(int) target.get(i).getY()];
+                code = code + board.chessboard[k][(int) target.get(i).getY()];
+                Ncode = Ncode + board.chessboard[k][(int) target.get(i).getY()];
             }
             if (code.contains(Salive_3) && Ncode.contains(Salive_3)) {
                 number_tiaoalive_3++;
@@ -1570,14 +1569,14 @@ public class AIwork implements AIService {
             array = 4;
             for (int j = (int) target.get(i).getY() + 1; j < column && array > 0; j++) {
                 array--;
-                code = code + board.isolation[(int) target.get(i).getX()][j];
-                Ncode = Ncode + board.isolation[j][(int) target.get(i).getY()];
+                code = code + board.chessboard[(int) target.get(i).getX()][j];
+                Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
             }
             array = 4;
             for (int k = (int) target.get(i).getY() - 1; k >= 0; k--) {
                 array--;
-                code = board.isolation[(int) target.get(i).getX()][k] + code;
-                Ncode = board.isolation[k][(int) target.get(i).getY()] + Ncode;
+                code = board.chessboard[(int) target.get(i).getX()][k] + code;
+                Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
             }
             if (code.contains(Salive_3) && Ncode.contains(Salive_3)) {
                 number_tiaoalive_3++;
@@ -1591,14 +1590,14 @@ public class AIwork implements AIService {
             array = 4;
             for (int j = (int) target.get(i).getX() - 1, k = (int) target.get(i).getY() + 1; j >= 0 && k < column && array > 0; j--, k++) {
                 array--;
-                code = code + board.isolation[j][k];
-                Ncode = Ncode + board.isolation[j][(int) target.get(i).getY()];
+                code = code + board.chessboard[j][k];
+                Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
             }
             array = 4;
             for (int j = (int) target.get(i).getX() + 1, k = (int) target.get(i).getY() - 1; j < row && k >= 0 && array > 0; j++, k--) {
                 array--;
-                code = board.isolation[j][k] + code;
-                Ncode = board.isolation[k][(int) target.get(i).getY()] + Ncode;
+                code = board.chessboard[j][k] + code;
+                Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
             }
             if (code.contains(Salive_3) && Ncode.contains(Salive_3)) {
                 number_tiaoalive_3++;
@@ -1612,14 +1611,14 @@ public class AIwork implements AIService {
             array = 4;
             for (int j = (int) target.get(i).getX() + 1, k = (int) target.get(i).getY() + 1; j < row && k < column && array > 0; j++, k++) {
                 array--;
-                code = code + board.isolation[j][k];
-                Ncode = Ncode + board.isolation[j][(int) target.get(i).getY()];
+                code = code + board.chessboard[j][k];
+                Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
             }
             array = 4;
             for (int j = (int) target.get(i).getX() - 1, k = (int) target.get(i).getY() - 1; j >= 0 && k >= 0 && array > 0; j--, k--) {
                 array--;
-                code = board.isolation[j][k] + code;
-                Ncode = board.isolation[k][(int) target.get(i).getY()] + Ncode;
+                code = board.chessboard[j][k] + code;
+                Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
             }
             if (code.contains(Falive_3) && Ncode.contains(Falive_3)) {
                 number_tiaoalive_3++;
@@ -1643,14 +1642,14 @@ public class AIwork implements AIService {
             array = 4;
             for (int j = (int) target.get(i).getX() - 1; j >= 0 && array > 0; j--) {
                 array--;
-                code = board.isolation[j][(int) target.get(i).getY()] + code;
-                Ncode = board.isolation[j][(int) target.get(i).getY()] + Ncode;
+                code = board.chessboard[j][(int) target.get(i).getY()] + code;
+                Ncode = board.chessboard[j][(int) target.get(i).getY()] + Ncode;
             }
             array = 4;
             for (int k = (int) target.get(i).getX() + 1; k < column && array > 0; k++) {
                 array--;
-                code = code + board.isolation[k][(int) target.get(i).getY()];
-                Ncode = Ncode + board.isolation[k][(int) target.get(i).getY()];
+                code = code + board.chessboard[k][(int) target.get(i).getY()];
+                Ncode = Ncode + board.chessboard[k][(int) target.get(i).getY()];
             }
             if (code.contains(Falive_2) && Ncode.contains(Falive_2)) {
                 number_alive_2++;
@@ -1667,14 +1666,14 @@ public class AIwork implements AIService {
             array = 4;
             for (int j = (int) target.get(i).getY() + 1; j < column && array > 0; j++) {
                 array--;
-                code = code + board.isolation[(int) target.get(i).getX()][j];
-                Ncode = Ncode + board.isolation[j][(int) target.get(i).getY()];
+                code = code + board.chessboard[(int) target.get(i).getX()][j];
+                Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
             }
             array = 4;
             for (int k = (int) target.get(i).getY() - 1; k >= 0; k--) {
                 array--;
-                code = board.isolation[(int) target.get(i).getX()][k] + code;
-                Ncode = board.isolation[k][(int) target.get(i).getY()] + Ncode;
+                code = board.chessboard[(int) target.get(i).getX()][k] + code;
+                Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
             }
             if (code.contains(Falive_2) && Ncode.contains(Falive_2)) {
                 number_alive_2++;
@@ -1691,14 +1690,14 @@ public class AIwork implements AIService {
             array = 4;
             for (int j = (int) target.get(i).getX() - 1, k = (int) target.get(i).getY() + 1; j >= 0 && k < column && array > 0; j--, k++) {
                 array--;
-                code = code + board.isolation[j][k];
-                Ncode = Ncode + board.isolation[j][(int) target.get(i).getY()];
+                code = code + board.chessboard[j][k];
+                Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
             }
             array = 4;
             for (int j = (int) target.get(i).getX() + 1, k = (int) target.get(i).getY() - 1; j < row && k >= 0 && array > 0; j++, k--) {
                 array--;
-                code = board.isolation[j][k] + code;
-                Ncode = board.isolation[k][(int) target.get(i).getY()] + Ncode;
+                code = board.chessboard[j][k] + code;
+                Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
             }
             if (code.contains(Falive_2) && Ncode.contains(Falive_2)) {
                 number_alive_2++;
@@ -1715,14 +1714,14 @@ public class AIwork implements AIService {
             array = 4;
             for (int j = (int) target.get(i).getX() + 1, k = (int) target.get(i).getY() + 1; j < row && k < column && array > 0; j++, k++) {
                 array--;
-                code = code + board.isolation[j][k];
-                Ncode = Ncode + board.isolation[j][(int) target.get(i).getY()];
+                code = code + board.chessboard[j][k];
+                Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
             }
             array = 4;
             for (int j = (int) target.get(i).getX() - 1, k = (int) target.get(i).getY() - 1; j >= 0 && k >= 0 && array > 0; j--, k--) {
                 array--;
-                code = board.isolation[j][k] + code;
-                Ncode = board.isolation[k][(int) target.get(i).getY()] + Ncode;
+                code = board.chessboard[j][k] + code;
+                Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
             }
             if (code.contains(Falive_2) && Ncode.contains(Falive_2)) {
                 number_alive_2++;
@@ -1758,14 +1757,14 @@ public class AIwork implements AIService {
             array = 4;
             for (int j = (int) target.get(i).getX() - 1; j >= 0 && array > 0; j--) {
                 array--;
-                code = board.isolation[j][(int) target.get(i).getY()] + code;
-                Ncode = board.isolation[j][(int) target.get(i).getY()] + Ncode;
+                code = board.chessboard[j][(int) target.get(i).getY()] + code;
+                Ncode = board.chessboard[j][(int) target.get(i).getY()] + Ncode;
             }
             array = 4;
             for (int k = (int) target.get(i).getX() + 1; k < column && array > 0; k++) {
                 array--;
-                code = code + board.isolation[k][(int) target.get(i).getY()];
-                Ncode = Ncode + board.isolation[k][(int) target.get(i).getY()];
+                code = code + board.chessboard[k][(int) target.get(i).getY()];
+                Ncode = Ncode + board.chessboard[k][(int) target.get(i).getY()];
             }
             if (code.contains(Fdie_2) && Ncode.contains(Fdie_2)) {
                 number_die_2++;
@@ -1785,14 +1784,14 @@ public class AIwork implements AIService {
             array = 4;
             for (int j = (int) target.get(i).getY() + 1; j < column && array > 0; j++) {
                 array--;
-                code = code + board.isolation[(int) target.get(i).getX()][j];
-                Ncode = Ncode + board.isolation[j][(int) target.get(i).getY()];
+                code = code + board.chessboard[(int) target.get(i).getX()][j];
+                Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
             }
             array = 4;
             for (int k = (int) target.get(i).getY() - 1; k >= 0; k--) {
                 array--;
-                code = board.isolation[(int) target.get(i).getX()][k] + code;
-                Ncode = board.isolation[k][(int) target.get(i).getY()] + Ncode;
+                code = board.chessboard[(int) target.get(i).getX()][k] + code;
+                Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
             }
             if (code.contains(Fdie_2) && Ncode.contains(Fdie_2)) {
                 number_die_2++;
@@ -1812,14 +1811,14 @@ public class AIwork implements AIService {
             array = 4;
             for (int j = (int) target.get(i).getX() - 1, k = (int) target.get(i).getY() + 1; j >= 0 && k < column && array > 0; j--, k++) {
                 array--;
-                code = code + board.isolation[j][k];
-                Ncode = Ncode + board.isolation[j][(int) target.get(i).getY()];
+                code = code + board.chessboard[j][k];
+                Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
             }
             array = 4;
             for (int j = (int) target.get(i).getX() + 1, k = (int) target.get(i).getY() - 1; j < row && k >= 0 && array > 0; j++, k--) {
                 array--;
-                code = board.isolation[j][k] + code;
-                Ncode = board.isolation[k][(int) target.get(i).getY()] + Ncode;
+                code = board.chessboard[j][k] + code;
+                Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
             }
             if (code.contains(Fdie_2) && Ncode.contains(Fdie_2)) {
                 number_die_2++;
@@ -1839,14 +1838,14 @@ public class AIwork implements AIService {
             array = 4;
             for (int j = (int) target.get(i).getX() + 1, k = (int) target.get(i).getY() + 1; j < row && k < column && array > 0; j++, k++) {
                 array--;
-                code = code + board.isolation[j][k];
-                Ncode = Ncode + board.isolation[j][(int) target.get(i).getY()];
+                code = code + board.chessboard[j][k];
+                Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
             }
             array = 4;
             for (int j = (int) target.get(i).getX() - 1, k = (int) target.get(i).getY() - 1; j >= 0 && k >= 0 && array > 0; j--, k--) {
                 array--;
-                code = board.isolation[j][k] + code;
-                Ncode = board.isolation[k][(int) target.get(i).getY()] + Ncode;
+                code = board.chessboard[j][k] + code;
+                Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
             }
             if (code.contains(Fdie_2) && Ncode.contains(Fdie_2)) {
                 number_die_2++;
@@ -1883,16 +1882,24 @@ public class AIwork implements AIService {
         target.clear();
         for(int i=0;i<column;i++) {
             for(int j=0;j<row;j++) {
-                System.out.print(AIscore[i][j]+"  ");
+                //System.out.print(AIscore[i][j]+"  ");
                 if(AIscore[i][j]>min){
                     min=AIscore[i][j];
                     a=new Point(i,j);
                 }
+            }
+           // System.out.println();
+        }
+        for(int i=column-1;i>=0;i--) {
+            for(int j=0;j<row;j++) {
+                System.out.print(AIscore[i][j]+"  ");
                 AIscore[i][j]=0;
                 playerscore[i][j]=0;
-            }
+                }
             System.out.println();
+
         }
+
         return a;
     }
 }

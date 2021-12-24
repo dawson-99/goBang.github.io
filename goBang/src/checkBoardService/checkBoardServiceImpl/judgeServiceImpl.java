@@ -88,7 +88,7 @@ public class judgeServiceImpl implements judgeService {
 //            System.out.println("----4-------");
 //            return 4;
 //        }
-        System.out.println("无状况");
+       // System.out.println("无状况");
         return 1;
     }
 

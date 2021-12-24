@@ -13,6 +13,7 @@ public class Board extends JPanel implements checkBoardService.size {
     public  int countx;//mouse x
     public int county;//mouse y
     public char [][]isolation=new char[row][column];//chess board
+    public char [][]chessboard=new char[row][column];
     JPanel left;
     JPanel right;
     public Board(String s){
@@ -32,6 +33,7 @@ public class Board extends JPanel implements checkBoardService.size {
         for(int i=0;i<row;++i){
             for(int j=0;j<column;++j){
                 isolation[i][j]='0';
+                chessboard[i][j]='0';
             }
         }
         left =new JPanel(){
@@ -103,7 +105,7 @@ public class Board extends JPanel implements checkBoardService.size {
         right.setPreferredSize(dim1);
         game.add(right,BorderLayout.EAST);
         right.setLayout(new FlowLayout());
-        String  butname= "认输";
+        String  butname= "重新开始";
         JButton button=new JButton(butname);
         button.setPreferredSize(dim3);
         button.setBackground(Color.white);
@@ -138,7 +140,7 @@ public class Board extends JPanel implements checkBoardService.size {
     void print(){
         for(int i=row-1;i>=0;--i){
             for(int j=0;j<column;++j){
-               System.out.print(isolation[i][j]+"  ");
+               System.out.print(chessboard[i][j]+"  ");
             }
             System.out.println();
         }
@@ -148,6 +150,7 @@ public class Board extends JPanel implements checkBoardService.size {
         for(int i=0;i<row;++i){
             for(int j=0;j<column;++j){
                isolation[i][j]='0';
+               chessboard[i][j]='0';
             }
         }
     }
