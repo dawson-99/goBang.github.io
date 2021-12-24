@@ -8,7 +8,7 @@ public class ForbbidenLongServiceImpl implements ForbbidenLongService {
 
     public boolean Forbidden(Board board, int x, int y) {
 
-        board.isolation[x][y] = '1';
+
         int position_x = x;
         int position_y = y;
 
@@ -24,7 +24,7 @@ public class ForbbidenLongServiceImpl implements ForbbidenLongService {
         }
         position_x += 1;//plus one to get the right position
         position_y += 1;
-        int count = 0;//计算黑棋长连个数
+        int count = 1;//计算黑棋长连个数
 
         while(position_x > -1 && position_y > -1 &&  position_x < 15 && position_y < 15) {
             if (board.isolation[position_x][position_y] == '1') {
@@ -57,7 +57,7 @@ public class ForbbidenLongServiceImpl implements ForbbidenLongService {
         }
         position_x += 1;//plus one to get the right position
         position_y -= 1;
-        count = 0;//计算黑棋长连个数
+        count = 1;//计算黑棋长连个数
 
         while(position_x > -1 && position_y > -1 &&  position_x < 15 && position_y < 15) {
             if (board.isolation[position_x][position_y] == '1') {
@@ -88,7 +88,7 @@ public class ForbbidenLongServiceImpl implements ForbbidenLongService {
         }
         //plus one to get the right position
         position_y += 1;
-        count = 0;//计算黑棋长连个数
+        count = 1;//计算黑棋长连个数
 
         while(position_x > -1 && position_y > -1 &&  position_x < 15 && position_y < 15) {
             if (board.isolation[position_x][position_y] == '1') {
@@ -117,7 +117,7 @@ public class ForbbidenLongServiceImpl implements ForbbidenLongService {
             }
         }
         position_x += 1;//plus one to get the right position
-        count = 0;//计算黑棋长连个数
+        count = 1;//计算黑棋长连个数
 
         while(position_x > -1 && position_y > -1 &&  position_x < 15 && position_y < 15) {
             if (board.isolation[position_x][position_y] == '1') {
