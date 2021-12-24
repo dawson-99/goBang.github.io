@@ -1888,6 +1888,8 @@ public class AIwork implements AIService {
                     min=AIscore[i][j];
                     a=new Point(i,j);
                 }
+                AIscore[i][j]=0;
+                playerscore[i][j]=0;
             }
             System.out.println();
         }
