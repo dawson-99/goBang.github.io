@@ -12,6 +12,6 @@ public class chessman implements Comparable<chessman>{
     }
     @Override
     public int compareTo(chessman o) {
-        return this.eval-o.eval;
+        return o.eval-this.eval;
     }
 }

@@ -64,6 +64,11 @@ public class AIwork implements AIService {
     public void InitSCore(Board board, char AI,char player) {
         //活五
         //向左
+        for(int i=0;i<column;i++){
+            for (int j = 0; j < row; j++) {
+                AIscore[i][j] = 0;
+            }
+        }
         int array = 4;
         for (int i = 0; i < target.size(); i++) {
             int count = 0;
@@ -960,7 +965,7 @@ public class AIwork implements AIService {
                 if (number_die_2 >= 1) {
                     AIscore[(int) target.get(i).getX()][(int) target.get(i).getY()] += 2;
                 }
-
+                AIscore[(int) target.get(i).getX()][(int) target.get(i).getY()] += 1;
             }
         }
     public void InitSCore_2(Board board, char AI,char player) {

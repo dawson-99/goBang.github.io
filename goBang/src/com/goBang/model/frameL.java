@@ -1,18 +1,12 @@
 package com.goBang.model;
+import AIService.AIService;
+import AIService.AIServiceImpl.AIwork;
 import checkBoardService.checkBoardServiceImpl.judgeServiceImpl;
 import checkBoardService.judgeService;
-import checkBoardService.size;
-import  javax.imageio.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.File;
-import java.io.IOException;
-import java.util.regex.Pattern;
-import static javax.imageio.ImageIO.read;
-import  AIService.AIServiceImpl.AIwork;
-import  AIService.AIService;
 public class frameL implements checkBoardService.size, MouseListener {
     public Board f;
     public frameL(Board ft){
@@ -87,24 +81,30 @@ public class frameL implements checkBoardService.size, MouseListener {
                     f.turn=1;
                     break;
             }
-           // System.out.println(f.turn);
-            AIService as=new AIwork();
-            char AI;
-            Point p;
+           //System.out.println(f.turn);
+            AI ai;
+            //AIService as=new AIwork();
+            //char AI;
+            Point p=new Point();
             if (f.turn == 1) {
                 c = '2';
-                AI='1';
-                as.Find(f);
+                ai=new AI(f,'1');
+                //AI='1';
+               /* as.Find(f);
                 as.InitSCore(f,AI,c);
                 as.InitSCore_2(f,c,AI);
                 p=as.Max();
                 System.out.println(p.x+"    "+p.y);
                 f.isolation[p.x][p.y]='1';
                 f.chessboard[p.x][p.y]='1';
+
+                */
                 f.turn++;
             } else {
                 c = '1';
-                AI='2';
+                ai=new AI(f,'2');
+               // AI='2';
+                /*
                 as.Find(f);
                 as.InitSCore(f,AI,c);
                 as.InitSCore_2(f,c,AI);
@@ -112,10 +112,32 @@ public class frameL implements checkBoardService.size, MouseListener {
                 System.out.println(p.x+"    "+p.y);
                 f.isolation[p.x][p.y]='2';
                 f.chessboard[p.x][p.y]='2';
+                 */
                 f.turn--;
             }
-            //f.print();
+            ai.Alpha_Beta(p);
             f.left.repaint();
+            switch (js.judge(f,p.x, p.y, c)) {
+                case 1:
+                    break;
+                case 2:
+                    JOptionPane.showMessageDialog(null, "黑方禁手,黑方输");
+                    f.clear();
+                    f.turn=1;
+                    break;
+                case 3:
+                    if(c=='1') JOptionPane.showMessageDialog(null, "黑方输");
+                    else JOptionPane.showMessageDialog(null, "白方输");
+                    f.clear();
+                    f.turn=1;
+                    break;
+                case 4:
+                    if(c=='1')JOptionPane.showMessageDialog(null, "黑方赢");
+                    else JOptionPane.showMessageDialog(null, "白方赢");
+                    f.clear();
+                    f.turn=1;
+                    break;
+            }
         }
        f.print();
     }
