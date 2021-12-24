@@ -138,9 +138,9 @@ public class Board extends JPanel implements checkBoardService.size {
         game.setVisible(true);
     }
     void print(){
-        for(int i=row-1;i>=0;--i){
+        for(int i=0;i<row;++i){
             for(int j=0;j<column;++j){
-               System.out.print(chessboard[i][j]+"  ");
+               System.out.print(isolation[i][j]+"  ");
             }
             System.out.println();
         }

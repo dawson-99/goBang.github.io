@@ -13,10 +13,10 @@ public class AI implements size {
         for (int i = 0; i < row; i++) {
             isavil[i] = board.isolation[i].clone();
         }
-        int Aa = Integer.MAX_VALUE, Ba = Integer.MIN_VALUE;
+        int Alpha = Integer.MAX_VALUE, Beta = Integer.MIN_VALUE;
         AIService aiService = new AIwork();
         aiService.Find(board);
-        aiService.InitSCore(board, '1', (char) board.turn);
+        aiService.InitSCore(board, '2', (char) board.turn);
         Point AIp = aiService.Max();
         setchess(isavil,AIp, (char) board.turn);
         int deepth=0;
