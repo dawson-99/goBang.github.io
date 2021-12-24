@@ -1,6 +1,4 @@
 package com.goBang.model;
-import AIService.AIService;
-import AIService.AIServiceImpl.AIwork;
 import checkBoardService.checkBoardServiceImpl.judgeServiceImpl;
 import checkBoardService.judgeService;
 import javax.swing.*;
@@ -115,7 +113,7 @@ public class frameL implements checkBoardService.size, MouseListener {
                  */
                 f.turn--;
             }
-            ai.Alpha_Beta(p);
+            ai.Alpha_Beta();
             f.left.repaint();
             switch (js.judge(f,p.x, p.y, c)) {
                 case 1:
@@ -139,7 +137,7 @@ public class frameL implements checkBoardService.size, MouseListener {
                     break;
             }
         }
-       f.print();
+       //f.print();
     }
     @Override
     public void mousePressed(MouseEvent e) {

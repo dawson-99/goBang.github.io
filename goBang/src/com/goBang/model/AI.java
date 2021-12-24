@@ -22,23 +22,27 @@ public class AI implements size {
     public void gen(ArrayList<chessman> gen,char turn){
         AIwork aIwork=new AIwork();
         aIwork.Find(board);
-        aIwork.InitSCore(board,turn,'1');//得到playersore数组；
+        //print(board.chessboard);
+        aIwork.InitSCore(board, aiturn, playerturn);
+        aIwork.InitSCore_2(board,playerturn,aiturn);//得到playersore数组；
         //System.out.println(aiturn);
         for (int i=0;i<row;i++){
             for (int j=0;j<column;j++){
-                //System.out.print(aIwork.AIscore[i][j]+"  ");
+                //if(turn==playerturn)System.out.print(aIwork.playerscore[i][j]+"   ");
                 if(aIwork.AIscore[i][j]!=0){
-                    gen.add(new chessman(new Point(i,j),aIwork.AIscore[i][j]));//将合适的点加入评估得到的数组
+                    if(turn==aiturn){
+                        gen.add(new chessman(new Point(i, j), aIwork.AIscore[i][j]));
+                    }else gen.add(new chessman(new Point(i, j), aIwork.playerscore[i][j]));//将合适的点加入评估得到的数组
                 }
             }
-            //System.out.println();
+           // System.out.println();
         }
     }
-    public void Alpha_Beta(Point point){
+    public void Alpha_Beta(){
         int Alpha=Integer.MIN_VALUE,Beta=Integer.MAX_VALUE;
         MINMAX(depth,Alpha,Beta);
         Collections.sort(chessmanArrayList);
-        point=chessmanArrayList.get(0).point;
+        //print(chessmanArrayList);
         setchess(chessmanArrayList.get(0).point);
     }
     public int  MINMAX(int depth,int Alpha,int Beta) {
@@ -50,17 +54,9 @@ public class AI implements size {
         else gen(gen,playerturn);//调用启发式评估函数
         Collections.sort(gen);//排序
         //print(gen);
-        Point p=new Point();
+        Point p=new Point();//new point
         if(depth==0){
-            chessmanArrayList.add(new chessman(p,ed.evaluate(isavil,aiturn)));
             //System.out.println(ed.evaluate(isavil,aiturn));
-            /*for (int i=0;i<row;i++){
-                for(int j=0;j<column;j++){
-                    System.out.print(isavil[i][j]);
-                }
-                System.out.println();
-            }
-             */
             return ed.evaluate(isavil, aiturn);
         }
         while(cot<gen.size()) {
@@ -69,12 +65,18 @@ public class AI implements size {
                 makenextmove(board, aiturn, p);
             }else makenextmove(board,playerturn,p);
             copy(isavil);
-            print(isavil);
+           // print(isavil);
             var val=-MINMAX(depth-1,-Beta,-Alpha);
+            if(depth==this.depth) {
+                chessmanArrayList.add(new chessman(p, ed.evaluate(isavil, aiturn)));//叶子节点结束
+                System.out.println(ed.evaluate(isavil, aiturn));
+            }
             unmakenextmove(board,p);
             copy(isavil);
             if(val>Alpha){
-                if (val >=Beta) return Beta;
+                if (val >=Beta) {
+                    return Beta;
+                }
                 Alpha=val;
             }
                 p.x++;
@@ -86,21 +88,23 @@ public class AI implements size {
         }
         return Alpha;
     }
-    public boolean makenextmove(Board board,char turn,Point p){
-        if(p.x==14&&p.y==14) return false;
+    public void makenextmove(Board board,char turn,Point p){
         if (board.isolation[p.x][p.y]=='0'){
             board.isolation[p.x][p.y]=turn;
+            board.chessboard[p.x][p.y]=turn;
         }
-        return true;
+        //print(board.isolation);
     }
     public void unmakenextmove(Board board,Point p){
         board.isolation[p.x][p.y]='0';
+        board.chessboard[p.x][p.y]='0';
     }
     public boolean over(Board board){
         return false;
     }
     public void setchess( Point AIp){
         board.isolation[AIp.x][AIp.y]=aiturn;
+        board.chessboard[AIp.x][AIp.y]=aiturn;
     }
     public void print(ArrayList<chessman> chessmanArrayList){
         //System.out.println(chessmanArrayList.size());
