@@ -36,14 +36,14 @@ public class judgeServiceImpl implements judgeService {
 
         if (player == '1' ) {
             if (longJudge.Forbidden(board, x, y)) {
-                System.out.println("黑子长连禁手");
-                System.out.println("当前棋盘如下");
-                for (int i = 0; i < 15; i++) {
-                    for (int j = 0; j < 15; j++ ) {
-                        System.out.print(board.isolation[i][j] + " ");
-                    }
-                    System.out.println("");
-                }
+//                System.out.println("黑子长连禁手");
+//                System.out.println("当前棋盘如下");
+//                for (int i = 0; i < 15; i++) {
+//                    for (int j = 0; j < 15; j++ ) {
+//                        System.out.print(board.isolation[i][j] + " ");
+//                    }
+//                    System.out.println("");
+//                }
                 return 2;
             }
 
@@ -53,32 +53,32 @@ public class judgeServiceImpl implements judgeService {
             }
 
             if (forbidden3Judge.Forbidden3(board,x,y)) {
-                System.out.println("黑子三三禁手");
-                System.out.println("当前棋盘如下");
-                for (int i = 0; i < 15; i++) {
-                    for (int j = 0; j < 15; j++ ) {
-                        System.out.print(board.isolation[i][j] + " ");
-                    }
-                    System.out.println("");
-                }
+//                System.out.println("黑子三三禁手");
+//                System.out.println("当前棋盘如下");
+//                for (int i = 0; i < 15; i++) {
+//                    for (int j = 0; j < 15; j++ ) {
+//                        System.out.print(board.isolation[i][j] + " ");
+//                    }
+//                    System.out.println("");
+//                }
 
                 return 2;
             }
 
             if(forbidden4Judge.Forbidden4(board, x, y)) {
-                System.out.println("黑子四四禁手");
-                System.out.println("当前棋盘如下");
-                for (int i = 0; i < 15; i++) {
-                    for (int j = 0; j < 15; j++ ) {
-                        System.out.print(board.isolation[i][j] + " ");
-                    }
-                    System.out.println("");
-                }
+//                System.out.println("黑子四四禁手");
+//                System.out.println("当前棋盘如下");
+//                for (int i = 0; i < 15; i++) {
+//                    for (int j = 0; j < 15; j++ ) {
+//                        System.out.print(board.isolation[i][j] + " ");
+//                    }
+//                    System.out.println("");
+//                }
                 return 2;
             }
         } else {
             if (Win(board, x, y, player)) {
-                System.out.println("白方赢");
+//                System.out.println("白方赢");
                 return 4;
             }
         }
@@ -100,7 +100,6 @@ public class judgeServiceImpl implements judgeService {
         String pattern = "";
         pattern = pattern + player + player + player + player + player;
 //        System.out.println(pattern);
-        board.isolation[x][y] = player;
         int position_x = x;
         int position_y = y;
 

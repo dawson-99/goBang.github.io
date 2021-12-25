@@ -11,6 +11,7 @@ public class evaluated {
             player='2';
         }else player='1';
         String length_5=ai+ai+ai+ai+ai+"";
+<<<<<<< HEAD
         String alive_4="0"+ai+ai+ai+ai+"0"+"";
         String died_41="0"+ai+ai+ai+ai+player+"";
         String died_42=ai+"0"+ai+ai+ai+"";
@@ -41,6 +42,31 @@ public class evaluated {
         String died_26=player+ai+"0"+ai+"0"+"0"+"";
         String died_27=player+ai+"0"+"0"+ai+"0"+"";
         String alive_1="0"+ai+"0"+"";
+=======
+        String alive_4='0'+ai+ai+ai+ai+'0'+"";
+        String died_41='0'+ai+ai+ai+ai+player+"";
+        String died_42=ai+'0'+ai+ai+ai+"";
+        String died_43=ai+ai+'0'+ai+ai+"";
+        String died_44=ai+ai+ai+'0'+ai+"";
+        String died_45=player+ai+ai+ai+ai+'0'+"";
+        String alive_31='0'+ai+ai+ai+'0'+"";
+        String alive_32=ai+'0'+ai+ai+"";
+        String alive_33=ai+ai+'0'+ai+"";
+        String died_31='0'+'0'+ai+ai+ai+player+"";
+        String died_32='0'+ai+'0'+ai+ai+player+"";
+        String died_33='0'+ai+ai+'0'+ai+player+"";
+        String died_34=ai+'0'+'0'+ai+ai+"";
+        String died_35=ai+'0'+ai+'0'+ai+"";
+        String died_36=player+'0'+ai+ai+ai+'0'+player+"";
+        String alive_21='0'+'0'+ai+ai+'0'+'0'+"";
+        String alive_22='0'+ai+'0'+ai+'0'+"";
+        String alive_23=ai+'0'+'0'+ai+"";
+        String died_21='0'+'0'+'0'+ai+ai+player+"";
+        String died_22='0'+'0'+ai+'0'+ai+player+"";
+        String died_23='0'+ai+'0'+'0'+ai+player+"";
+        String died_24=ai+'0'+'0'+'0'+ai+"";
+        String alive_1='0'+ai+'0'+"";
+>>>>>>> 076a90d0393f8177491f7517a7dc3d92f32eeaa5
         String []model=new String[88];
         for(int k=0;k<15;k++) {
             //横线
