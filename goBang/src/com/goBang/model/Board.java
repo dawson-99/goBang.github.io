@@ -145,7 +145,6 @@ public class Board extends JPanel implements checkBoardService.size {
             System.out.println();
         }
     }
-
     void clear(){
         for(int i=0;i<row;++i){
             for(int j=0;j<column;++j){
@@ -154,5 +153,4 @@ public class Board extends JPanel implements checkBoardService.size {
             }
         }
     }
-
 }

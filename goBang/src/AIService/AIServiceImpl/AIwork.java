@@ -42,15 +42,15 @@ public class AIwork implements AIService {
                         Point a = new Point(i + 1, j - 1);
                         target.add(a);
                     }
-                    if (board.chessboard[i][j + 1] == '0') {
+                    if (j+1<15&&board.chessboard[i][j + 1] == '0') {
                         Point a = new Point(i, j + 1);
                         target.add(a);
                     }
-                    if (board.chessboard[i + 1][j + 1] == '0') {
+                    if (i+1<15&&j+1<15&&board.chessboard[i + 1][j + 1] == '0') {
                         Point a = new Point(i + 1, j + 1);
                         target.add(a);
                     }
-                    if (board.chessboard[i + 1][j] == '0') {
+                    if (i+1<15&&board.chessboard[i + 1][j] == '0') {
                         Point a = new Point(i + 1, j);
                         target.add(a);
                     }
@@ -168,7 +168,7 @@ public class AIwork implements AIService {
             String code = AI + "";
             //活四
             String alive_4 = "0" + AI + AI + AI + AI + "0" + "";
-            String Ncode = "";
+            String Ncode= "0";
             //横向
             array = 4;
             for (int j = (int) target.get(i).getX() - 1; j >= 0 && array > 0; j--) {
@@ -187,7 +187,7 @@ public class AIwork implements AIService {
             }
             //纵向
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getY() + 1; j < column && array > 0; j++) {
                 array--;
@@ -195,7 +195,7 @@ public class AIwork implements AIService {
                 Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
             }
             array = 4;
-            for (int k = (int) target.get(i).getY() - 1; k >= 0; k--) {
+            for (int k = (int) target.get(i).getY() - 1; k >= 0&&array>0; k--) {
                 array--;
                 code = board.chessboard[(int) target.get(i).getX()][k] + code;
                 Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
@@ -205,7 +205,7 @@ public class AIwork implements AIService {
             }
             //斜线方向\
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getX() - 1, k = (int) target.get(i).getY() + 1; j >= 0 && k < column && array > 0; j--, k++) {
                 array--;
@@ -223,7 +223,7 @@ public class AIwork implements AIService {
             }
             //反斜线方向/
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getX() + 1, k = (int) target.get(i).getY() + 1; j < row && k < column && array > 0; j++, k++) {
                 array--;
@@ -250,7 +250,7 @@ public class AIwork implements AIService {
             int number_highdie_4 = 0;//记录有几个眠四
             //横向
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getX() - 1; j >= 0 && array > 0; j--) {
                 array--;
@@ -283,7 +283,7 @@ public class AIwork implements AIService {
             }
             //纵向
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getY() + 1; j < column && array > 0; j++) {
                 array--;
@@ -291,7 +291,7 @@ public class AIwork implements AIService {
                 Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
             }
             array = 4;
-            for (int k = (int) target.get(i).getY() - 1; k >= 0; k--) {
+            for (int k = (int) target.get(i).getY() - 1; k >= 0&&array>0; k--) {
                 array--;
                 code = board.chessboard[(int) target.get(i).getX()][k] + code;
                 Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
@@ -316,7 +316,7 @@ public class AIwork implements AIService {
             }
             //斜线方向\
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getX() - 1, k = (int) target.get(i).getY() + 1; j >= 0 && k < column && array > 0; j--, k++) {
                 array--;
@@ -349,7 +349,7 @@ public class AIwork implements AIService {
             }
             //反斜线方向/
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getX() + 1, k = (int) target.get(i).getY() + 1; j < row && k < column && array > 0; j++, k++) {
                 array--;
@@ -391,7 +391,7 @@ public class AIwork implements AIService {
             String Talive_3 = AI + AI + "0" + AI + "";//跳活三
             //横向
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getX() - 1; j >= 0 && array > 0; j--) {
                 array--;
@@ -415,7 +415,7 @@ public class AIwork implements AIService {
             }
             //纵向
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getY() + 1; j < column && array > 0; j++) {
                 array--;
@@ -423,7 +423,7 @@ public class AIwork implements AIService {
                 Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
             }
             array = 4;
-            for (int k = (int) target.get(i).getY() - 1; k >= 0; k--) {
+            for (int k = (int) target.get(i).getY() - 1; k >= 0&&array>0; k--) {
                 array--;
                 code = board.chessboard[(int) target.get(i).getX()][k] + code;
                 Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
@@ -439,7 +439,7 @@ public class AIwork implements AIService {
             }
             //斜线方向\
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getX() - 1, k = (int) target.get(i).getY() + 1; j >= 0 && k < column && array > 0; j--, k++) {
                 array--;
@@ -463,7 +463,7 @@ public class AIwork implements AIService {
             }
             //反斜线方向/
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getX() + 1, k = (int) target.get(i).getY() + 1; j < row && k < column && array > 0; j++, k++) {
                 array--;
@@ -509,7 +509,7 @@ public class AIwork implements AIService {
             int number_die_3 = 0;//记录眠三的数量
             //横向
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getX() - 1; j >= 0 && array > 0; j--) {
                 array--;
@@ -554,7 +554,7 @@ public class AIwork implements AIService {
             }
             //纵向
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getY() + 1; j < column && array > 0; j++) {
                 array--;
@@ -562,7 +562,7 @@ public class AIwork implements AIService {
                 Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
             }
             array = 4;
-            for (int k = (int) target.get(i).getY() - 1; k >= 0; k--) {
+            for (int k = (int) target.get(i).getY() - 1; k >= 0&&array>0; k--) {
                 array--;
                 code = board.chessboard[(int) target.get(i).getX()][k] + code;
                 Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
@@ -599,7 +599,7 @@ public class AIwork implements AIService {
             }
             //斜线方向\
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getX() - 1, k = (int) target.get(i).getY() + 1; j >= 0 && k < column && array > 0; j--, k++) {
                 array--;
@@ -644,7 +644,7 @@ public class AIwork implements AIService {
             }
             //反斜线方向/
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getX() + 1, k = (int) target.get(i).getY() + 1; j < row && k < column && array > 0; j++, k++) {
                 array--;
@@ -711,7 +711,7 @@ public class AIwork implements AIService {
             int number_tiaoalive_3 = 0;
             //横向
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getX() - 1; j >= 0 && array > 0; j--) {
                 array--;
@@ -732,7 +732,7 @@ public class AIwork implements AIService {
             }
             //纵向
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getY() + 1; j < column && array > 0; j++) {
                 array--;
@@ -740,7 +740,7 @@ public class AIwork implements AIService {
                 Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
             }
             array = 4;
-            for (int k = (int) target.get(i).getY() - 1; k >= 0; k--) {
+            for (int k = (int) target.get(i).getY() - 1; k >= 0&&array>0; k--) {
                 array--;
                 code = board.chessboard[(int) target.get(i).getX()][k] + code;
                 Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
@@ -753,7 +753,7 @@ public class AIwork implements AIService {
             }
             //斜线方向\
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getX() - 1, k = (int) target.get(i).getY() + 1; j >= 0 && k < column && array > 0; j--, k++) {
                 array--;
@@ -774,7 +774,7 @@ public class AIwork implements AIService {
             }
             //反斜线方向/
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getX() + 1, k = (int) target.get(i).getY() + 1; j < row && k < column && array > 0; j++, k++) {
                 array--;
@@ -805,7 +805,7 @@ public class AIwork implements AIService {
             int number_alive_2 = 0;//记录活二的数量
             //横向
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getX() - 1; j >= 0 && array > 0; j--) {
                 array--;
@@ -829,7 +829,7 @@ public class AIwork implements AIService {
             }
             //纵向
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getY() + 1; j < column && array > 0; j++) {
                 array--;
@@ -837,7 +837,7 @@ public class AIwork implements AIService {
                 Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
             }
             array = 4;
-            for (int k = (int) target.get(i).getY() - 1; k >= 0; k--) {
+            for (int k = (int) target.get(i).getY() - 1; k >= 0&&array>0; k--) {
                 array--;
                 code = board.chessboard[(int) target.get(i).getX()][k] + code;
                 Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
@@ -853,7 +853,7 @@ public class AIwork implements AIService {
             }
             //斜线方向\
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getX() - 1, k = (int) target.get(i).getY() + 1; j >= 0 && k < column && array > 0; j--, k++) {
                 array--;
@@ -877,7 +877,7 @@ public class AIwork implements AIService {
             }
             //反斜线方向/
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getX() + 1, k = (int) target.get(i).getY() + 1; j < row && k < column && array > 0; j++, k++) {
                 array--;
@@ -923,7 +923,7 @@ public class AIwork implements AIService {
             int number_die_2 = 0;//记录二的数量
             //横向
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getX() - 1; j >= 0 && array > 0; j--) {
                 array--;
@@ -959,7 +959,7 @@ public class AIwork implements AIService {
             }
             //纵向
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getY() + 1; j < column && array > 0; j++) {
                 array--;
@@ -967,7 +967,7 @@ public class AIwork implements AIService {
                 Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
             }
             array = 4;
-            for (int k = (int) target.get(i).getY() - 1; k >= 0; k--) {
+            for (int k = (int) target.get(i).getY() - 1; k >= 0&&array>0; k--) {
                 array--;
                 code = board.chessboard[(int) target.get(i).getX()][k] + code;
                 Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
@@ -995,7 +995,7 @@ public class AIwork implements AIService {
             }
             //斜线方向\
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getX() - 1, k = (int) target.get(i).getY() + 1; j >= 0 && k < column && array > 0; j--, k++) {
                 array--;
@@ -1031,7 +1031,7 @@ public class AIwork implements AIService {
             }
             //反斜线方向/
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getX() + 1, k = (int) target.get(i).getY() + 1; j < row && k < column && array > 0; j++, k++) {
                 array--;
@@ -1180,7 +1180,7 @@ public class AIwork implements AIService {
             String code = AI + "";
             //活四
             String alive_4 = "0" + AI + AI + AI + AI + "0" + "";
-            String Ncode = "";
+            String Ncode= "0";
             //横向
             array = 4;
             for (int j = (int) target.get(i).getX() - 1; j >= 0 && array > 0; j--) {
@@ -1199,7 +1199,7 @@ public class AIwork implements AIService {
             }
             //纵向
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getY() + 1; j < column && array > 0; j++) {
                 array--;
@@ -1207,7 +1207,7 @@ public class AIwork implements AIService {
                 Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
             }
             array = 4;
-            for (int k = (int) target.get(i).getY() - 1; k >= 0; k--) {
+            for (int k = (int) target.get(i).getY() - 1; k >= 0&&array>0; k--) {
                 array--;
                 code = board.chessboard[(int) target.get(i).getX()][k] + code;
                 Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
@@ -1217,7 +1217,7 @@ public class AIwork implements AIService {
             }
             //斜线方向\
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getX() - 1, k = (int) target.get(i).getY() + 1; j >= 0 && k < column && array > 0; j--, k++) {
                 array--;
@@ -1235,7 +1235,7 @@ public class AIwork implements AIService {
             }
             //反斜线方向/
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getX() + 1, k = (int) target.get(i).getY() + 1; j < row && k < column && array > 0; j++, k++) {
                 array--;
@@ -1262,7 +1262,7 @@ public class AIwork implements AIService {
             int number_highdie_4 = 0;//记录有几个眠四
             //横向
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getX() - 1; j >= 0 && array > 0; j--) {
                 array--;
@@ -1295,7 +1295,7 @@ public class AIwork implements AIService {
             }
             //纵向
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getY() + 1; j < column && array > 0; j++) {
                 array--;
@@ -1303,7 +1303,7 @@ public class AIwork implements AIService {
                 Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
             }
             array = 4;
-            for (int k = (int) target.get(i).getY() - 1; k >= 0; k--) {
+            for (int k = (int) target.get(i).getY() - 1; k >= 0&&array>0; k--) {
                 array--;
                 code = board.chessboard[(int) target.get(i).getX()][k] + code;
                 Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
@@ -1328,7 +1328,7 @@ public class AIwork implements AIService {
             }
             //斜线方向\
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getX() - 1, k = (int) target.get(i).getY() + 1; j >= 0 && k < column && array > 0; j--, k++) {
                 array--;
@@ -1361,7 +1361,7 @@ public class AIwork implements AIService {
             }
             //反斜线方向/
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getX() + 1, k = (int) target.get(i).getY() + 1; j < row && k < column && array > 0; j++, k++) {
                 array--;
@@ -1403,7 +1403,7 @@ public class AIwork implements AIService {
             String Talive_3 = AI + AI + "0" + AI + "";//跳活三
             //横向
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getX() - 1; j >= 0 && array > 0; j--) {
                 array--;
@@ -1427,7 +1427,7 @@ public class AIwork implements AIService {
             }
             //纵向
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getY() + 1; j < column && array > 0; j++) {
                 array--;
@@ -1435,7 +1435,7 @@ public class AIwork implements AIService {
                 Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
             }
             array = 4;
-            for (int k = (int) target.get(i).getY() - 1; k >= 0; k--) {
+            for (int k = (int) target.get(i).getY() - 1; k >= 0&&array>0; k--) {
                 array--;
                 code = board.chessboard[(int) target.get(i).getX()][k] + code;
                 Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
@@ -1451,7 +1451,7 @@ public class AIwork implements AIService {
             }
             //斜线方向\
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getX() - 1, k = (int) target.get(i).getY() + 1; j >= 0 && k < column && array > 0; j--, k++) {
                 array--;
@@ -1475,7 +1475,7 @@ public class AIwork implements AIService {
             }
             //反斜线方向/
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getX() + 1, k = (int) target.get(i).getY() + 1; j < row && k < column && array > 0; j++, k++) {
                 array--;
@@ -1521,7 +1521,7 @@ public class AIwork implements AIService {
             int number_die_3 = 0;//记录眠三的数量
             //横向
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getX() - 1; j >= 0 && array > 0; j--) {
                 array--;
@@ -1566,7 +1566,7 @@ public class AIwork implements AIService {
             }
             //纵向
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getY() + 1; j < column && array > 0; j++) {
                 array--;
@@ -1574,7 +1574,7 @@ public class AIwork implements AIService {
                 Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
             }
             array = 4;
-            for (int k = (int) target.get(i).getY() - 1; k >= 0; k--) {
+            for (int k = (int) target.get(i).getY() - 1; k >= 0&&array>0; k--) {
                 array--;
                 code = board.chessboard[(int) target.get(i).getX()][k] + code;
                 Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
@@ -1611,7 +1611,7 @@ public class AIwork implements AIService {
             }
             //斜线方向\
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getX() - 1, k = (int) target.get(i).getY() + 1; j >= 0 && k < column && array > 0; j--, k++) {
                 array--;
@@ -1656,7 +1656,7 @@ public class AIwork implements AIService {
             }
             //反斜线方向/
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getX() + 1, k = (int) target.get(i).getY() + 1; j < row && k < column && array > 0; j++, k++) {
                 array--;
@@ -1723,7 +1723,7 @@ public class AIwork implements AIService {
             int number_tiaoalive_3 = 0;
             //横向
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getX() - 1; j >= 0 && array > 0; j--) {
                 array--;
@@ -1744,7 +1744,7 @@ public class AIwork implements AIService {
             }
             //纵向
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getY() + 1; j < column && array > 0; j++) {
                 array--;
@@ -1752,7 +1752,7 @@ public class AIwork implements AIService {
                 Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
             }
             array = 4;
-            for (int k = (int) target.get(i).getY() - 1; k >= 0; k--) {
+            for (int k = (int) target.get(i).getY() - 1; k >= 0&&array>0; k--) {
                 array--;
                 code = board.chessboard[(int) target.get(i).getX()][k] + code;
                 Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
@@ -1765,7 +1765,7 @@ public class AIwork implements AIService {
             }
             //斜线方向\
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getX() - 1, k = (int) target.get(i).getY() + 1; j >= 0 && k < column && array > 0; j--, k++) {
                 array--;
@@ -1786,7 +1786,7 @@ public class AIwork implements AIService {
             }
             //反斜线方向/
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getX() + 1, k = (int) target.get(i).getY() + 1; j < row && k < column && array > 0; j++, k++) {
                 array--;
@@ -1817,7 +1817,7 @@ public class AIwork implements AIService {
             int number_alive_2 = 0;//记录活二的数量
             //横向
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getX() - 1; j >= 0 && array > 0; j--) {
                 array--;
@@ -1841,7 +1841,7 @@ public class AIwork implements AIService {
             }
             //纵向
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getY() + 1; j < column && array > 0; j++) {
                 array--;
@@ -1849,7 +1849,7 @@ public class AIwork implements AIService {
                 Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
             }
             array = 4;
-            for (int k = (int) target.get(i).getY() - 1; k >= 0; k--) {
+            for (int k = (int) target.get(i).getY() - 1; k >= 0&&array>0; k--) {
                 array--;
                 code = board.chessboard[(int) target.get(i).getX()][k] + code;
                 Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
@@ -1865,7 +1865,7 @@ public class AIwork implements AIService {
             }
             //斜线方向\
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getX() - 1, k = (int) target.get(i).getY() + 1; j >= 0 && k < column && array > 0; j--, k++) {
                 array--;
@@ -1889,7 +1889,7 @@ public class AIwork implements AIService {
             }
             //反斜线方向/
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getX() + 1, k = (int) target.get(i).getY() + 1; j < row && k < column && array > 0; j++, k++) {
                 array--;
@@ -1935,7 +1935,7 @@ public class AIwork implements AIService {
             int number_die_2 = 0;//记录二的数量
             //横向
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getX() - 1; j >= 0 && array > 0; j--) {
                 array--;
@@ -1971,7 +1971,7 @@ public class AIwork implements AIService {
             }
             //纵向
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getY() + 1; j < column && array > 0; j++) {
                 array--;
@@ -1979,7 +1979,7 @@ public class AIwork implements AIService {
                 Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
             }
             array = 4;
-            for (int k = (int) target.get(i).getY() - 1; k >= 0; k--) {
+            for (int k = (int) target.get(i).getY() - 1; k >= 0&&array>0; k--) {
                 array--;
                 code = board.chessboard[(int) target.get(i).getX()][k] + code;
                 Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
@@ -2007,7 +2007,7 @@ public class AIwork implements AIService {
             }
             //斜线方向\
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getX() - 1, k = (int) target.get(i).getY() + 1; j >= 0 && k < column && array > 0; j--, k++) {
                 array--;
@@ -2043,7 +2043,7 @@ public class AIwork implements AIService {
             }
             //反斜线方向/
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getX() + 1, k = (int) target.get(i).getY() + 1; j < row && k < column && array > 0; j++, k++) {
                 array--;
@@ -2094,10 +2094,10 @@ public class AIwork implements AIService {
         String alive_31="0"+player+player+player+"0";
         String alive_32=player+"0"+player+player;
         String alive_33 = player+player+"0"+player;
-        String code = AI + "";
-        String Ncode="";
         Point a=null;
         for(int i=0;i<target.size();i++){
+            String code = AI + "";
+            String Ncode="0";
             //横向
             int array = 4;
             for (int j = (int) target.get(i).getX() - 1; j >= 0 && array > 0; j--) {
@@ -2137,7 +2137,7 @@ public class AIwork implements AIService {
             }
             //纵向
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getY() + 1; j < column && array > 0; j++) {
                 array--;
@@ -2145,11 +2145,12 @@ public class AIwork implements AIService {
                 Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
             }
             array = 4;
-            for (int k = (int) target.get(i).getY() - 1; k >= 0; k--) {
+            for (int k = (int) target.get(i).getY() - 1; k >= 0&&array>0; k--) {
                 array--;
                 code = board.chessboard[(int) target.get(i).getX()][k] + code;
                 Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
             }
+            
             if (!code.contains(die_41) && Ncode.contains(die_41)) {
                 return target.get(i);
             }
@@ -2176,7 +2177,7 @@ public class AIwork implements AIService {
             }
             //斜线方向\
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getX() - 1, k = (int) target.get(i).getY() + 1; j >= 0 && k < column && array > 0; j--, k++) {
                 array--;
@@ -2189,6 +2190,7 @@ public class AIwork implements AIService {
                 code = board.chessboard[j][k] + code;
                 Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
             }
+            
             if (!code.contains(die_41) && Ncode.contains(die_41)) {
                 return target.get(i);
             }
@@ -2215,7 +2217,7 @@ public class AIwork implements AIService {
             }
             //反斜线方向/
             code = AI + "";
-            Ncode = "";
+            Ncode= "0";
             array = 4;
             for (int j = (int) target.get(i).getX() + 1, k = (int) target.get(i).getY() + 1; j < row && k < column && array > 0; j++, k++) {
                 array--;
@@ -2228,6 +2230,7 @@ public class AIwork implements AIService {
                 code = board.chessboard[j][k] + code;
                 Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
             }
+            
             if (!code.contains(die_41) && Ncode.contains(die_41)) {
                 return target.get(i);
             }
@@ -2253,6 +2256,6 @@ public class AIwork implements AIService {
                 return target.get(i);
             }
         }
-        return a;
+        return null;
     }
 }

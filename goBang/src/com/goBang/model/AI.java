@@ -29,6 +29,7 @@ public class AI implements size {
         if(depth==this.depth){
             if (aIwork.Max(board, aiturn, playerturn) != null) {
                 max = aIwork.Max(board, aiturn, playerturn);
+                System.out.println(max.x+" "+max.y);
                 return;
             }
         }
@@ -55,7 +56,7 @@ public class AI implements size {
             return;
         }
         Collections.sort(chessmanArrayList);
-        print(chessmanArrayList);
+        //print(chessmanArrayList);
         setchess(chessmanArrayList.get(0).point);
     }
     public int  MINMAX(int depth,int Alpha,int Beta) {
@@ -86,7 +87,7 @@ public class AI implements size {
             var val=-MINMAX(depth-1,-Beta,-Alpha);
             if(depth==this.depth) {
                 chessmanArrayList.add(new chessman(p,ed.evaluate(isavil, aiturn)));//叶子节点结束
-                print(chessmanArrayList);
+               // print(chessmanArrayList);
             }
             unmakenextmove(board,p);
             copy(isavil);
