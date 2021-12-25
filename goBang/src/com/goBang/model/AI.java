@@ -22,13 +22,15 @@ public class AI implements size {
         copy(isavil);
         ed=new evaluated();
     }
-    public void gen(ArrayList<chessman> gen,char turn){
+    public void gen(ArrayList<chessman> gen,char turn,int depth){
         AIwork aIwork=new AIwork();
         aIwork.Find(board);
         //print(board.chessboard);
-        if(aIwork.Max(board,aiturn,playerturn)!=null) {
-            max = aIwork.Max(board, aiturn, playerturn);
-            return;
+        if(depth==this.depth){
+            if (aIwork.Max(board, aiturn, playerturn) != null) {
+                max = aIwork.Max(board, aiturn, playerturn);
+                return;
+            }
         }
         aIwork.InitSCore(board, aiturn, playerturn);
         aIwork.InitSCore_2(board,playerturn,aiturn);//得到playersore数组；
@@ -60,9 +62,9 @@ public class AI implements size {
         int cot=0;//启发式评估函数排序后的取数顺序。
         ArrayList<chessman> gen=new ArrayList<>();//启发式评估函数点的存储
         if(depth%2==0){
-            gen(gen,aiturn);
+            gen(gen,aiturn,depth);
         }
-        else gen(gen,playerturn);//调用启发式评估函数
+        else gen(gen,playerturn,depth);//调用启发式评估函数
         if(max!=null) return 0;
         Collections.sort(gen);//排序
         //print(gen);
@@ -76,16 +78,8 @@ public class AI implements size {
             p=gen.get(cot).point;
             if (depth % 2 == 0) {
                 makenextmove(board, aiturn, p);
-                if (judgeService.judge(board, p.x, p.y, aiturn) == 2) {
-                 cot++;
-                continue;
-                }
             } else {
                 makenextmove(board, playerturn, p);
-                 if (judgeService.judge(board, p.x, p.y, playerturn) == 2) {
-                     cot++;
-                    continue;
-                }
             }
             copy(isavil);
            // print(isavil);
