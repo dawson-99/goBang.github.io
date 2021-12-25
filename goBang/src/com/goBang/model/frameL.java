@@ -115,27 +115,6 @@ public class frameL implements checkBoardService.size, MouseListener {
             }
             ai.Alpha_Beta();
             f.left.repaint();
-            switch (js.judge(f,p.x, p.y, c)) {
-                case 1:
-                    break;
-                case 2:
-                    JOptionPane.showMessageDialog(null, "黑方禁手,黑方输");
-                    f.clear();
-                    f.turn=1;
-                    break;
-                case 3:
-                    if(c=='1') JOptionPane.showMessageDialog(null, "黑方输");
-                    else JOptionPane.showMessageDialog(null, "白方输");
-                    f.clear();
-                    f.turn=1;
-                    break;
-                case 4:
-                    if(c=='1')JOptionPane.showMessageDialog(null, "黑方赢");
-                    else JOptionPane.showMessageDialog(null, "白方赢");
-                    f.clear();
-                    f.turn=1;
-                    break;
-            }
         }
        //f.print();
     }

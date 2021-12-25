@@ -10,10 +10,11 @@ public class ComboxL implements ItemListener {
     }
     @Override
     public void itemStateChanged(ItemEvent e) {
-        if (e.getItem().toString().equals("自由开局")) {
-
-            } else if (e.getItem().toString().equals("指定开局")) {
-
+        if (e.getItem().toString().equals("先手")) {
+            } else if (e.getItem().toString().equals("后手")) {
+            f.isolation[7][7]=f.chessboard[7][7]='1';
+            f.left.repaint();
+            f.turn++;
             }
         }
 

@@ -1,5 +1,7 @@
 package com.goBang.model;
 import AIService.AIServiceImpl.AIwork;
+import checkBoardService.checkBoardServiceImpl.judgeServiceImpl;
+import checkBoardService.judgeService;
 import checkBoardService.size;
 import java.awt.*;
 import java.util.ArrayList;
@@ -11,6 +13,7 @@ public class AI implements size {
     char[][] isavil = new char[row][column];
     evaluated ed;
     ArrayList<chessman> chessmanArrayList=new ArrayList<>();
+    Point max=null;
     AI(Board board,char AI){
         this.board=board;
         aiturn=AI;
@@ -23,6 +26,10 @@ public class AI implements size {
         AIwork aIwork=new AIwork();
         aIwork.Find(board);
         //print(board.chessboard);
+        if(aIwork.Max(board,aiturn,playerturn)!=null) {
+            max = aIwork.Max(board, aiturn, playerturn);
+            return;
+        }
         aIwork.InitSCore(board, aiturn, playerturn);
         aIwork.InitSCore_2(board,playerturn,aiturn);//得到playersore数组；
         //System.out.println(aiturn);
@@ -41,8 +48,12 @@ public class AI implements size {
     public void Alpha_Beta(){
         int Alpha=Integer.MIN_VALUE,Beta=Integer.MAX_VALUE;
         MINMAX(depth,Alpha,Beta);
+        if(max!=null) {
+            setchess(max);
+            return;
+        }
         Collections.sort(chessmanArrayList);
-        //print(chessmanArrayList);
+        print(chessmanArrayList);
         setchess(chessmanArrayList.get(0).point);
     }
     public int  MINMAX(int depth,int Alpha,int Beta) {
@@ -52,24 +63,36 @@ public class AI implements size {
             gen(gen,aiturn);
         }
         else gen(gen,playerturn);//调用启发式评估函数
+        if(max!=null) return 0;
         Collections.sort(gen);//排序
         //print(gen);
-        Point p=new Point();//new point
+        Point p;//new point
         if(depth==0){
             //System.out.println(ed.evaluate(isavil,aiturn));
             return ed.evaluate(isavil, aiturn);
         }
         while(cot<gen.size()) {
+            judgeService judgeService=new judgeServiceImpl();
             p=gen.get(cot).point;
-            if(depth%2==0){
+            if (depth % 2 == 0) {
                 makenextmove(board, aiturn, p);
-            }else makenextmove(board,playerturn,p);
+                if (judgeService.judge(board, p.x, p.y, aiturn) == 2) {
+                 cot++;
+                continue;
+                }
+            } else {
+                makenextmove(board, playerturn, p);
+                 if (judgeService.judge(board, p.x, p.y, playerturn) == 2) {
+                     cot++;
+                    continue;
+                }
+            }
             copy(isavil);
            // print(isavil);
             var val=-MINMAX(depth-1,-Beta,-Alpha);
             if(depth==this.depth) {
-                chessmanArrayList.add(new chessman(p, ed.evaluate(isavil, aiturn)));//叶子节点结束
-                System.out.println(ed.evaluate(isavil, aiturn));
+                chessmanArrayList.add(new chessman(p,ed.evaluate(isavil, aiturn)));//叶子节点结束
+                print(chessmanArrayList);
             }
             unmakenextmove(board,p);
             copy(isavil);

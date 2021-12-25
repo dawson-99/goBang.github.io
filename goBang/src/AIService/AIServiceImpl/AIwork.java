@@ -1,57 +1,56 @@
 package AIService.AIServiceImpl;
-
 import AIService.AIService;
 import com.goBang.model.Board;
-
 import java.awt.*;
 import java.util.ArrayList;
-
 import static checkBoardService.size.column;
 import static checkBoardService.size.row;
-
 public class AIwork implements AIService {
     //黑1 白2 空0
     //各个点的AIscore得分数组；
-    public int [][]AIscore=new int[row][column];
+    public int[][] AIscore = new int[row][column];
     //各个点player的得分数组
-    public int [][] playerscore=new int[row][column];
+    public int[][] playerscore = new int[row][column];
     //target的point类
     ArrayList<Point> target = new ArrayList<>();
+    Point MAX = new Point();
+
     //找出棋盘上全部的棋子旁边的位置 标记;
-    public void Find(Board board){
-        for(int i=0;i<row;i++){
-            for(int j=0;j<column;j++){
-                if(board.chessboard[i][j]!='0'){//找到棋子
+    public void Find(Board board) {
+        target.clear();
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < column; j++) {
+                if (board.chessboard[i][j] != '0') {//找到棋子
                     //做标记
-                    if(i-1>=0&&j+1<15&&board.chessboard[i-1][j+1]=='0'){//找到棋子附近位置且该位置在棋盘内且未被填写棋子
-                        Point a=new Point(i-1,j+1);
+                    if (i - 1 >= 0 && j + 1 < 15 && board.chessboard[i - 1][j + 1] == '0') {//找到棋子附近位置且该位置在棋盘内且未被填写棋子
+                        Point a = new Point(i - 1, j + 1);
                         target.add(a);
                     }
-                    if(i-1>=0&&board.chessboard[i-1][j]=='0'){
-                        Point a=new Point(i-1,j);
+                    if (i - 1 >= 0 && board.chessboard[i - 1][j] == '0') {
+                        Point a = new Point(i - 1, j);
                         target.add(a);
                     }
-                    if(i-1>=0&&j-1>=0&&board.chessboard[i-1][j-1]=='0'){
-                        Point a=new Point(i-1,j-1);
+                    if (i - 1 >= 0 && j - 1 >= 0 && board.chessboard[i - 1][j - 1] == '0') {
+                        Point a = new Point(i - 1, j - 1);
                         target.add(a);
                     }
-                    if(j-1>=0&&board.chessboard[i][j-1]=='0'){
-                        Point a=new Point(i,j-1);
+                    if (j - 1 >= 0 && board.chessboard[i][j - 1] == '0') {
+                        Point a = new Point(i, j - 1);
                         target.add(a);
                     }
-                    if(j-1>=0&&i+1<15&&board.chessboard[i+1][j-1]=='0'){
-                        Point a=new Point(i+1,j-1);
+                    if (j - 1 >= 0 && i + 1 < 15 && board.chessboard[i + 1][j - 1] == '0') {
+                        Point a = new Point(i + 1, j - 1);
                         target.add(a);
                     }
-                    if(board.chessboard[i][j+1]=='0') {
+                    if (board.chessboard[i][j + 1] == '0') {
                         Point a = new Point(i, j + 1);
                         target.add(a);
                     }
-                    if(board.chessboard[i+1][j+1]=='0') {
+                    if (board.chessboard[i + 1][j + 1] == '0') {
                         Point a = new Point(i + 1, j + 1);
                         target.add(a);
                     }
-                    if(board.chessboard[i+1][j]=='0') {
+                    if (board.chessboard[i + 1][j] == '0') {
                         Point a = new Point(i + 1, j);
                         target.add(a);
                     }
@@ -61,10 +60,10 @@ public class AIwork implements AIService {
     }
 
     //对target中的每个位置的八个方向进行评分,取各个方向的四个棋子
-    public void InitSCore(Board board, char AI,char player) {
+    public void InitSCore(Board board, char AI, char player) {
         //活五
         //向左
-        for(int i=0;i<column;i++){
+        for (int i = 0; i < column; i++) {
             for (int j = 0; j < row; j++) {
                 AIscore[i][j] = 0;
             }
@@ -247,7 +246,7 @@ public class AIwork implements AIService {
             String Thighdie_4 = AI + AI + "0" + AI + AI + "";
             String FOhighdie_4 = AI + AI + AI + "0" + AI + "";
             String fihighdie_4 = player + AI + AI + AI + AI + "0" + "";
-            String shighdie_4=player+AI+AI+AI+AI+"0"+"";
+            String shighdie_4 = player + AI + AI + AI + AI + "0" + "";
             int number_highdie_4 = 0;//记录有几个眠四
             //横向
             code = AI + "";
@@ -503,10 +502,10 @@ public class AIwork implements AIService {
             String FOdie_3 = AI + "0" + "0" + AI + AI + "";
             String fidie_3 = AI + "0" + AI + "0" + AI + "";
             String Sidie_3 = player + "0" + AI + AI + AI + "0" + player + "";
-            String died_37=player+AI+AI+AI+"0"+"0"+"";
-            String died_38=player+AI+AI+"0"+AI+"0"+"";
-            String died_39=player+AI+"0"+AI+AI+"0"+"";
-            String died_310=AI+AI+"0"+"0"+AI+"";
+            String died_37 = player + AI + AI + AI + "0" + "0" + "";
+            String died_38 = player + AI + AI + "0" + AI + "0" + "";
+            String died_39 = player + AI + "0" + AI + AI + "0" + "";
+            String died_310 = AI + AI + "0" + "0" + AI + "";
             int number_die_3 = 0;//记录眠三的数量
             //横向
             code = AI + "";
@@ -918,9 +917,9 @@ public class AIwork implements AIService {
             String Sdie_2 = "0" + "0" + AI + "0" + AI + player + "";
             String Tdie_2 = "0" + AI + "0" + "0" + AI + player + "";
             String Fodie_2 = AI + "0" + "0" + "0" + AI + "";
-            String died_25=player+AI+AI+"0"+"0"+"0"+"";
-            String died_26=player+AI+"0"+AI+"0"+"0"+"";
-            String died_27=player+AI+"0"+"0"+AI+"0"+"";
+            String died_25 = player + AI + AI + "0" + "0" + "0" + "";
+            String died_26 = player + AI + "0" + AI + "0" + "0" + "";
+            String died_27 = player + AI + "0" + "0" + AI + "0" + "";
             int number_die_2 = 0;//记录二的数量
             //横向
             code = AI + "";
@@ -1072,10 +1071,11 @@ public class AIwork implements AIService {
             AIscore[(int) target.get(i).getX()][(int) target.get(i).getY()] += 1;
         }
     }
-    public void InitSCore_2(Board board, char AI,char player) {
+
+    public void InitSCore_2(Board board, char AI, char player) {
         //活五
         //向左
-        for(int i=0;i<column;i++){
+        for (int i = 0; i < column; i++) {
             for (int j = 0; j < row; j++) {
                 playerscore[i][j] = 0;
             }
@@ -1258,7 +1258,7 @@ public class AIwork implements AIService {
             String Thighdie_4 = AI + AI + "0" + AI + AI + "";
             String FOhighdie_4 = AI + AI + AI + "0" + AI + "";
             String fihighdie_4 = player + AI + AI + AI + AI + "0" + "";
-            String shighdie_4=player+AI+AI+AI+AI+"0"+"";
+            String shighdie_4 = player + AI + AI + AI + AI + "0" + "";
             int number_highdie_4 = 0;//记录有几个眠四
             //横向
             code = AI + "";
@@ -1514,10 +1514,10 @@ public class AIwork implements AIService {
             String FOdie_3 = AI + "0" + "0" + AI + AI + "";
             String fidie_3 = AI + "0" + AI + "0" + AI + "";
             String Sidie_3 = player + "0" + AI + AI + AI + "0" + player + "";
-            String died_37=player+AI+AI+AI+"0"+"0"+"";
-            String died_38=player+AI+AI+"0"+AI+"0"+"";
-            String died_39=player+AI+"0"+AI+AI+"0"+"";
-            String died_310=AI+AI+"0"+"0"+AI+"";
+            String died_37 = player + AI + AI + AI + "0" + "0" + "";
+            String died_38 = player + AI + AI + "0" + AI + "0" + "";
+            String died_39 = player + AI + "0" + AI + AI + "0" + "";
+            String died_310 = AI + AI + "0" + "0" + AI + "";
             int number_die_3 = 0;//记录眠三的数量
             //横向
             code = AI + "";
@@ -1929,9 +1929,9 @@ public class AIwork implements AIService {
             String Sdie_2 = "0" + "0" + AI + "0" + AI + player + "";
             String Tdie_2 = "0" + AI + "0" + "0" + AI + player + "";
             String Fodie_2 = AI + "0" + "0" + "0" + AI + "";
-            String died_25=player+AI+AI+"0"+"0"+"0"+"";
-            String died_26=player+AI+"0"+AI+"0"+"0"+"";
-            String died_27=player+AI+"0"+"0"+AI+"0"+"";
+            String died_25 = player + AI + AI + "0" + "0" + "0" + "";
+            String died_26 = player + AI + "0" + AI + "0" + "0" + "";
+            String died_27 = player + AI + "0" + "0" + AI + "0" + "";
             int number_die_2 = 0;//记录二的数量
             //横向
             code = AI + "";
@@ -2084,40 +2084,175 @@ public class AIwork implements AIService {
         }
     }
 
-
-    //找到所有点中得分最大的点，并返回该点
-    public Point Max(){
-        int min=0;
-        Point a = new Point(0,0);
+    //找到需要防御的点，直接下棋
+    public Point Max(Board board,char AI,char player) {
+        String die_41="0"+player+player+player+player+AI;
+        String die_42=player+"0"+player+player+player;
+        String die_43=player+player+"0"+player+player;
+        String die_44=player+player+player+"0"+player;
+        String die_45=AI+player+player+player+player+"0";
+        String alive_31="0"+player+player+player+"0";
+        String alive_32=player+"0"+player+player;
+        String alive_33 = player+player+"0"+player;
+        String code = AI + "";
+        String Ncode="";
+        Point a=null;
         for(int i=0;i<target.size();i++){
-            playerscore[(int) target.get(i).getX()][(int) target.get(i).getY()] += 1;
-        }
-        for(int i=0;i<column;i++){
-            for(int j=0;j<row;j++){
-                playerscore[i][j]-=playerscore[i][j];
+            //横向
+            int array = 4;
+            for (int j = (int) target.get(i).getX() - 1; j >= 0 && array > 0; j--) {
+                array--;
+                code = board.chessboard[j][(int) target.get(i).getY()] + code;
+                Ncode = board.chessboard[j][(int) target.get(i).getY()] + Ncode;
+            }
+            array = 4;
+            for (int k = (int) target.get(i).getX() + 1; k < column && array > 0; k++) {
+                array--;
+                code = code + board.chessboard[k][(int) target.get(i).getY()];
+                Ncode = Ncode + board.chessboard[k][(int) target.get(i).getY()];
+            }
+            if (!code.contains(die_41) && Ncode.contains(die_41)) {
+                return target.get(i);
+            }
+            if (!code.contains(die_42) && Ncode.contains(die_42)) {
+                return target.get(i);
+            }
+            if (!code.contains(die_43) && Ncode.contains(die_43)) {
+                return target.get(i);
+            }
+            if (!code.contains(die_44) && Ncode.contains(die_44)) {
+                return target.get(i);
+            }
+            if (!code.contains(die_45) && Ncode.contains(die_45)) {
+                return target.get(i);
+            }
+            if (!code.contains(alive_31) && Ncode.contains(alive_31)) {
+                return target.get(i);
+            }
+            if (!code.contains(alive_32) && Ncode.contains(alive_32)) {
+                return target.get(i);
+            }
+            if (!code.contains(alive_33) && Ncode.contains(alive_33)) {
+                return target.get(i);
+            }
+            //纵向
+            code = AI + "";
+            Ncode = "";
+            array = 4;
+            for (int j = (int) target.get(i).getY() + 1; j < column && array > 0; j++) {
+                array--;
+                code = code + board.chessboard[(int) target.get(i).getX()][j];
+                Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
+            }
+            array = 4;
+            for (int k = (int) target.get(i).getY() - 1; k >= 0; k--) {
+                array--;
+                code = board.chessboard[(int) target.get(i).getX()][k] + code;
+                Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
+            }
+            if (!code.contains(die_41) && Ncode.contains(die_41)) {
+                return target.get(i);
+            }
+            if (!code.contains(die_42) && Ncode.contains(die_42)) {
+                return target.get(i);
+            }
+            if (!code.contains(die_43) && Ncode.contains(die_43)) {
+                return target.get(i);
+            }
+            if (!code.contains(die_44) && Ncode.contains(die_44)) {
+                return target.get(i);
+            }
+            if (!code.contains(die_45) && Ncode.contains(die_45)) {
+                return target.get(i);
+            }
+            if (!code.contains(alive_31) && Ncode.contains(alive_31)) {
+                return target.get(i);
+            }
+            if (!code.contains(alive_32) && Ncode.contains(alive_32)) {
+                return target.get(i);
+            }
+            if (!code.contains(alive_33) && Ncode.contains(alive_33)) {
+                return target.get(i);
+            }
+            //斜线方向\
+            code = AI + "";
+            Ncode = "";
+            array = 4;
+            for (int j = (int) target.get(i).getX() - 1, k = (int) target.get(i).getY() + 1; j >= 0 && k < column && array > 0; j--, k++) {
+                array--;
+                code = code + board.chessboard[j][k];
+                Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
+            }
+            array = 4;
+            for (int j = (int) target.get(i).getX() + 1, k = (int) target.get(i).getY() - 1; j < row && k >= 0 && array > 0; j++, k--) {
+                array--;
+                code = board.chessboard[j][k] + code;
+                Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
+            }
+            if (!code.contains(die_41) && Ncode.contains(die_41)) {
+                return target.get(i);
+            }
+            if (!code.contains(die_42) && Ncode.contains(die_42)) {
+                return target.get(i);
+            }
+            if (!code.contains(die_43) && Ncode.contains(die_43)) {
+                return target.get(i);
+            }
+            if (!code.contains(die_44) && Ncode.contains(die_44)) {
+                return target.get(i);
+            }
+            if (!code.contains(die_45) && Ncode.contains(die_45)) {
+                return target.get(i);
+            }
+            if (!code.contains(alive_31) && Ncode.contains(alive_31)) {
+                return target.get(i);
+            }
+            if (!code.contains(alive_32) && Ncode.contains(alive_32)) {
+                return target.get(i);
+            }
+            if (!code.contains(alive_33) && Ncode.contains(alive_33)) {
+                return target.get(i);
+            }
+            //反斜线方向/
+            code = AI + "";
+            Ncode = "";
+            array = 4;
+            for (int j = (int) target.get(i).getX() + 1, k = (int) target.get(i).getY() + 1; j < row && k < column && array > 0; j++, k++) {
+                array--;
+                code = code + board.chessboard[j][k];
+                Ncode = Ncode + board.chessboard[j][(int) target.get(i).getY()];
+            }
+            array = 4;
+            for (int j = (int) target.get(i).getX() - 1, k = (int) target.get(i).getY() - 1; j >= 0 && k >= 0 && array > 0; j--, k--) {
+                array--;
+                code = board.chessboard[j][k] + code;
+                Ncode = board.chessboard[k][(int) target.get(i).getY()] + Ncode;
+            }
+            if (!code.contains(die_41) && Ncode.contains(die_41)) {
+                return target.get(i);
+            }
+            if (!code.contains(die_42) && Ncode.contains(die_42)) {
+                return target.get(i);
+            }
+            if (!code.contains(die_43) && Ncode.contains(die_43)) {
+                return target.get(i);
+            }
+            if (!code.contains(die_44) && Ncode.contains(die_44)) {
+                return target.get(i);
+            }
+            if (!code.contains(die_45) && Ncode.contains(die_45)) {
+                return target.get(i);
+            }
+            if (!code.contains(alive_31) && Ncode.contains(alive_31)) {
+                return target.get(i);
+            }
+            if (!code.contains(alive_32) && Ncode.contains(alive_32)) {
+                return target.get(i);
+            }
+            if (!code.contains(alive_33) && Ncode.contains(alive_33)) {
+                return target.get(i);
             }
         }
-        target.clear();
-        for(int i=0;i<column;i++) {
-            for(int j=0;j<row;j++) {
-                //System.out.print(playerscore[i][j]+"  ");
-                if(playerscore[i][j]>min){
-                    min=playerscore[i][j];
-                    a=new Point(i,j);
-                }
-            }
-           // System.out.println();
-        }
-        for(int i=0;i<column;i++) {
-            for(int j=0;j<row;j++) {
-                System.out.print(playerscore[i][j]+"  ");
-                playerscore[i][j]=0;
-                playerscore[i][j]=0;
-                }
-            System.out.println();
-
-        }
-
         return a;
     }
 }
